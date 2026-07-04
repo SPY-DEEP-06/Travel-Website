@@ -105,11 +105,10 @@ const templates = {
     <div class="hero-overlay"></div>
     <div class="content atelier-hero-content">
         <h1 data-aos="fade-up" data-aos-delay="150">
-            The Travel Circle<br>
-            You Dream, <em>We Plan</em><br>
-            You Explore
+            We're Officially<br>
+            <em>Taking Off!</em>
         </h1>
-        <p data-aos="fade-up" data-aos-delay="300">Dream routes, seamless plans, and real stories. <br class="desktop-break">Step into handcrafted tours shaped around the way you love to travel.</p>
+        <p data-aos="fade-up" data-aos-delay="300">Welcome to The Travel Circle - your trusted partner in creating unforgettable journeys.<br class="desktop-break">Whether it's a relaxing beach escape, a thrilling adventure, a family vacation, a romantic honeymoon, or an international getaway, we're here to turn your travel dreams into reality.</p>
         <div class="hero-actions" data-aos="fade-up" data-aos-delay="450">
             <a href="#book-form" class="hero-primary">Start My Journey
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
@@ -166,35 +165,116 @@ const templates = {
         </div>
     </div>
     <div class="content">
-        <span>why choose us?</span>
-        <h3>Nature's Majesty Awaits You</h3>
-        <p>The Travel Circle creates personalized travel experiences with thoughtful local guidance, comfortable stays, curated routes, and reliable support. Your dream gets a clear plan, and your journey stays effortless from start to finish.</p>
-        <div class="about-highlights">
-            <strong>Custom routes</strong>
-            <strong>Smooth stays</strong>
-            <strong>Real support</strong>
+        <span>about us</span>
+        <h3>Crafting Unforgettable Journeys</h3>
+        <p>At The Travel Circle, we believe that travel is not just about reaching a destination—it's about creating memories, discovering new cultures, and experiencing the world in meaningful ways. Founded with a passion for exploration and a commitment to exceptional service, our mission is to turn every travel dream into an unforgettable journey.</p>
+        <p>We understand that every traveller is unique, and so are their travel aspirations. Whether you're planning a relaxing beach escape, an exciting adventure, a romantic honeymoon, a family vacation, a corporate retreat, or an international getaway, we create personalized travel experiences tailored to your preferences, budget, and interests.</p>
+        <p>Our team is dedicated to making travel plans simple, seamless, and stress-free. From flight and hotel bookings to visa assistance, curated holiday packages, cruise vacations, group tours, and customized itineraries, we take care of every detail so you can focus on enjoying your journey.</p>
+        
+        <div class="about-vision-mission">
+            <div class="about-card" data-aos="fade-right">
+                <h4><i class="fas fa-eye"></i> Our Vision</h4>
+                <p>To be the most trusted travel partner, inspiring people to explore the world by delivering exceptional, personalized, and unforgettable travel experiences.</p>
+            </div>
+            <div class="about-card" data-aos="fade-left">
+                <h4><i class="fas fa-bullseye"></i> Our Mission</h4>
+                <p>To provide personalized, reliable, and hassle-free travel experiences that turn every journey into a memorable and meaningful adventure.</p>
+            </div>
         </div>
-        <a href="#services" class="btn">see our promise <i class="fas fa-info-circle"></i></a>
+    </div>
+</section>`;
+    },
+
+    createWhyChooseUs() {
+        return `
+<section class="why-choose-us" id="why-us">
+    <div class="heading">
+        <span>our values</span>
+        <h1>why travel with the circle?</h1>
+    </div>
+    <div class="box-container">
+        <div class="box" data-aos="fade-up" data-aos-delay="150">
+            <i class="fas fa-user-check"></i>
+            <h3>Personalized Experiences</h3>
+            <p>Every journey is thoughtfully designed to match your preferences, interests, budget, and travel aspirations.</p>
+        </div>
+        <div class="box" data-aos="fade-up" data-aos-delay="300">
+            <i class="fas fa-compass"></i>
+            <h3>Expert Travel Guidance</h3>
+            <p>Our experienced travel experts provide valuable insights and recommendations to help you choose the perfect destination.</p>
+        </div>
+        <div class="box" data-aos="fade-up" data-aos-delay="450">
+            <i class="fas fa-tags"></i>
+            <h3>Competitive Pricing</h3>
+            <p>We offer the best value for your money through competitive pricing and special deals without compromising quality.</p>
+        </div>
+        <div class="box" data-aos="fade-up" data-aos-delay="600">
+            <i class="fas fa-route"></i>
+            <h3>End-to-End Planning</h3>
+            <p>From the initial planning stage to your safe return home, we manage every aspect of your trip for a seamless experience.</p>
+        </div>
+        <div class="box" data-aos="fade-up" data-aos-delay="750">
+            <i class="fas fa-map-marked-alt"></i>
+            <h3>Curated Holiday Packages</h3>
+            <p>We curate a wide range of customized holiday packages across India and around the world to suit every type of traveller.</p>
+        </div>
+        <div class="box" data-aos="fade-up" data-aos-delay="900">
+            <i class="fas fa-award"></i>
+            <h3>Attention to Every Detail</h3>
+            <p>Our committed team provides personalized assistance and takes care of every detail to ensure a memorable journey.</p>
+        </div>
+    </div>
+    <div class="why-choose-us-tagline" data-aos="zoom-in">
+        "At The Travel Circle, we don't just plan trips—we create experiences that stay with you forever."
     </div>
 </section>`;
     },
 
     createDestination() {
         const images = this.getImages();
-        const destinationStories = [
-            ['Himalayan Highs', 'Wake up above the clouds with scenic stays, guided trails, and crisp mountain mornings.'],
-            ['Beachside Bliss', 'Slow sunsets, blue waters, and stays that keep you close to the rhythm of the shore.'],
-            ['Culture Trails', 'Walk through old streets, sacred spaces, local markets, and stories that stay with you.'],
-            ['City Breaks', 'Food walks, skyline views, shopping corners, nightlife, and the best parts of a new city.'],
-            ['Desert Safaris', 'Ride golden dunes, dine under stars, and feel the calm magic of wide open landscapes.'],
-            ['Wildlife Getaways', 'Forest roads, quiet lodges, expert naturalists, and thrilling chances to spot the wild.'],
-            ['Island Hopping', 'Hop between turquoise lagoons, hidden coves, beach cafes, and easy-breezy resort stays.'],
-            ['Snow Escapes', 'Chase snowfall, cozy cabins, alpine views, and picture-perfect winter experiences.']
+        const domesticDestinations = [
+            ['Goa', 'Beaches, nightlife, and water sports.'],
+            ['Kashmir', 'The "Paradise on Earth" with stunning landscapes.'],
+            ['Manali', 'Adventure, snow, and mountain retreats.'],
+            ['Udaipur', 'The City of Lakes and royal heritage.'],
+            ['Jaipur', 'Palaces, forts, and rich culture.'],
+            ['Kerala', 'Backwaters, beaches, and Ayurveda.'],
+            ['Andaman & Nicobar', 'Crystal-clear waters and island escapes.'],
+            ['Leh', 'Scenic landscapes and adventure tourism.'],
+            ['Darjeeling', 'Tea gardens and Himalayan views.'],
+            ['Rishikesh', 'Spirituality and adventure sports.'],
+            ['Maharashtra', 'Beaches, hill stations, heritage sites, vineyards, and city experience.'],
+            ['Odisha', 'Spiritual, heritage, cultural, and wildlife experience.']
         ];
-        const destinationCards = destinationStories.map(([title, description], index) => `
-        <div class="box" data-aos="fade-up" data-aos-delay="${150 + index * 150}">
+        
+        const internationalDestinations = [
+            ['Maldives', 'Luxury resorts and honeymoon escapes.'],
+            ['Thailand', 'Beaches, nightlife, and culture.'],
+            ['Dubai', 'Luxury shopping and iconic attractions.'],
+            ['Singapore', 'Family attractions and modern city life.'],
+            ['Malaysia', 'Vibrant Cities, islands and world class shopping.'],
+            ['Bali', 'Tropical paradise and wellness retreats.'],
+            ['Turkey', 'History, culture, and stunning landscapes.'],
+            ['Vietnam', 'Natural beauty and rich heritage.'],
+            ['Mauritius', 'Beaches and luxury holidays.']
+        ];
+
+        const domesticCards = domesticDestinations.map(([title, description], index) => `
+        <div class="box" data-aos="fade-up" data-aos-delay="${100 + (index % 4) * 100}">
             <div class="image">
-                <img src="${this.mediaSrc(images[index] || images[0])}" alt="${title} curated by The Travel Circle" loading="lazy">
+                <img src="${this.mediaSrc(images[index % images.length] || images[0])}" alt="${title} curated by The Travel Circle" loading="lazy">
+            </div>
+            <div class="content">
+                <h3>${title}</h3>
+                <p>${description}</p>
+                <a href="#book-form">plan this tour <i class="fas fa-angle-right"></i></a>
+            </div>
+        </div>`).join('');
+
+        const internationalCards = internationalDestinations.map(([title, description], index) => `
+        <div class="box" data-aos="fade-up" data-aos-delay="${100 + (index % 4) * 100}">
+            <div class="image">
+                <img src="${this.mediaSrc(images[(index + 12) % images.length] || images[0])}" alt="${title} curated by The Travel Circle" loading="lazy">
             </div>
             <div class="content">
                 <h3>${title}</h3>
@@ -206,16 +286,51 @@ const templates = {
         return `
 <section class="destination" id="destination">
     <div class="heading">
-        <span>handpicked escapes</span>
+        <span>popular destinations</span>
         <h1>choose your next circle on the map</h1>
     </div>
-    <div class="box-container">
-        ${destinationCards}
+    
+    <div class="destination-tabs">
+        <button class="destination-tab-btn active" data-target="domestic">Domestic Destinations</button>
+        <button class="destination-tab-btn" data-target="international">International Destinations</button>
+    </div>
+    
+    <div class="destination-tab-content active" id="domestic-content">
+        ${domesticCards}
+    </div>
+    <div class="destination-tab-content" id="international-content">
+        ${internationalCards}
+    </div>
+    
+    <div class="why-choose-us-tagline" data-aos="zoom-in" style="margin-top: 5rem; text-align: center;">
+        "From the nearest getaway to the farthest corner of the world, no destination is beyond our reach. If you can dream it, we can plan it."
     </div>
 </section>`;
     },
 
     createServices() {
+        const servicesList = [
+            ['Domestic & International Holiday Packages', 'Curated travel packages to destinations across India and around the world, designed to suit every budget and travel style.', 'fas fa-globe'],
+            ['Customized Tour Planning', 'Personalized itineraries tailored to your interests, preferences, and travel requirements for a unique experience.', 'fas fa-map-marked-alt'],
+            ['Hotel & Resort Bookings', 'Handpicked accommodation options ranging from budget stays to luxury resorts, ensuring comfort and convenience.', 'fas fa-hotel'],
+            ['Flight, Train & Bus Bookings', 'Complete transportation booking assistance with the best routes and competitive fares.', 'fas fa-plane'],
+            ['Visa Assistance & Travel Documentation', 'End-to-end support for visa applications, travel insurance, and essential documentation for hassle-free travel.', 'fas fa-file-signature'],
+            ['Group Tours & Family Vacations', 'Specially designed packages for families, friends, corporate groups, and special interest travelers.', 'fas fa-users'],
+            ['Corporate Travel Management', 'Efficient business travel solutions, including flight bookings, hotel arrangements, and itinerary management.', 'fas fa-briefcase'],
+            ['Honeymoon & Romantic Getaways', 'Exclusive packages crafted for couples seeking memorable and romantic travel experiences.', 'fas fa-heart'],
+            ['Adventure & Weekend Getaways', 'Exciting trips featuring trekking, camping, water sports, wildlife experiences, and short escapes.', 'fas fa-hiking'],
+            ['Educational & Special Interest Tours', 'Customized tours for schools, colleges, senior citizens, and themed travel groups.', 'fas fa-graduation-cap'],
+            ['Event & Destination Management', 'Planning and coordination for destination weddings, corporate retreats, conferences, and special events.', 'fas fa-calendar-alt'],
+            ['24/7 Travel Support', 'Dedicated assistance before, during, and after your journey to ensure a smooth and worry-free travel experience.', 'fas fa-headset']
+        ];
+
+        const serviceCards = servicesList.map(([title, description, icon], index) => `
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="${100 + (index % 4) * 100}">
+            <i class="${icon}"></i>
+            <h3>${title}</h3>
+            <p>${description}</p>
+        </div>`).join('');
+
         return `
 <section class="services" id="services">
     <div class="heading">
@@ -223,36 +338,7 @@ const templates = {
         <h1>every detail, beautifully handled</h1>
     </div>
     <div class="box-container">
-        <div class="box" data-aos="zoom-in-up" data-aos-delay="150">
-            <i class="fas fa-globe"></i>
-            <h3>custom itineraries</h3>
-            <p>Trips shaped around your dates, budget, pace, interests, and travel style.</p>
-        </div>
-        <div class="box" data-aos="zoom-in-up" data-aos-delay="300">
-            <i class="fas fa-hiking"></i>
-            <h3>adventure tours</h3>
-            <p>Treks, safaris, water sports, road trips, and active escapes arranged with care.</p>
-        </div>
-        <div class="box" data-aos="zoom-in-up" data-aos-delay="450">
-            <i class="fas fa-utensils"></i>
-            <h3>local flavors</h3>
-            <p>Handpicked food stops, cafes, tastings, and regional meals worth remembering.</p>
-        </div>
-        <div class="box" data-aos="zoom-in-up" data-aos-delay="600">
-            <i class="fas fa-hotel"></i>
-            <h3>trusted stays</h3>
-            <p>Comfortable hotels, resorts, villas, and homestays matched to your mood.</p>
-        </div>
-        <div class="box" data-aos="zoom-in-up" data-aos-delay="750">
-            <i class="fas fa-wallet"></i>
-            <h3>clear pricing</h3>
-            <p>Smart packages, honest inclusions, and no surprise costs after you say yes.</p>
-        </div>
-        <div class="box" data-aos="zoom-in-up" data-aos-delay="900">
-            <i class="fas fa-headset"></i>
-            <h3>trip support</h3>
-            <p>Friendly help before, during, and after your journey whenever you need us.</p>
-        </div>
+        ${serviceCards}
     </div>
 </section>`;
     },
@@ -415,7 +501,7 @@ const templates = {
     <div class="content" data-aos="zoom-in-up" data-aos-delay="300">
         <span>ready when you are</span>
         <h3>Your Next Story Starts With A Plan</h3>
-        <p>Tell The Travel Circle what you are dreaming about. We will shape the route, polish the details, and hand you a journey you will want to talk about for years.</p>
+        <p>At The Travel Circle, we don't just plan trips—we create experiences that stay with you forever. Let's start planning your next adventure together!</p>
         <a href="#book-form" class="btn">plan my journey</a>
     </div>
 </div>`;
@@ -425,6 +511,7 @@ const templates = {
         const footerLinks = [
             ['home', '#home'],
             ['about', '#about'],
+            ['why choose us', '#why-us'],
             ['destination', '#destination'],
             ['services', '#services'],
             ['gallery', '#gallery'],
@@ -440,7 +527,7 @@ const templates = {
                 <img src="images/logoTTC-pdf.png" alt="The Travel Circle logo">
                 <span>The Travel Circle</span>
             </a>
-            <p>You Dream, We Plan, You Explore. Thoughtful tours, smooth bookings, and memorable journeys designed around you.</p>
+            <p>You Dream. We Plan. You Explore. Thoughtful tours, smooth bookings, and memorable journeys designed around you. No Boundaries. No Limits. Just Endless Journeys.</p>
             <div class="share">
                 <a href="#" class="fab fa-facebook-f" aria-label="Facebook" target="_blank" rel="noopener noreferrer"></a>
                 <a href="#" class="fab fa-twitter" aria-label="Twitter" target="_blank" rel="noopener noreferrer"></a>
@@ -454,7 +541,7 @@ const templates = {
         </div>
         <div class="box" data-aos="fade-up" data-aos-delay="450">
             <h3>contact The Travel Circle</h3>
-            <p> <i class="fas fa-map"></i> Uttar Pradesh, india </p>
+            <p> <i class="fas fa-map"></i> Uttar Pradesh, India </p>
             <p> <i class="fas fa-phone"></i> +91 6394729329 </p>
             <p> <i class="fas fa-envelope"></i> yashsrivastava561@gmail.com </p>
             <p> <i class="fas fa-clock"></i> 7:00am - 10:00pm </p>
@@ -470,7 +557,7 @@ const templates = {
         </div>
     </div>
 </section>
-<div class="credit"><span>The Travel Circle</span> | You Dream, We Plan, You Explore</div>`;
+<div class="credit"><span>The Travel Circle</span> | You Dream. We Plan. You Explore.</div>`;
     },
 
     createScrollTopButton() {
@@ -498,6 +585,7 @@ const templates = {
                 ${this.createHome()}
                 ${this.createBookingForm()}
                 ${this.createAbout()}
+                ${this.createWhyChooseUs()}
                 ${this.createDestination()}
                 ${this.createServices()}
                 ${this.createGallery()}
@@ -563,6 +651,36 @@ document.addEventListener('DOMContentLoaded', () => {
             this.initReviewSlider();
             this.initGalleryReveal();
             this.initGalleryLightbox();
+            this.initDestinationTabs();
+        },
+
+        initDestinationTabs() {
+            const tabButtons = document.querySelectorAll('.destination-tab-btn');
+            const domesticContent = document.getElementById('domestic-content');
+            const internationalContent = document.getElementById('international-content');
+            
+            if (!tabButtons.length || !domesticContent || !internationalContent) return;
+            
+            tabButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    tabButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    const target = btn.getAttribute('data-target');
+                    if (target === 'domestic') {
+                        domesticContent.classList.add('active');
+                        internationalContent.classList.remove('active');
+                    } else {
+                        domesticContent.classList.remove('active');
+                        internationalContent.classList.add('active');
+                    }
+                    
+                    // Refresh AOS animations
+                    if (typeof AOS !== 'undefined') {
+                        AOS.refresh();
+                    }
+                });
+            });
         },
 
         initAOS() {

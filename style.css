@@ -4542,3 +4542,166 @@ body.at-hero-top .header.ttc-modern-header .hamburger-btn {
         opacity: .96 !important;
     }
 }
+
+/* Custom styles for PDF content updates */
+.destination-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap;
+}
+
+.destination-tab-btn {
+    padding: 1.1rem 2.8rem;
+    font-size: 1.6rem;
+    color: var(--light-alt-color);
+    background: var(--dark-alt-color);
+    border: .1rem solid rgba(175, 126, 50, .28);
+    border-radius: 5rem;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.destination-tab-btn:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.destination-tab-btn.active {
+    color: var(--dark-color);
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 1rem 2.5rem rgba(185, 142, 71, .25);
+}
+
+.destination-tab-content {
+    display: none;
+}
+
+.destination-tab-content.active {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
+    gap: 1.5rem;
+}
+
+.about-vision-mission {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.about-card {
+    padding: 2.2rem 2rem;
+    border-radius: 1rem;
+    background: var(--dark-alt-color);
+    border: .1rem solid rgba(175, 126, 50, .22);
+    box-shadow: 0 1.2rem 3rem rgba(0, 33, 69, .06);
+    transition: transform .25s ease, border-color .25s ease;
+}
+
+.about-card:hover {
+    transform: translateY(-.5rem);
+    border-color: var(--primary-color);
+}
+
+.about-card h4 {
+    font-size: 1.95rem;
+    color: var(--primary-color);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.about-card h4 i {
+    font-size: 2.2rem;
+}
+
+.about-card p {
+    font-size: 1.45rem;
+    color: var(--light-alt-color);
+    line-height: 1.65;
+    text-transform: none;
+    margin: 0;
+}
+
+.why-choose-us {
+    margin-top: 6rem;
+    border-top: .1rem solid rgba(175, 126, 50, .15);
+    padding-top: 5rem;
+}
+
+.why-choose-us .heading {
+    text-align: center;
+    margin-bottom: 3.5rem;
+}
+
+.why-choose-us .heading span {
+    color: var(--primary-color);
+    font-size: 2rem;
+    text-transform: lowercase;
+}
+
+.why-choose-us .heading h1 {
+    font-size: 3.8rem;
+    color: var(--light-color);
+    margin-top: .5rem;
+}
+
+.why-choose-us .box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 2rem;
+}
+
+.why-choose-us .box {
+    background: var(--dark-alt-color);
+    border-radius: 1rem;
+    padding: 3rem 2.2rem;
+    text-align: center;
+    border: .2rem solid var(--dark-color);
+    transition: all .25s ease;
+}
+
+.why-choose-us .box:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-.4rem);
+    box-shadow: 0 1.5rem 3.5rem rgba(0, 33, 69, .12);
+}
+
+.why-choose-us .box i {
+    font-size: 4rem;
+    color: var(--primary-color);
+    margin-bottom: 1.8rem;
+}
+
+.why-choose-us .box h3 {
+    font-size: 1.9rem;
+    color: var(--light-color);
+    margin-bottom: 1.2rem;
+    font-weight: 500;
+}
+
+.why-choose-us .box p {
+    font-size: 1.4rem;
+    color: var(--light-alt-color);
+    line-height: 1.7;
+    text-transform: none;
+    margin: 0;
+}
+
+.why-choose-us-tagline {
+    margin-top: 4.5rem;
+    text-align: center;
+    font-size: 2rem;
+    color: var(--primary-color);
+    font-style: italic;
+    text-transform: none;
+    font-family: 'Instrument Serif', serif;
+    letter-spacing: .05rem;
+}
+
