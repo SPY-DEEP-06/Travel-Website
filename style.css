@@ -4833,3 +4833,110 @@ body.at-hero-top .header.ttc-modern-header .hamburger-btn {
     letter-spacing: .05rem;
 }
 
+/* Responsive enhancements for mobile/tablet */
+@media (max-width: 768px) {
+    /* Segmented Control for Destination Tabs */
+    .destination-tabs {
+        display: flex;
+        background: rgba(0, 20, 40, 0.4);
+        padding: 0.5rem;
+        border-radius: 5rem;
+        border: .1rem solid rgba(175, 126, 50, .15);
+        max-width: 90%;
+        margin: 0 auto 3.5rem auto;
+        gap: 0.5rem;
+    }
+    
+    .destination-tab-btn {
+        flex: 1;
+        padding: 1rem 1.5rem;
+        font-size: 1.35rem;
+        border-radius: 5rem;
+        border: none !important;
+        background: transparent !important;
+        color: var(--light-alt-color);
+        text-align: center;
+        white-space: nowrap;
+        box-shadow: none !important;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    .destination-tab-btn.active {
+        background: var(--primary-color) !important;
+        color: var(--dark-color) !important;
+        box-shadow: 0 0.5rem 1.5rem rgba(185, 142, 71, 0.3) !important;
+    }
+
+    /* Swipeable horizontal card list */
+    .destination-tab-content.active {
+        display: flex !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 2.5rem !important;
+        padding: 2rem 2.5rem 5rem 2.5rem !important;
+        scroll-padding: 2.5rem !important;
+        scrollbar-width: none !important; /* Hide scrollbar for Firefox */
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .destination-tab-content.active::-webkit-scrollbar {
+        display: none !important; /* Hide scrollbar for Chrome/Safari */
+    }
+    
+    .photo-stack-card {
+        flex: 0 0 29rem !important;
+        scroll-snap-align: start !important;
+        height: 33rem !important;
+        padding: 2.2rem 2rem !important;
+    }
+
+    .photo-stack-card .card-title {
+        font-size: 2.6rem !important;
+    }
+    
+    .photo-stack-card .card-subtitle {
+        font-size: 1.3rem !important;
+        max-width: 90%;
+    }
+
+    .photo-stack-card .photo-stack {
+        bottom: -0.5rem !important;
+        right: 1.5rem !important;
+        height: 16rem !important;
+    }
+
+    .photo-stack-card .stack-img {
+        height: 14.5rem !important;
+        width: 11rem !important;
+    }
+
+    /* Fanning offsets for mobile tapped/hovered state */
+    .photo-stack-card:hover .stack-img-1,
+    .photo-stack-card:active .stack-img-1 {
+        transform: translate(-3.8rem, -2.2rem) rotate(-18deg) scale(1.04) !important;
+    }
+    
+    .photo-stack-card:hover .stack-img-2,
+    .photo-stack-card:active .stack-img-2 {
+        transform: translate(0, -3rem) rotate(0deg) scale(1.08) !important;
+    }
+    
+    .photo-stack-card:hover .stack-img-3,
+    .photo-stack-card:active .stack-img-3 {
+        transform: translate(3.8rem, -2.2rem) rotate(18deg) scale(1.04) !important;
+    }
+}
+
+/* Elegant transition-in animation for loading sections on mobile/tablet */
+@media (max-width: 1024px) {
+    section, .section {
+        opacity: 0;
+        transform: translateY(3rem);
+        transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    section.mobile-content-ready, .section.mobile-content-ready {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
