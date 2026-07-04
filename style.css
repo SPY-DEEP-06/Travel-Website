@@ -4927,16 +4927,5 @@ body.at-hero-top .header.ttc-modern-header .hamburger-btn {
     }
 }
 
-/* Elegant transition-in animation for loading sections on mobile/tablet */
-@media (max-width: 1024px) {
-    section, .section {
-        opacity: 0;
-        transform: translateY(3rem);
-        transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-    }
-    section.mobile-content-ready, .section.mobile-content-ready {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+
 
