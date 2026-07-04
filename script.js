@@ -1,4 +1,4 @@
-﻿const templates = {
+const templates = {
     mediaBase: 'images/ttc/',
 
     getImages() {
@@ -40,9 +40,13 @@
     },
 
     createPageLoader() {
+        const usePortrait = window.matchMedia('(max-width: 1024px) and (orientation: portrait)').matches || window.matchMedia('(max-width: 768px)').matches;
+        const videoSrc = usePortrait
+            ? 'assets/loading/portrait_Loading_animation_travel_website…_1080p_202606260037.mp4'
+            : 'assets/loading/landscape_Loading_animation_travel_website…_1080p_202606260037.mp4';
         return `
 <div class="site-loader" id="site-loader" aria-label="Loading The Travel Circle">
-    <video class="site-loader-video" src="assets/loading/Loading_animation_travel_website…_1080p_202606260037.mp4" muted autoplay playsinline preload="auto"></video>
+    <video class="site-loader-video" src="${videoSrc}" muted autoplay playsinline preload="auto"></video>
     <div class="site-loader-shade"></div>
 </div>`;
     },
