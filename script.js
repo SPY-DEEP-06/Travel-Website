@@ -259,29 +259,49 @@ const templates = {
             ['Mauritius', 'Beaches and luxury holidays.']
         ];
 
-        const domesticCards = domesticDestinations.map(([title, description], index) => `
-        <div class="box" data-aos="fade-up" data-aos-delay="${100 + (index % 4) * 100}">
-            <div class="image">
-                <img src="${this.mediaSrc(images[index % images.length] || images[0])}" alt="${title} curated by The Travel Circle" loading="lazy">
+        const domesticCards = domesticDestinations.map(([title, description], index) => {
+            const imgIndex = index * 3;
+            const img1 = this.mediaSrc(images[imgIndex % images.length] || images[0]);
+            const img2 = this.mediaSrc(images[(imgIndex + 1) % images.length] || images[0]);
+            const img3 = this.mediaSrc(images[(imgIndex + 2) % images.length] || images[0]);
+            
+            return `
+        <div class="photo-stack-card" data-aos="fade-up" data-aos-delay="${100 + (index % 4) * 100}">
+            <div class="card-text">
+                <span class="card-category">INDIA</span>
+                <h3 class="card-title">${title}</h3>
+                <p class="card-subtitle">${description}</p>
+                <a href="#book-form" class="card-action-btn">plan this tour <i class="fas fa-arrow-right"></i></a>
             </div>
-            <div class="content">
-                <h3>${title}</h3>
-                <p>${description}</p>
-                <a href="#book-form">plan this tour <i class="fas fa-angle-right"></i></a>
+            <div class="photo-stack">
+                <img class="stack-img stack-img-1" src="${img1}" alt="${title} gallery 1" loading="lazy">
+                <img class="stack-img stack-img-2" src="${img2}" alt="${title} gallery 2" loading="lazy">
+                <img class="stack-img stack-img-3" src="${img3}" alt="${title} gallery 3" loading="lazy">
             </div>
-        </div>`).join('');
+        </div>`;
+        }).join('');
 
-        const internationalCards = internationalDestinations.map(([title, description], index) => `
-        <div class="box" data-aos="fade-up" data-aos-delay="${100 + (index % 4) * 100}">
-            <div class="image">
-                <img src="${this.mediaSrc(images[(index + 12) % images.length] || images[0])}" alt="${title} curated by The Travel Circle" loading="lazy">
+        const internationalCards = internationalDestinations.map(([title, description], index) => {
+            const imgIndex = (index + 12) * 3;
+            const img1 = this.mediaSrc(images[imgIndex % images.length] || images[0]);
+            const img2 = this.mediaSrc(images[(imgIndex + 1) % images.length] || images[0]);
+            const img3 = this.mediaSrc(images[(imgIndex + 2) % images.length] || images[0]);
+            
+            return `
+        <div class="photo-stack-card" data-aos="fade-up" data-aos-delay="${100 + (index % 4) * 100}">
+            <div class="card-text">
+                <span class="card-category">INTERNATIONAL</span>
+                <h3 class="card-title">${title}</h3>
+                <p class="card-subtitle">${description}</p>
+                <a href="#book-form" class="card-action-btn">plan this tour <i class="fas fa-arrow-right"></i></a>
             </div>
-            <div class="content">
-                <h3>${title}</h3>
-                <p>${description}</p>
-                <a href="#book-form">plan this tour <i class="fas fa-angle-right"></i></a>
+            <div class="photo-stack">
+                <img class="stack-img stack-img-1" src="${img1}" alt="${title} gallery 1" loading="lazy">
+                <img class="stack-img stack-img-2" src="${img2}" alt="${title} gallery 2" loading="lazy">
+                <img class="stack-img stack-img-3" src="${img3}" alt="${title} gallery 3" loading="lazy">
             </div>
-        </div>`).join('');
+        </div>`;
+        }).join('');
 
         return `
 <section class="destination" id="destination">
