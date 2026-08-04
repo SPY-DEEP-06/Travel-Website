@@ -943,6 +943,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.render();
             this.initAOS();
             this.initPageLoader();
+            this.initSkeletonScreens();
             this.initNavbar();
             this.initMenuPreview();
             this.initSmoothScrolling();
@@ -962,6 +963,51 @@ document.addEventListener('DOMContentLoaded', () => {
             this.initDestinationTabs();
             this.initStateSearch();
             this.initLehModal();
+        },
+
+        initSkeletonScreens() {
+            const targets = document.querySelectorAll('.vlog-media, .gallery .box, .photo-stack-card .card-media-box, .about .video-container');
+            
+            targets.forEach((container) => {
+                const img = container.querySelector('img');
+                const video = container.querySelector('video');
+                const media = img || video;
+                if (!media) return;
+
+                const isReady = img 
+                    ? (img.complete && img.naturalHeight !== 0) 
+                    : (video ? video.readyState >= 3 : false);
+
+                if (!isReady) {
+                    const skeleton = document.createElement('div');
+                    skeleton.className = 'boneyard-skeleton-overlay boneyard-skeleton';
+                    container.appendChild(skeleton);
+                    container.classList.add('boneyard-loading');
+
+                    const removeSkeleton = () => {
+                        skeleton.classList.add('is-resolved');
+                        container.classList.remove('boneyard-loading');
+                        container.classList.add('boneyard-loaded');
+                        window.setTimeout(() => {
+                            skeleton.remove();
+                        }, 350);
+                    };
+
+                    if (img) {
+                        img.addEventListener('load', removeSkeleton, { once: true });
+                        img.addEventListener('error', removeSkeleton, { once: true });
+                    }
+                    if (video) {
+                        video.addEventListener('canplay', removeSkeleton, { once: true });
+                        video.addEventListener('error', removeSkeleton, { once: true });
+                    }
+
+                    // Safety auto-resolve: ensure skeleton never remains stuck indefinitely
+                    window.setTimeout(removeSkeleton, 2500);
+                } else {
+                    container.classList.add('boneyard-loaded');
+                }
+            });
         },
 
         initDestinationTabs() {
