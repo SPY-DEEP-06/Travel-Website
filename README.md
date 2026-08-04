@@ -1,100 +1,225 @@
+# Ralph Loop for Antigravity
 
-# Travel-Website
+A VSCode extension that brings the Ralph Loop autonomous AI agent methodology to Antigravity.
 
-A visually engaging and responsive travel-themed single-page website built with HTML, SCSS, CSS, and JavaScript. The project showcases beautiful travel destinations, highlights key travel services, and provides features like image galleries, blog posts, and a booking form for trip inquiries or reservations. This project is ideal for beginners to practice front-end web development, landing page design, and SCSS/CSS styling.
+## Overview
 
-## 🌎 Live Demo
+Developers using AI coding assistants face two key challenges:
 
-Experience the site:  
-[tacticalreader.github.io/Travel-Website/Travel-Website/](https://tacticalreader.github.io/Travel-Website)[1]
+1. **Context window limitations** - LLMs forget important context mid-task
+2. **Constant oversight required** - AI cannot work autonomously for extended periods
 
-***
+The Ralph Loop methodology solves this by externalizing memory to files and running AI agents in iterative loops. This extension provides intuitive controls for managing these loops directly within VS Code.
 
-## 📋 Features
+## Quick Start
 
-- **Responsive Design** — Works well on desktops, tablets, and mobiles
-- **Modern UI** — Vibrant hero section and visually-rich destination cards
-- **About Section** — Highlights the site's theme and owner details
-- **Destinations Showcase** — Several popular tourist locations with quick info
-- **Services Section** — Lists travel-related services (adventure, hotels, food, support)
-- **Gallery** — Grid-based image gallery of destinations and trips
-- **Booking Form** — Users can submit travel inquiries directly
-- **Testimonials** — Sections to display user/client feedback
-- **Blog Section** — Static posts on travel experiences and tips
-- **Footer** — Contact info, quick links, newsletter subscription, and social icons
+1. **Install the extension** from the VSIX file
+2. **Create your PRD/spec file** (see [Task File Format](#task-file-format) below)
+   - Use **Planning mode** in Antigravity to help create a proper PRD with discrete tasks
+3. **Open the Ralph Loop sidebar** via the Activity Bar icon
+4. **Configure your session** in the sidebar:
+   - Select task file (default: `PRD.md`)
+   - Set progress file (default: `progress.txt`)
+   - Choose mode and model
+   - Set max iterations
+5. **Start the loop** using the play button in the sidebar
 
-***
+> **Recommended Workflow (Antigravity):**  
+> Use **Planning mode** to create your PRD/spec file with well-defined tasks.  
+> Then switch to **Fast mode** to run the Ralph Loop for execution.
 
-## 🚀 Quick Start
+## File Structure
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/TacticalReader/Travel-Website.git
-   ```
-2. **Navigate to the project directory:**
-   ```bash
-   cd Travel-Website/Travel-Website
-   ```
-3. **Open `index.html` in your web browser** to view the site locally.
+The extension uses a simple file-based architecture:
 
-_No build process is required; you can run the site using any static web server or simply double-click the HTML file._
+| File           | Purpose            | Description                                                  |
+|----------------|--------------------|--------------------------------------------------------------|
+| `PRD.md`       | Task Specification | Your tasks/requirements. **Read-only** for agent.            |
+| `progress.txt` | Progress Log       | Agent appends progress here. Source of truth for completion. |
+| `prompt.md`    | Instructions       | Optional custom instructions for the agent.                  |
 
-***
+### Task File Format
 
-## 🗂️ Project Structure
+The task file is **read-only** - the agent never modifies it. Write a proper PRD or specification document, but **organize it into discrete, actionable tasks** so the agent can identify what to work on next by cross-referencing `progress.txt`.
 
+```markdown
+# PRD: User Management System
+
+## Overview
+Build a user management system with authentication, profiles, and admin controls.
+
+## Task 1: Authentication
+Implement JWT-based authentication with login/logout endpoints.
+- POST /api/auth/login
+- POST /api/auth/logout
+- Token refresh mechanism
+
+## Task 2: User Profiles
+Create user profile CRUD operations.
+- GET/PUT /api/users/:id
+- Profile picture upload
+- Email verification
+
+## Task 3: Admin Dashboard
+Build admin interface for user management.
+- List all users with pagination
+- Suspend/activate accounts
+- View user activity logs
 ```
-Travel-Website/
-  ├── images/
-  │   └── [All website images and gallery photos]
-  ├── index.html
-  ├── style.scss
-  ├── style.css
-  ├── script.js
-  └── README.md
+
+The key is **clear task boundaries** - each `## Task N:` section should be a self-contained unit of work that the agent can complete in one iteration.
+
+### Progress File Format
+
+The agent appends entries to track completion. This is how it knows which tasks are done:
+
+```bash
+[2026-01-21 10:30] Started: Task 1 - User Authentication
+[2026-01-21 10:45] Created auth module in src/auth/
+[2026-01-21 11:00] Completed: Task 1 - User Authentication
+[2026-01-21 11:05] Started: Task 2 - Database Migrations
 ```
 
-- `index.html` — Main webpage with all site sections
-- `style.scss` — Source SCSS, organized styling (modern CSS with variables, nesting)
-- `style.css` — Compiled CSS (from SCSS), linked in the site
-- `script.js` — JavaScript for interactivity (e.g., navbar toggle, component interaction)
-- `images/` — Contains all image assets used for sections and the gallery
+## Features
 
-***
+### Activity Bar & Sidebar
 
-## ⚙️ Customization & Usage
+Ralph Loop has a dedicated Activity Bar icon. The sidebar shows:
 
-- **Change Content**: Edit the text in `index.html` according to your needs.
-- **Update Styles**: Modify `style.scss` and recompile to `style.css` for further UI customization.
-- **Add More Images**: Place image files in the `images/` folder and update gallery sections.
-- **Enhance Functionality**: Expand the `script.js` for custom interactive features.
+- **Session**: Current status, mode, model, iteration count, elapsed time
+- **Configuration**: All configurable options (click to change)
+  - Mode (Fast/Planning)
+  - Model
+  - Max Iterations
+  - Prompt File
+  - Task File
+  - Progress File
 
-***
+### Status Bar
 
-## 👩‍💻 Contributing
+A persistent status bar item displays:
 
-Pull requests and improvements are welcome!
+- Loop state: `Running`, `Paused`, or `Stopped`
+- Current iteration: `15/50`
+- Elapsed time: `2m 34s`
 
-- Fork the repository
-- Create a new branch: `git checkout -b feature/your-feature`
-- Commit your changes
-- Push to the branch and open a pull request
+### Output Channel
 
-Please follow the existing file organization and code style.
+The **Ralph Loop** output channel provides:
 
-***
+- Streaming agent responses
+- Iteration markers and phase tracking
+- Progress indicators
 
-## 📜 License
+## Commands
 
-This project is licensed under the [Apache 2.0 License](https://github.com/TacticalReader/Travel-Website/blob/main/LICENSE).
+| Command                            | Description                 |
+|------------------------------------|-----------------------------|
+| `Ralph: Start Ralph Loop`          | Start a new loop session    |
+| `Ralph: Stop Ralph Loop`           | Stop the loop gracefully    |
+| `Ralph: Pause/Resume Ralph Loop`   | Toggle pause state          |
+| `Ralph: Emergency Stop Ralph Loop` | Immediately stop the loop   |
 
-***
+## Configuration
 
-**Made by Tanmay Srivastava | For demo and educational purposes** [2][1]
-***AOS LIBRARY WAS USED IN THIS***
+### Settings
 
-***
+Configure Ralph Loop via VS Code Settings (`Preferences: Open Settings`):
 
-_If you have feedback or want to expand this project, feel free to open an Issue or PR!_
+| Setting                    | Default          | Description                 |
+|----------------------------|------------------|-----------------------------|
+| `ralphLoop.maxIterations`  | `50`             | Maximum iterations per loop |
+| `ralphLoop.defaultMode`    | `Fast`           | Default mode                |
+| `ralphLoop.defaultModel`   | `Gemini 3 Flash` | Default AI model            |
+| `ralphLoop.promptFile`     | `None`           | Default prompt file         |
+| `ralphLoop.taskFile`       | `PRD.md`         | Default task file           |
+| `ralphLoop.progressFile`   | `progress.txt`   | Default progress file       |
 
-***
+### Current Models
+
+As of March 28, 2026, the installed Antigravity app on the development machine returns these models:
+
+- `Gemini 3.1 Pro (High)`
+- `Gemini 3.1 Pro (Low)`
+- `Gemini 3 Flash`
+- `Claude Sonnet 4.6 (Thinking)`
+- `Claude Opus 4.6 (Thinking)`
+- `GPT-OSS 120B (Medium)`
+
+Ralph also supports a rate-limit fallback chain:
+
+- Your **primary model** runs first.
+- On a **rate limit / quota** style failure, Ralph can retry with configured fallbacks.
+- Each fallback step is a **group + model** choice.
+
+Current groups are:
+
+- `Gemini Flash`
+- `Anthropic/OpenAI`
+- `Gemini Pro`
+
+## How It Works
+
+1. **Fresh Context Per Iteration**: Each iteration spawns a fresh cascade session, sending structured instructions that reference your task and progress files.
+
+2. **Structured Instructions**: The agent receives clear instructions:
+   - Read tasks from your task file
+   - Check progress in your progress file
+   - Complete exactly one task
+   - Append progress (never delete)
+   - Commit changes
+
+3. **File-Based Memory**: Progress persists on disk between iterations in `progress.txt`, not in the agent's memory.
+
+4. **Graceful Stop**: The stop command waits for the current iteration to complete.
+
+5. **Emergency Stop**: Immediately terminates the loop.
+
+### Automatic Loop Completion
+
+When you start a loop, Ralph generates a unique completion marker (e.g., `ralph-done-a3x9k`). The agent is instructed to append this marker to the progress file when ALL tasks are complete.
+
+Before each iteration, Ralph checks the last few lines of your progress file for this marker. If found, the loop ends automatically - no manual stop needed.
+
+This means:
+
+- The loop stops on its own when work is done
+- Each loop session has a unique marker (prevents false positives from old runs)
+- You can still manually stop anytime if needed
+
+## Troubleshooting
+
+### "No task file selected"
+
+Select a task file in the sidebar Configuration section.
+
+### "No workspace folder open"
+
+Open a folder in VS Code before starting Ralph Loop.
+
+### Loop not responding
+
+Use `Ralph: Emergency Stop Ralph Loop` from the Command Palette.
+
+### Wrong workspace
+
+The extension opens your task/prompt file before starting to ensure the agent works in the correct workspace.
+
+## Links
+
+- [GitHub Repository](https://github.com/abhishekbhakat/ralph-loop-for-antigravity)
+- [Report Issues](https://github.com/abhishekbhakat/ralph-loop-for-antigravity/issues)
+
+## Requirements
+
+- VS Code 1.75.0 or later
+- Antigravity in agent driven mode
+- A workspace folder with task files
+
+## License
+
+MIT
+
+---
+
+*Turn Antigravity into an autonomous, iterative coding agent.*

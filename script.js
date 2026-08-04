@@ -61,17 +61,21 @@ const templates = {
             ['Destination', '#destination', previewFor(48), 'Handpicked Escapes'],
             ['Services', '#services', previewFor(63), 'Plans With Polish'],
             ['Gallery', '#gallery', previewFor(76), 'Moments Worth Keeping'],
+            ['Vlogs', '#vlogs', previewFor(100), 'Travel Experiences & Reels'],
             ['Blogs', '#blogs', previewFor(92), 'Stories Before You Pack'],
             ['Contact', '#contact', previewFor(112), 'Talk To The Travel Circle']
         ];
         const navLinks = navItems.map(([title, href, preview, label], index) => `
-            <a data-aos="zoom-in-left" data-aos-delay="${250 + index * 80}" href="${href}" class="menu-link-item roll-link" data-preview="${preview}" data-preview-title="${label}">${this.rollText(title)}</a>`).join('');
+            <a data-aos="zoom-in-left" data-aos-delay="${250 + index * 70}" href="${href}" class="menu-link-item roll-link" data-preview="${preview}" data-preview-title="${label}">${this.rollText(title)}</a>`).join('');
 
         return `
 <header class="header atelier-header ttc-modern-header">
-    <a data-aos="zoom-in-left" data-aos-delay="150" href="#home" class="logo header-logo ttc-direct-logo">
-        <img src="images/logoTTC.png" alt="The Travel Circle logo">
-        <span>The Travel Circle</span>
+    <a data-aos="zoom-in-left" data-aos-delay="150" href="#home" class="logo header-logo ttc-direct-logo" aria-label="The Travel Circle Home">
+        <div class="logo-box">
+            <div class="logo-circle-avatar">
+                <img src="images/logoTTC.png" alt="The Travel Circle logo">
+            </div>
+        </div>
     </a>
     <nav class="navbar" id="navbar">
         <div class="nav-links">
@@ -79,7 +83,7 @@ const templates = {
         </div>
         <div class="nav-preview" aria-hidden="true">
             <div class="nav-preview-media">
-                <img src="${navItems[0][2]}" alt="">
+                <img src="${navItems[0][2]}" alt="Preview backdrop">
             </div>
             <strong>${navItems[0][3]}</strong>
         </div>
@@ -104,18 +108,16 @@ const templates = {
     <video class="hero-video" src="${heroVideo}" muted autoplay loop playsinline preload="metadata"></video>
     <div class="hero-overlay"></div>
     <div class="content atelier-hero-content">
-        <h1 data-aos="fade-up" data-aos-delay="150">
+        <span class="hero-eyebrow" data-aos="fade-up" data-aos-delay="100">YOUR JOURNEY STARTS HERE</span>
+        <h1 data-aos="fade-up" data-aos-delay="200">
             We're Officially<br>
-            <em>Taking Off!</em>
+            <em>Taking Off.</em>
         </h1>
-        <p data-aos="fade-up" data-aos-delay="300">Welcome to The Travel Circle - your trusted partner in creating unforgettable journeys.<br class="desktop-break">Whether it's a relaxing beach escape, a thrilling adventure, a family vacation, a romantic honeymoon, or an international getaway, we're here to turn your travel dreams into reality.</p>
-        <div class="hero-actions" data-aos="fade-up" data-aos-delay="450">
+        <p data-aos="fade-up" data-aos-delay="350">Welcome to <strong>The Travel Circle</strong> — your trusted partner in creating unforgettable journeys.<br class="desktop-break">Whether it's a relaxing beach escape, a thrilling adventure, a family vacation, a romantic honeymoon, or an international getaway, we're here to turn your travel dreams into reality.</p>
+
+        <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
             <a href="#book-form" class="hero-primary">Start My Journey
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-            </a>
-            <a href="#gallery" class="hero-secondary">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
-                Watch Travel Reel
+                <svg viewBox="0 0 24 24" aria-hidden="true" class="cta-arrow"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
             </a>
         </div>
     </div>
@@ -126,19 +128,35 @@ const templates = {
         return `
 <section class="book-form is-hidden" id="book-form" aria-hidden="true">
     <form action="" id="booking-form">
+        <h2 class="form-title">
+            <span class="title-text"><i class="fas fa-paper-plane"></i> Plan Your Journey / Tour Request</span>
+            <button type="button" class="form-close-btn" id="close-book-form" aria-label="Close Tour Form"><i class="fas fa-times"></i></button>
+        </h2>
         <div class="inputBox">
-            <span><i class="fas fa-map-marker-alt"></i> dream destination</span>
-            <input type="text" placeholder="city, country, or experience" required>
+            <span><i class="fas fa-map-marker-alt"></i> Dream Destination</span>
+            <input type="text" id="book-destination" placeholder="City, State, Country, or Experience" required>
         </div>
         <div class="inputBox">
-            <span><i class="fas fa-calendar-alt"></i> travel date</span>
-            <input type="date" required>
+            <span><i class="fas fa-phone-alt"></i> Contact Number <small class="label-compulsory">(Compulsory)</small></span>
+            <input type="tel" id="book-contact" placeholder="Enter Contact Number (e.g. 7304979500)" required pattern="[0-9]{10,12}">
         </div>
         <div class="inputBox">
-            <span><i class="fas fa-users"></i> travelers</span>
-            <input type="number" placeholder="number of guests" min="1" required>
+            <span><i class="fas fa-envelope"></i> Email Address <small class="label-optional">(Optional)</small></span>
+            <input type="email" id="book-email" placeholder="Enter Email Address (optional)">
         </div>
-        <input type="submit" value="plan my tour" class="btn">
+        <div class="inputBox date-range-box">
+            <span><i class="fas fa-calendar-alt"></i> Travel Dates (From - To Range)</span>
+            <div class="date-inputs">
+                <input type="date" id="book-date-from" aria-label="Going Date (From)" required>
+                <span class="date-sep">to</span>
+                <input type="date" id="book-date-to" aria-label="Coming Date (To)" required>
+            </div>
+        </div>
+        <div class="inputBox">
+            <span><i class="fas fa-users"></i> Travelers</span>
+            <input type="number" id="book-travelers" placeholder="Number of Guests" min="1" required>
+        </div>
+        <button type="submit" class="btn form-submit-btn">Submit Tour Plan <i class="fas fa-paper-plane"></i></button>
         <div class="form-message"></div>
     </form>
 </section>`;
@@ -232,73 +250,166 @@ const templates = {
 
     createDestination() {
         const images = this.getImages();
+        
         const domesticDestinations = [
-            ['Goa', 'Beaches, nightlife, and water sports.'],
-            ['Kashmir', 'The "Paradise on Earth" with stunning landscapes.'],
-            ['Manali', 'Adventure, snow, and mountain retreats.'],
-            ['Udaipur', 'The City of Lakes and royal heritage.'],
-            ['Jaipur', 'Palaces, forts, and rich culture.'],
-            ['Kerala', 'Backwaters, beaches, and Ayurveda.'],
-            ['Andaman & Nicobar', 'Crystal-clear waters and island escapes.'],
-            ['Leh', 'Scenic landscapes and adventure tourism.'],
-            ['Darjeeling', 'Tea gardens and Himalayan views.'],
-            ['Rishikesh', 'Spirituality and adventure sports.'],
-            ['Maharashtra', 'Beaches, hill stations, heritage sites, vineyards, and city experience.'],
-            ['Odisha', 'Spiritual, heritage, cultural, and wildlife experience.']
+            {
+                title: 'Goa',
+                vibe: 'Beaches, nightlife, and water sports.',
+                custom: 'Beach resorts, cruise parties, and heritage chapel tours.'
+            },
+            {
+                title: 'Kashmir',
+                vibe: 'The "Paradise on Earth" with stunning landscapes.',
+                custom: 'Shikara rides on Dal Lake, Gulmarg gondola rides, and Pahalgam valley stays.'
+            },
+            {
+                title: 'Manali',
+                vibe: 'Adventure, snow, and mountain retreats.',
+                custom: 'Solang valley sports, Rohtang pass snow tours, and riverside pine stays.'
+            },
+            {
+                title: 'Udaipur',
+                vibe: 'The City of Lakes and royal heritage.',
+                custom: 'Palace stays, Lake Pichola sunset boat tours, and Marwari cultural dinners.'
+            },
+            {
+                title: 'Jaipur',
+                vibe: 'Palaces, forts, and rich culture.',
+                custom: 'Amer fort elephant rides, Pink City heritage walks, and royal dining.'
+            },
+            {
+                title: 'Keralam',
+                vibe: 'Backwaters, beaches, and Ayurveda.',
+                custom: 'Alleppey luxury houseboat stays, Munnar tea plantation tours, and Kovalam wellness retreats.'
+            },
+            {
+                title: 'Andaman & Nicobar',
+                vibe: 'Crystal-clear waters and island escapes.',
+                custom: 'Radhanagar beach escapes, Havelock scuba diving, and Cellular Jail light shows.'
+            },
+            {
+                title: 'Leh Ladakh',
+                vibe: 'Scenic high-altitude landscapes and adventure tourism.',
+                custom: 'Pangong Tso lake camping, Khardung La bike expeditions, and Nubra valley camel safaris.',
+                isLeh: true
+            },
+            {
+                title: 'Uttarakhand - The Land of Divine Peaks',
+                vibe: 'Snow-capped Himalayas, sacred pilgrimage sites, serene lakes, charming hill stations, and thrilling adventure escapes.',
+                custom: 'Spiritual journeys to Char Dham, luxury stays in Mussoorie and Nainital, wildlife safaris in Jim Corbett National Park, and adventure-filled itineraries featuring river rafting, trekking, camping, and skiing.'
+            },
+            {
+                title: 'The Seven Sisters - India\'s Untouched Paradise',
+                vibe: 'Pristine landscapes, rolling tea gardens, cascading waterfalls, vibrant tribal cultures, dense forests, and breathtaking mountain scenery.',
+                custom: 'Curated Northeast expeditions covering Meghalaya, Arunachal Pradesh, Assam, Nagaland, Manipur, Mizoram, and Tripura, living root bridge treks, Kaziranga wildlife safaris, Tawang monastery tours, and authentic cultural immersion experiences.'
+            },
+            {
+                title: 'Rann of Kutch - The White Desert Wonderland',
+                vibe: 'Endless white salt plains, colorful cultural heritage, vibrant handicrafts, folk music, and mesmerizing desert sunsets.',
+                custom: 'Exclusive Rann Utsav experiences, luxury tent accommodations, handicraft village tours, camel safaris, stargazing evenings, and customized Gujarat cultural circuits including Bhuj and Mandvi.'
+            },
+            {
+                title: 'Kasol',
+                vibe: 'Scenic Parvati Valley views, lush pine forests, and chilled mountain vibes.',
+                custom: 'Trek to Kheerganga, Manikaran hot springs, and Israel-flavored cafes.'
+            },
+            {
+                title: 'Darjeeling',
+                vibe: 'Tea gardens and Himalayan views.',
+                custom: 'Toy train rides, Tiger Hill sunrise views, and tea estate walks.'
+            },
+            {
+                title: 'Maharashtra',
+                vibe: 'Beaches, hill stations, heritage sites, vineyards, and city experience.',
+                custom: 'Lonavala & Mahabaleshwar retreats, Nashik vineyard tours, and Konkan coastal drives.'
+            },
+            {
+                title: 'Odisha',
+                vibe: 'Spiritual, heritage, cultural, and wildlife experience.',
+                custom: 'Jagannath Puri pilgrimage, Konark Sun Temple tours, and Chilika Lake bird watching.'
+            }
         ];
         
         const internationalDestinations = [
-            ['Maldives', 'Luxury resorts and honeymoon escapes.'],
-            ['Thailand', 'Beaches, nightlife, and culture.'],
-            ['Dubai', 'Luxury shopping and iconic attractions.'],
-            ['Singapore', 'Family attractions and modern city life.'],
-            ['Malaysia', 'Vibrant Cities, islands and world class shopping.'],
-            ['Bali', 'Tropical paradise and wellness retreats.'],
-            ['Turkey', 'History, culture, and stunning landscapes.'],
-            ['Vietnam', 'Natural beauty and rich heritage.'],
-            ['Mauritius', 'Beaches and luxury holidays.']
+            {
+                title: 'Singapore - Malaysia - Thailand',
+                vibe: 'Vibrant tropical megacities, island hopping, theme parks, world-class shopping, and beach resorts.',
+                custom: 'Combined Southeast Asia grand tour including Marina Bay Sands, Genting Highlands, and Phuket beach cruises.'
+            },
+            {
+                title: 'Dubai',
+                vibe: 'Luxury shopping, desert safaris, and iconic sky-high attractions.',
+                custom: 'Burj Khalifa observation deck, desert dune bashing, and luxury yacht charters.'
+            },
+            {
+                title: 'Bali',
+                vibe: 'Tropical paradise, wellness retreats, and vibrant beach culture.',
+                custom: 'Ubud jungle villas, Tanah Lot sunsets, and Nusa Penida island tours.'
+            },
+            {
+                title: 'Vietnam',
+                vibe: 'Natural beauty, emerald bays, and rich historical heritage.',
+                custom: 'Ha Long Bay overnight cruises, Hoi An lantern city walks, and Mekong delta tours.'
+            },
+            {
+                title: 'Sri Lanka - The Pearl of the Indian Ocean',
+                vibe: 'Golden beaches, misty tea plantations, ancient heritage sites, lush rainforests, diverse wildlife, and warm island hospitality.',
+                custom: 'Scenic train journeys through Ella, cultural tours of Kandy and Sigiriya, beach escapes in Bentota and Mirissa, Yala National Park wildlife safaris, whale watching cruises, and customized luxury, honeymoon, family, and adventure holidays.'
+            },
+            {
+                title: 'Azerbaijan - Where Europe Meets Asia',
+                vibe: 'Modern cityscapes, ancient Silk Route heritage, dramatic mountain landscapes, Caspian Sea coastline, and unique natural wonders.',
+                custom: 'Luxury Baku city tours, Gobustan mud volcano excursions, Shahdag mountain retreats, Gabala nature escapes, Caspian Sea experiences, and personalized cultural and culinary journeys across Azerbaijan.'
+            }
         ];
 
-        const domesticCards = domesticDestinations.map(([title, description], index) => {
+        const domesticCards = domesticDestinations.map((dest, index) => {
             const imgIndex = index * 3;
             const img1 = this.mediaSrc(images[imgIndex % images.length] || images[0]);
             const img2 = this.mediaSrc(images[(imgIndex + 1) % images.length] || images[0]);
             const img3 = this.mediaSrc(images[(imgIndex + 2) % images.length] || images[0]);
-            
+            const safeTitle = (dest.title || '').replace(/"/g, '&quot;');
+            const safeVibe = (dest.vibe || '').replace(/"/g, '&quot;');
+            const actionBtn = dest.isLeh 
+                ? `<button type="button" class="card-action-btn leh-popup-trigger" data-leh="true">Plan Leh Ladakh Tour <i class="fas fa-motorcycle"></i></button>`
+                : `<button type="button" class="card-action-btn dest-wa-btn" data-dest-title="${safeTitle}" data-dest-category="India" data-dest-vibe="${safeVibe}">plan this tour <i class="fas fa-arrow-right"></i></button>`;
+
             return `
-        <div class="photo-stack-card" data-aos="fade-up" data-aos-delay="${100 + (index % 4) * 100}">
+        <div class="photo-stack-card${dest.isLeh ? ' card-highlight-leh' : ''}" data-aos="fade-up" data-aos-delay="${100 + (index % 4) * 80}" data-dest-card="${dest.title}">
             <div class="card-text">
                 <span class="card-category">INDIA</span>
-                <h3 class="card-title">${title}</h3>
-                <p class="card-subtitle">${description}</p>
-                <a href="#book-form" class="card-action-btn">plan this tour <i class="fas fa-arrow-right"></i></a>
+                <h3 class="card-title">${dest.title}</h3>
+                <p class="card-subtitle"><strong>The Vibe:</strong> ${dest.vibe}</p>
+                ${actionBtn}
             </div>
             <div class="photo-stack">
-                <img class="stack-img stack-img-1" src="${img1}" alt="${title} gallery 1" loading="lazy">
-                <img class="stack-img stack-img-2" src="${img2}" alt="${title} gallery 2" loading="lazy">
-                <img class="stack-img stack-img-3" src="${img3}" alt="${title} gallery 3" loading="lazy">
+                <img class="stack-img stack-img-1" src="${img1}" alt="${dest.title} gallery 1" loading="lazy">
+                <img class="stack-img stack-img-2" src="${img2}" alt="${dest.title} gallery 2" loading="lazy">
+                <img class="stack-img stack-img-3" src="${img3}" alt="${dest.title} gallery 3" loading="lazy">
             </div>
         </div>`;
         }).join('');
 
-        const internationalCards = internationalDestinations.map(([title, description], index) => {
-            const imgIndex = (index + 12) * 3;
+        const internationalCards = internationalDestinations.map((dest, index) => {
+            const imgIndex = (index + 15) * 3;
             const img1 = this.mediaSrc(images[imgIndex % images.length] || images[0]);
             const img2 = this.mediaSrc(images[(imgIndex + 1) % images.length] || images[0]);
             const img3 = this.mediaSrc(images[(imgIndex + 2) % images.length] || images[0]);
+            const safeTitle = (dest.title || '').replace(/"/g, '&quot;');
+            const safeVibe = (dest.vibe || '').replace(/"/g, '&quot;');
             
             return `
-        <div class="photo-stack-card" data-aos="fade-up" data-aos-delay="${100 + (index % 4) * 100}">
+        <div class="photo-stack-card" data-aos="fade-up" data-aos-delay="${100 + (index % 4) * 80}" data-dest-card="${dest.title}">
             <div class="card-text">
                 <span class="card-category">INTERNATIONAL</span>
-                <h3 class="card-title">${title}</h3>
-                <p class="card-subtitle">${description}</p>
-                <a href="#book-form" class="card-action-btn">plan this tour <i class="fas fa-arrow-right"></i></a>
+                <h3 class="card-title">${dest.title}</h3>
+                <p class="card-subtitle"><strong>The Vibe:</strong> ${dest.vibe}</p>
+                <button type="button" class="card-action-btn dest-wa-btn" data-dest-title="${safeTitle}" data-dest-category="International" data-dest-vibe="${safeVibe}">plan this tour <i class="fas fa-arrow-right"></i></button>
             </div>
             <div class="photo-stack">
-                <img class="stack-img stack-img-1" src="${img1}" alt="${title} gallery 1" loading="lazy">
-                <img class="stack-img stack-img-2" src="${img2}" alt="${title} gallery 2" loading="lazy">
-                <img class="stack-img stack-img-3" src="${img3}" alt="${title} gallery 3" loading="lazy">
+                <img class="stack-img stack-img-1" src="${img1}" alt="${dest.title} gallery 1" loading="lazy">
+                <img class="stack-img stack-img-2" src="${img2}" alt="${dest.title} gallery 2" loading="lazy">
+                <img class="stack-img stack-img-3" src="${img3}" alt="${dest.title} gallery 3" loading="lazy">
             </div>
         </div>`;
         }).join('');
@@ -307,7 +418,7 @@ const templates = {
 <section class="destination" id="destination">
     <div class="heading">
         <span>popular destinations</span>
-        <h1>choose your next circle on the map</h1>
+        <h1>Choose Your Next Circle On The Map</h1>
     </div>
     
     <div class="destination-tabs">
@@ -330,22 +441,19 @@ const templates = {
 
     createServices() {
         const servicesList = [
-            ['Domestic & International Holiday Packages', 'Curated travel packages to destinations across India and around the world, designed to suit every budget and travel style.', 'fas fa-globe'],
+            ['Domestic & International Holiday Packages', 'Curated travel packages to destinations across India and around the world, designed to suit every budget and travel style.', 'fas fa-globe-asia'],
             ['Customized Tour Planning', 'Personalized itineraries tailored to your interests, preferences, and travel requirements for a unique experience.', 'fas fa-map-marked-alt'],
             ['Hotel & Resort Bookings', 'Handpicked accommodation options ranging from budget stays to luxury resorts, ensuring comfort and convenience.', 'fas fa-hotel'],
-            ['Flight, Train & Bus Bookings', 'Complete transportation booking assistance with the best routes and competitive fares.', 'fas fa-plane'],
-            ['Visa Assistance & Travel Documentation', 'End-to-end support for visa applications, travel insurance, and essential documentation for hassle-free travel.', 'fas fa-file-signature'],
-            ['Group Tours & Family Vacations', 'Specially designed packages for families, friends, corporate groups, and special interest travelers.', 'fas fa-users'],
-            ['Corporate Travel Management', 'Efficient business travel solutions, including flight bookings, hotel arrangements, and itinerary management.', 'fas fa-briefcase'],
+            ['Flight, Train, Bus & Car Bookings', 'Complete transportation booking assistance with the best routes and competitive fares.', 'fas fa-plane-departure'],
+            ['Group Tours & Family Vacations', 'Specially designed packages for families & friends groups and special interest travellers.', 'fas fa-users'],
+            ['M.I.C.E. Group Tours', 'Efficient Corporate and business travel solutions, including flight bookings, hotel arrangements, and itinerary management.', 'fas fa-briefcase'],
             ['Honeymoon & Romantic Getaways', 'Exclusive packages crafted for couples seeking memorable and romantic travel experiences.', 'fas fa-heart'],
-            ['Adventure & Weekend Getaways', 'Exciting trips featuring trekking, camping, water sports, wildlife experiences, and short escapes.', 'fas fa-hiking'],
-            ['Educational & Special Interest Tours', 'Customized tours for schools, colleges, senior citizens, and themed travel groups.', 'fas fa-graduation-cap'],
-            ['Event & Destination Management', 'Planning and coordination for destination weddings, corporate retreats, conferences, and special events.', 'fas fa-calendar-alt'],
-            ['24/7 Travel Support', 'Dedicated assistance before, during, and after your journey to ensure a smooth and worry-free travel experience.', 'fas fa-headset']
+            ['Adventure & Weekend Getaways (Coming Soon)', 'Exciting trips featuring trekking, camping, water sports, wildlife experiences, and short escapes.', 'fas fa-hiking'],
+            ['School & College Special Tours', 'Customized tours for schools, colleges, senior citizens, and themed travel groups.', 'fas fa-graduation-cap']
         ];
 
         const serviceCards = servicesList.map(([title, description, icon], index) => `
-        <div class="box" data-aos="zoom-in-up" data-aos-delay="${100 + (index % 4) * 100}">
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="${100 + (index % 3) * 100}">
             <i class="${icon}"></i>
             <h3>${title}</h3>
             <p>${description}</p>
@@ -355,7 +463,7 @@ const templates = {
 <section class="services" id="services">
     <div class="heading">
         <span>what we arrange</span>
-        <h1>every detail, beautifully handled</h1>
+        <h1>Every Detail, Beautifully Handled</h1>
     </div>
     <div class="box-container">
         ${serviceCards}
@@ -363,25 +471,60 @@ const templates = {
 </section>`;
     },
 
-    createGallery() {
+    getGalleryItems() {
         const images = this.getImages().filter(image => !this.isDuplicateGalleryMedia(image));
         const videos = this.getVideos();
-        const visibleLimit = 12;
         const tileShapes = ['portrait', 'landscape', 'square', 'tall', 'landscape', 'portrait'];
-        const imageItems = images.map((image, index) => `
-        <div class="box gallery-tile gallery-tile--${tileShapes[index % tileShapes.length]}${index >= visibleLimit ? ' is-hidden' : ''}" data-type="image" data-src="${this.mediaSrc(image)}" tabindex="0" role="button" aria-label="View The Travel Circle photo ${index + 1}">
-            <img src="${this.mediaSrc(image)}" alt="The Travel Circle journey photo ${index + 1}" loading="lazy">
-            <span class="gallery-shine" aria-hidden="true"></span>
-        </div>`).join('');
-        const videoItems = videos.map((video, index) => `
-        <div class="box gallery-tile gallery-tile--landscape video-box is-hidden" data-type="video" data-src="${this.mediaSrc(video)}" tabindex="0" role="button" aria-label="Play The Travel Circle travel film ${index + 1}">
+        const items = [];
+
+        images.forEach((image, index) => {
+            items.push({
+                type: 'image',
+                src: this.mediaSrc(image),
+                alt: `The Travel Circle journey photo ${index + 1}`,
+                shape: tileShapes[index % tileShapes.length]
+            });
+        });
+
+        videos.forEach((video, index) => {
+            const previewImg = images[(index * 11) % images.length] || images[0];
+            items.push({
+                type: 'video',
+                src: this.mediaSrc(video),
+                thumb: this.mediaSrc(previewImg),
+                alt: `Preview for The Travel Circle travel film ${index + 1}`,
+                shape: 'landscape'
+            });
+        });
+
+        return items;
+    },
+
+    createGallery() {
+        const items = this.getGalleryItems();
+        const initialCount = 6;
+        const initialItems = items.slice(0, initialCount);
+
+        const cardHtml = (item) => {
+            if (item.type === 'video') {
+                return `
+        <div class="box gallery-tile gallery-tile--landscape video-box" data-type="video" data-src="${item.src}" tabindex="0" role="button" aria-label="${item.alt}">
             <div class="video-thumb">
-                <img src="${this.mediaSrc(images[(index * 11) % images.length] || images[0])}" alt="Preview for The Travel Circle travel film ${index + 1}" loading="lazy">
+                <img src="${item.thumb}" alt="${item.alt}" loading="lazy">
                 <i class="fas fa-play"></i>
             </div>
             <span class="gallery-shine" aria-hidden="true"></span>
-        </div>`).join('');
-        const totalItems = images.length + videos.length;
+        </div>`;
+            }
+            return `
+        <div class="box gallery-tile gallery-tile--${item.shape}" data-type="image" data-src="${item.src}" tabindex="0" role="button" aria-label="${item.alt}">
+            <img src="${item.src}" alt="${item.alt}" loading="lazy">
+            <span class="gallery-shine" aria-hidden="true"></span>
+        </div>`;
+        };
+
+        const initialCards = initialItems.map(cardHtml).join('');
+        const hasMore = items.length > initialCount;
 
         return `
 <section class="gallery" id="gallery">
@@ -389,11 +532,12 @@ const templates = {
         <span>journey moments</span>
         <h1>memories from every mile</h1>
     </div>
-    <div class="box-container">
-        ${imageItems}
-        ${videoItems}
+    <div class="box-container" id="gallery-box-container">
+        ${initialCards}
     </div>
-    ${totalItems > visibleLimit ? '<button class="btn gallery-more-btn" id="gallery-load-more" type="button">view more</button>' : ''}
+    <div class="gallery-actions" style="text-align: center; margin-top: 3.5rem;">
+        ${hasMore ? '<button class="btn gallery-more-btn" id="gallery-load-more" type="button">View More Memories</button>' : ''}
+    </div>
 </section>`;
     },
 
@@ -527,6 +671,78 @@ const templates = {
 </div>`;
     },
 
+    createVlogs() {
+        const images = this.getImages();
+        const videos = this.getVideos();
+        const vlogItems = [
+            {
+                title: 'High Passes & Bike Expeditions in Leh Ladakh',
+                destination: 'Leh Ladakh',
+                image: this.mediaSrc(images[12] || images[0]),
+                video: videos[0] ? this.mediaSrc(videos[0]) : '',
+                duration: '04:15 min',
+                desc: 'Riding through Khardung La pass, Pangong Lake shores, and high-altitude mountain trails.'
+            },
+            {
+                title: 'Backwater Houseboats & Spice Trails of Keralam',
+                destination: 'Keralam',
+                image: this.mediaSrc(images[24] || images[0]),
+                video: videos[1] ? this.mediaSrc(videos[1]) : '',
+                duration: '03:40 min',
+                desc: 'Sailing through Alleppey backwaters, palm-fringed lagoons, and tea plantations.'
+            },
+            {
+                title: 'Spiritual Divine Peaks & Rafting in Uttarakhand',
+                destination: 'Uttarakhand',
+                image: this.mediaSrc(images[36] || images[0]),
+                video: videos[2] ? this.mediaSrc(videos[2]) : '',
+                duration: '05:10 min',
+                desc: 'Exploring Char Dham routes, Rishikesh Ganga rafting, and Mussoorie mountain views.'
+            },
+            {
+                title: 'Living Root Bridges & Cascades of The Seven Sisters',
+                destination: 'The Seven Sisters',
+                image: this.mediaSrc(images[48] || images[0]),
+                video: videos[3] ? this.mediaSrc(videos[3]) : '',
+                duration: '06:20 min',
+                desc: 'Trekking Meghalaya living root bridges, Dawki river waters, and Kaziranga safaris.'
+            }
+        ];
+
+        const vlogCards = vlogItems.map((vlog, idx) => {
+            const safeDest = (vlog.destination || '').replace(/"/g, '&quot;');
+            const safeTitle = (vlog.title || '').replace(/"/g, '&quot;');
+            const safeDesc = (vlog.desc || '').replace(/"/g, '&quot;');
+
+            return `
+        <div class="vlog-card" data-aos="fade-up" data-aos-delay="${150 + idx * 100}">
+            <div class="vlog-media">
+                <img src="${vlog.image}" alt="${vlog.title}" loading="lazy">
+                <span class="vlog-badge"><i class="fas fa-play-circle"></i> ${vlog.duration}</span>
+                <span class="vlog-tag">${vlog.destination}</span>
+            </div>
+            <div class="vlog-info">
+                <h3>${vlog.title}</h3>
+                <p>${vlog.desc}</p>
+                <button type="button" class="vlog-action-btn vlog-wa-btn" data-vlog-dest="${safeDest}" data-vlog-title="${safeTitle}" data-vlog-desc="${safeDesc}">
+                    Plan This Vlog Route <i class="fab fa-whatsapp"></i>
+                </button>
+            </div>
+        </div>`;
+        }).join('');
+
+        return `
+<section class="vlogs" id="vlogs">
+    <div class="heading">
+        <span>travel vlogs & reels</span>
+        <h1>Real Journeys, Real Stories</h1>
+    </div>
+    <div class="vlogs-grid">
+        ${vlogCards}
+    </div>
+</section>`;
+    },
+
     createFooter() {
         const footerLinks = [
             ['home', '#home'],
@@ -535,6 +751,7 @@ const templates = {
             ['destination', '#destination'],
             ['services', '#services'],
             ['gallery', '#gallery'],
+            ['vlogs', '#vlogs'],
             ['blogs', '#blogs'],
             ['contact', '#contact']
         ].map(([label, href]) => `<a href="${href}" class="links roll-link"> <i class="fas fa-arrow-right"></i> ${this.rollText(label)} </a>`).join('');
@@ -543,16 +760,18 @@ const templates = {
 <section class="footer" id="contact">
     <div class="box-container">
         <div class="box" data-aos="fade-up" data-aos-delay="150">
-            <a href="#home" class="logo brand-logo footer-logo">
-                <img src="images/logoTTC-pdf.png" alt="The Travel Circle logo">
-                <span>The Travel Circle</span>
+            <a href="#home" class="logo brand-logo footer-logo" aria-label="The Travel Circle Home">
+                <div class="logo-box">
+                    <div class="logo-circle-avatar">
+                        <img src="images/logoTTC.png" alt="The Travel Circle logo">
+                    </div>
+                </div>
             </a>
             <p>You Dream. We Plan. You Explore. Thoughtful tours, smooth bookings, and memorable journeys designed around you. No Boundaries. No Limits. Just Endless Journeys.</p>
             <div class="share">
+                <a href="https://wa.me/917304979500" class="fab fa-whatsapp" aria-label="WhatsApp Business 7304979500" target="_blank" rel="noopener noreferrer" title="WhatsApp 7304979500"></a>
                 <a href="#" class="fab fa-facebook-f" aria-label="Facebook" target="_blank" rel="noopener noreferrer"></a>
-                <a href="#" class="fab fa-twitter" aria-label="Twitter" target="_blank" rel="noopener noreferrer"></a>
                 <a href="#" class="fab fa-instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer"></a>
-                <a href="#" class="fab fa-linkedin" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"></a>
             </div>
         </div>
         <div class="box" data-aos="fade-up" data-aos-delay="300">
@@ -561,10 +780,43 @@ const templates = {
         </div>
         <div class="box" data-aos="fade-up" data-aos-delay="450">
             <h3>contact The Travel Circle</h3>
-            <p> <i class="fas fa-map"></i> Uttar Pradesh, India </p>
-            <p> <i class="fas fa-phone"></i> +91 6394729329 </p>
-            <p> <i class="fas fa-envelope"></i> yashsrivastava561@gmail.com </p>
-            <p> <i class="fas fa-clock"></i> 7:00am - 10:00pm </p>
+            <div class="footer-contact-list">
+                <div class="footer-contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div class="footer-contact-text">
+                        <span class="contact-label">Email</span>
+                        <a href="mailto:info@thetravelcircle.co.in">info@thetravelcircle.co.in</a>
+                        <a href="mailto:thetravelcircle26@gmail.com">thetravelcircle26@gmail.com</a>
+                    </div>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-globe"></i>
+                    <div class="footer-contact-text">
+                        <span class="contact-label">Website</span>
+                        <a href="https://thetravelcircle.co.in" target="_blank" rel="noopener noreferrer">thetravelcircle.co.in</a>
+                    </div>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <div class="footer-contact-text">
+                        <span class="contact-label">Contact Number</span>
+                        <a href="tel:7304979500">7304979500</a>
+                    </div>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="footer-contact-text">
+                        <span class="contact-label">Address</span>
+                        <a href="https://maps.google.com/?q=House+no.+4166+A,+Shop+no.+112,+First+Floor,+Karanja+Navapada,+Near+New+Karanja,+Taluka+Uran,+District+Raigad,+PIN+400702" target="_blank" rel="noopener noreferrer" class="address-link">
+                            House no. 4166 A, Shop no. 112,<br>
+                            First Floor, Karanja Navapada,<br>
+                            Near New Karanja,<br>
+                            Taluka Uran, District Raigad,<br>
+                            PIN 400702
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="box" data-aos="fade-up" data-aos-delay="600">
             <h3><i class="fas fa-envelope-open-text"></i> travel inspiration</h3>
@@ -597,6 +849,37 @@ const templates = {
 </div>`;
     },
 
+    createLehModal() {
+        return `
+<div class="leh-modal" id="leh-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card">
+        <button class="modal-close-btn" id="leh-modal-close" type="button" aria-label="Close"><i class="fas fa-times"></i></button>
+        <div class="modal-header">
+            <i class="fas fa-mountain modal-icon"></i>
+            <h3>Leh Ladakh Expeditions</h3>
+            <p>Select your preferred tour package style for Leh Ladakh:</p>
+        </div>
+        <div class="modal-options">
+            <button type="button" class="btn modal-opt-btn" data-leh-choice="Option 1: Plan Destination Tour">
+                <i class="fas fa-map-marked-alt"></i> Option 1: Plan Destination Tour
+            </button>
+            <button type="button" class="btn modal-opt-btn bike-opt" data-leh-choice="Option 2: Plan Bike Ride Tour">
+                <i class="fas fa-motorcycle"></i> Option 2: Plan Bike Ride Tour
+            </button>
+        </div>
+    </div>
+</div>`;
+    },
+
+    createFloatingWhatsapp() {
+        return `
+<a href="https://wa.me/917304979500?text=Hi%20The%20Travel%20Circle%2C%20I%20want%20to%20plan%20a%20tour!" target="_blank" rel="noopener noreferrer" class="floating-whatsapp-widget" title="Chat with us on WhatsApp 7304979500" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-tooltip">Chat with us!</span>
+</a>`;
+    },
+
     createPageStructure() {
         return `
             ${this.createPageLoader()}
@@ -609,6 +892,7 @@ const templates = {
                 ${this.createDestination()}
                 ${this.createServices()}
                 ${this.createGallery()}
+                ${this.createVlogs()}
                 ${this.createReview()}
                 ${this.createBlogs()}
                 ${this.createBanner()}
@@ -616,6 +900,8 @@ const templates = {
             ${this.createFooter()}
             ${this.createScrollTopButton()}
             ${this.createLightbox()}
+            ${this.createLehModal()}
+            ${this.createFloatingWhatsapp()}
         `;
     }
 };
@@ -667,11 +953,15 @@ document.addEventListener('DOMContentLoaded', () => {
             this.initActiveLinkObserver();
             this.initBookingReveal();
             this.initBookingForm();
+            this.initDestinationWhatsApp();
+            this.initVlogWhatsApp();
             this.initNewsletterForm();
             this.initReviewSlider();
             this.initGalleryReveal();
             this.initGalleryLightbox();
             this.initDestinationTabs();
+            this.initStateSearch();
+            this.initLehModal();
         },
 
         initDestinationTabs() {
@@ -1115,85 +1405,8 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         initFullSiteSlowScroll() {
-            const scroller = this.ensureFullSiteScroller();
-            if (!scroller) {
-                document.documentElement.dataset.fullSiteSlowScroll = 'fallback';
-                return;
-            }
-
-            let touchStartY = 0;
-            let touchLastY = 0;
-            let touchActive = false;
-
-            const normalizeWheelDelta = (event) => {
-                const lineHeight = 18;
-                const pageHeight = window.innerHeight * .82;
-                if (event.deltaMode === 1) return event.deltaY * lineHeight;
-                if (event.deltaMode === 2) return event.deltaY * pageHeight;
-                return event.deltaY;
-            };
-
-            window.addEventListener('wheel', (event) => {
-                if (this.shouldSkipFullSiteScroll(event)) return;
-
-                if (event.cancelable) {
-                    event.preventDefault();
-                }
-                this.cancelSmoothScroll();
-                const delta = normalizeWheelDelta(event);
-                const distance = Math.max(-780, Math.min(780, delta * 1.05));
-                const duration = Math.min(720, Math.max(360, 260 + Math.abs(distance) * .55));
-                this.scrollSiteBy(distance, duration);
-            }, { passive: false, capture: true });
-
-            window.addEventListener('keydown', (event) => {
-                if (this.shouldSkipFullSiteScroll(event) || event.altKey || event.shiftKey) return;
-
-                const keyScrollMap = {
-                    ArrowDown: 110,
-                    ArrowUp: -110,
-                    PageDown: window.innerHeight * .82,
-                    PageUp: -window.innerHeight * .82,
-                    Home: -Math.max(document.documentElement.scrollHeight, document.body.scrollHeight),
-                    End: Math.max(document.documentElement.scrollHeight, document.body.scrollHeight),
-                    ' ': window.innerHeight * .82
-                };
-
-                if (!Object.prototype.hasOwnProperty.call(keyScrollMap, event.key)) return;
-
-                if (event.cancelable) {
-                    event.preventDefault();
-                }
-                this.cancelSmoothScroll();
-                this.scrollSiteBy(keyScrollMap[event.key], event.key === 'ArrowDown' || event.key === 'ArrowUp' ? 420 : 760);
-            }, { capture: true });
-
-            window.addEventListener('touchstart', (event) => {
-                if (event.touches.length !== 1 || this.shouldSkipFullSiteScroll(event)) return;
-                touchActive = true;
-                touchStartY = event.touches[0].clientY;
-                touchLastY = touchStartY;
-                this.siteScrollTarget = window.scrollY || window.pageYOffset;
-            }, { passive: true, capture: true });
-
-            window.addEventListener('touchmove', (event) => {
-                if (!touchActive || event.touches.length !== 1 || this.shouldSkipFullSiteScroll(event)) return;
-                const currentY = event.touches[0].clientY;
-                const delta = (touchLastY - currentY) * 1.18;
-                touchLastY = currentY;
-
-                if (Math.abs(delta) < 1) return;
-
-                if (event.cancelable) {
-                    event.preventDefault();
-                }
-                this.cancelSmoothScroll();
-                this.scrollSiteBy(delta, 260);
-            }, { passive: false, capture: true });
-
-            window.addEventListener('touchend', () => {
-                touchActive = false;
-            }, { passive: true });
+            // Using default native browser scrolling
+            document.documentElement.dataset.fullSiteSlowScroll = 'native';
         },
 
         initScrollEffects() {
@@ -1258,20 +1471,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const bookSection = document.querySelector('#book-form');
             const bookingLinks = document.querySelectorAll('a[href="#book-form"]');
 
-            if (!bookSection || bookingLinks.length === 0) return;
-
-            let revealLock = false;
+            if (!bookSection) return;
 
             const showBooking = () => {
-                revealLock = true;
                 bookSection.classList.remove('is-hidden');
                 bookSection.setAttribute('aria-hidden', 'false');
                 window.setTimeout(() => {
-                    this.smoothScrollTo(bookSection, { duration: 1850, center: true });
-                }, 60);
-                window.setTimeout(() => {
-                    revealLock = false;
-                }, 2050);
+                    this.smoothScrollTo(bookSection, { duration: 800, center: true });
+                    const firstInput = bookSection.querySelector('#book-destination');
+                    if (firstInput) firstInput.focus();
+                }, 100);
             };
 
             const hideBooking = () => {
@@ -1286,16 +1495,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
 
-            window.addEventListener('scroll', throttle(() => {
-                if (revealLock || bookSection.classList.contains('is-hidden')) return;
-
-                const rect = bookSection.getBoundingClientRect();
-                const hasLeftView = rect.bottom < 90 || rect.top > window.innerHeight - 90;
-
-                if (hasLeftView) {
+            const closeBtn = bookSection.querySelector('#close-book-form');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
                     hideBooking();
-                }
-            }, 120));
+                });
+            }
         },
 
         initVideoSwitcher() {
@@ -1371,44 +1577,351 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 4000);
         },
 
+        whatsappConfig: {
+            phoneNumber: '917304979500'
+        },
+
+        openWhatsAppEnquiry(messageText) {
+            if (!messageText) return;
+            const phone = this.whatsappConfig.phoneNumber;
+            const encodedText = encodeURIComponent(messageText);
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const waUrl = isMobile 
+                ? `https://api.whatsapp.com/send?phone=${phone}&text=${encodedText}`
+                : `https://wa.me/${phone}?text=${encodedText}`;
+            
+            window.open(waUrl, '_blank', 'noopener,noreferrer');
+        },
+
+        generateTourPlanWhatsAppMessage(formData) {
+            const dest = (formData.destination || '').trim();
+            const contact = (formData.contact || '').trim();
+            const dateFrom = (formData.dateFrom || '').trim();
+            const dateTo = (formData.dateTo || '').trim();
+            const travelers = (formData.travelers || '').trim();
+            const email = (formData.email || '').trim();
+
+            const lines = [
+                "Hello The Travel Circle,",
+                "",
+                "I would like to enquire about planning a trip.",
+                "",
+                "Destination:",
+                dest,
+                "",
+                "Travel Dates:",
+                `${dateFrom} to ${dateTo}`,
+                "",
+                "Number of Travelers:",
+                travelers,
+                "",
+                "Contact Number:",
+                contact
+            ];
+
+            if (email) {
+                lines.push("");
+                lines.push("Email:");
+                lines.push(email);
+            }
+
+            lines.push(
+                "",
+                "I would like to know more about the available tour options, itinerary, pricing, inclusions, and other details.",
+                "",
+                "Please get in touch with me regarding this enquiry.",
+                "",
+                "Thank you,",
+                "I look forward to hearing from you."
+            );
+
+            return lines.join("\n");
+        },
+
+        generateDestinationWhatsAppMessage(destObj) {
+            const title = (destObj.title || 'Selected Destination').trim();
+            const category = (destObj.category || 'India').trim();
+            const vibe = (destObj.vibe || '').trim();
+
+            const lines = [
+                "Hello The Travel Circle,",
+                "",
+                `I am interested in planning a trip to ${title}.`,
+                "",
+                "Destination:",
+                title,
+                "",
+                "Location:",
+                category
+            ];
+
+            if (vibe) {
+                lines.push("");
+                lines.push("About the Destination:");
+                lines.push(vibe);
+            }
+
+            lines.push(
+                "",
+                "I would like to know more about:",
+                "",
+                "- Available tour packages",
+                "- Itinerary",
+                "- Pricing",
+                "- Travel dates",
+                "- Inclusions",
+                "- Accommodation",
+                "- Other available options",
+                "",
+                "Please share the details and help me plan this trip.",
+                "",
+                "Thank you,",
+                "I look forward to hearing from you."
+            );
+
+            return lines.join("\n");
+        },
+
+        generateVlogWhatsAppMessage(vlogObj) {
+            const dest = (vlogObj.destination || '').trim();
+            const title = (vlogObj.title || '').trim();
+            const desc = (vlogObj.desc || '').trim();
+
+            const lines = [
+                "Hello The Travel Circle,",
+                "",
+                `I came across your travel vlog and I am interested in planning a trip to ${dest}.`,
+                "",
+                "Destination:",
+                dest,
+                "",
+                "Travel Experience:",
+                title
+            ];
+
+            if (desc) {
+                lines.push("");
+                lines.push("Experience Details:");
+                lines.push(desc);
+            }
+
+            lines.push(
+                "",
+                "I would like to know more about:",
+                "",
+                "- Itinerary",
+                "- Available travel dates",
+                "- Package options",
+                "- Pricing",
+                "- Accommodation",
+                "- Inclusions",
+                "- Other trip details",
+                "",
+                "Please share the details and help me plan this journey.",
+                "",
+                "Thank you,",
+                "I look forward to hearing from you."
+            );
+
+            return lines.join("\n");
+        },
+
+        initDestinationWhatsApp() {
+            document.addEventListener('click', (e) => {
+                const btn = e.target.closest('.dest-wa-btn');
+                if (btn) {
+                    e.preventDefault();
+                    const title = btn.getAttribute('data-dest-title') || '';
+                    const category = btn.getAttribute('data-dest-category') || 'India';
+                    const vibe = btn.getAttribute('data-dest-vibe') || '';
+
+                    const waMsg = this.generateDestinationWhatsAppMessage({ title, category, vibe });
+                    this.openWhatsAppEnquiry(waMsg);
+                }
+            });
+        },
+
+        initVlogWhatsApp() {
+            document.addEventListener('click', (e) => {
+                const btn = e.target.closest('.vlog-wa-btn');
+                if (btn) {
+                    e.preventDefault();
+                    const destination = btn.getAttribute('data-vlog-dest') || '';
+                    const title = btn.getAttribute('data-vlog-title') || '';
+                    const desc = btn.getAttribute('data-vlog-desc') || '';
+
+                    const waMsg = this.generateVlogWhatsAppMessage({ destination, title, desc });
+                    this.openWhatsAppEnquiry(waMsg);
+                }
+            });
+        },
+
         initBookingForm() {
             const bookingForm = document.querySelector('#booking-form');
             if (bookingForm) {
                 bookingForm.addEventListener('submit', (e) => {
                     e.preventDefault();
-                    const destinationInput = bookingForm.querySelector('input[type="text"]');
-                    const dateInput = bookingForm.querySelector('input[type="date"]');
-                    const travelersInput = bookingForm.querySelector('input[type="number"]');
+                    const destInput = document.querySelector('#book-destination');
+                    const contactInput = document.querySelector('#book-contact');
+                    const emailInput = document.querySelector('#book-email');
+                    const dateFromInput = document.querySelector('#book-date-from');
+                    const dateToInput = document.querySelector('#book-date-to');
+                    const travelersInput = document.querySelector('#book-travelers');
 
-                    const destination = destinationInput.value.trim();
-                    const date = dateInput.value;
-                    const travelers = travelersInput.value;
+                    const destination = destInput ? destInput.value.trim() : '';
+                    const contact = contactInput ? contactInput.value.trim() : '';
+                    const email = emailInput ? emailInput.value.trim() : '';
+                    const dateFrom = dateFromInput ? dateFromInput.value : '';
+                    const dateTo = dateToInput ? dateToInput.value : '';
+                    const travelers = travelersInput ? travelersInput.value : '';
 
-                    const selectedDate = new Date(date);
-                    const today = new Date();
-                    today.setHours(0, 0, 0, 0);
-
-                    if (!destination || !date || !travelers) {
-                        this.displayFormMessage(bookingForm, 'Tell us the basics so we can begin shaping your tour.', false);
+                    if (!destination || !contact || !dateFrom || !dateTo || !travelers) {
+                        this.displayFormMessage(bookingForm, 'Please complete all required fields (Destination, Contact Number, Travel Dates, and Travelers) before submitting your tour enquiry.', false);
                         return;
                     }
 
-                    if (selectedDate < today) {
-                        this.displayFormMessage(bookingForm, 'Choose an upcoming travel date for your journey.', false);
-                        dateInput.focus();
+                    if (!/^[0-9]{10,12}$/.test(contact)) {
+                        this.displayFormMessage(bookingForm, 'Please enter a valid compulsory 10-12 digit Contact Number.', false);
+                        if (contactInput) contactInput.focus();
+                        return;
+                    }
+
+                    const startDate = new Date(dateFrom);
+                    const endDate = new Date(dateTo);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+
+                    if (startDate < today) {
+                        this.displayFormMessage(bookingForm, 'Choose an upcoming travel start date.', false);
+                        if (dateFromInput) dateFromInput.focus();
+                        return;
+                    }
+
+                    if (endDate < startDate) {
+                        this.displayFormMessage(bookingForm, 'Return date must be on or after your travel start date.', false);
+                        if (dateToInput) dateToInput.focus();
                         return;
                     }
 
                     if (parseInt(travelers, 10) < 1) {
                         this.displayFormMessage(bookingForm, 'Add at least one traveler to start the plan.', false);
-                        travelersInput.focus();
+                        if (travelersInput) travelersInput.focus();
                         return;
                     }
 
-                    this.displayFormMessage(bookingForm, 'Your travel dream is with us. The Travel Circle will contact you shortly.', true);
+                    const waMsg = this.generateTourPlanWhatsAppMessage({
+                        destination,
+                        contact,
+                        email,
+                        dateFrom,
+                        dateTo,
+                        travelers
+                    });
+
+                    this.displayFormMessage(bookingForm, `Thank you! Opening WhatsApp with your enquiry for ${destination}...`, true);
+
+                    this.openWhatsAppEnquiry(waMsg);
+
                     bookingForm.reset();
                 });
             }
+        },
+
+        initStateSearch() {
+            const selectEl = document.querySelector('#state-search-select');
+            const btnSearch = document.querySelector('#btn-state-search');
+            const bikeRideBtn = document.querySelector('#hero-bike-ride-btn');
+
+            const performSearch = (stateName) => {
+                if (!stateName) return;
+                
+                // Switch destination tab to domestic
+                const domesticBtn = document.querySelector('.destination-tab-btn[data-target="domestic"]');
+                if (domesticBtn) domesticBtn.click();
+
+                // Scroll to destination section
+                const destSection = document.querySelector('#destination');
+                if (destSection) {
+                    this.smoothScrollTo(destSection);
+                }
+
+                // Highlight matching card
+                window.setTimeout(() => {
+                    const cards = document.querySelectorAll('#domestic-content .photo-stack-card');
+                    cards.forEach(card => {
+                        card.classList.remove('state-searched');
+                        const titleEl = card.querySelector('.card-title');
+                        if (titleEl && titleEl.textContent.toLowerCase().includes(stateName.toLowerCase())) {
+                            card.classList.add('state-searched');
+                            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    });
+                }, 400);
+            };
+
+            if (btnSearch && selectEl) {
+                btnSearch.addEventListener('click', () => {
+                    const selectedState = selectEl.value;
+                    if (selectedState) performSearch(selectedState);
+                });
+
+                selectEl.addEventListener('change', (e) => {
+                    const selectedState = e.target.value;
+                    if (selectedState) performSearch(selectedState);
+                });
+            }
+
+            if (bikeRideBtn) {
+                bikeRideBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    performSearch('Leh Ladakh');
+                });
+            }
+        },
+
+        initLehModal() {
+            const lehModal = document.querySelector('#leh-modal');
+            const closeBtn = document.querySelector('#leh-modal-close');
+            const backdrop = lehModal ? lehModal.querySelector('.modal-backdrop') : null;
+            const optionBtns = lehModal ? lehModal.querySelectorAll('.modal-opt-btn') : [];
+
+            const openLehModal = () => {
+                if (!lehModal) return;
+                lehModal.classList.add('is-active');
+                lehModal.setAttribute('aria-hidden', 'false');
+            };
+
+            const closeLehModal = () => {
+                if (!lehModal) return;
+                lehModal.classList.remove('is-active');
+                lehModal.setAttribute('aria-hidden', 'true');
+            };
+
+            document.addEventListener('click', (e) => {
+                const trigger = e.target.closest('.leh-popup-trigger');
+                if (trigger) {
+                    e.preventDefault();
+                    openLehModal();
+                }
+            });
+
+            if (closeBtn) closeBtn.addEventListener('click', closeLehModal);
+            if (backdrop) backdrop.addEventListener('click', closeLehModal);
+
+            optionBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const choice = btn.getAttribute('data-leh-choice') || 'Leh Ladakh Tour';
+                    closeLehModal();
+
+                    const destObj = {
+                        title: `Leh Ladakh (${choice})`,
+                        category: 'India',
+                        vibe: 'Pangong Tso lake camping, Khardung La bike expeditions, and Nubra valley camel safaris.'
+                    };
+                    const waMsg = this.generateDestinationWhatsAppMessage(destObj);
+                    this.openWhatsAppEnquiry(waMsg);
+                });
+            });
         },
 
         initNewsletterForm() {
@@ -1506,26 +2019,71 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         initGalleryReveal() {
-            const gallery = document.querySelector('.gallery');
-            const loadMoreBtn = document.querySelector('#gallery-load-more');
-            if (!gallery || !loadMoreBtn) return;
+            const container = document.getElementById('gallery-box-container') || document.querySelector('.gallery .box-container');
+            const loadMoreBtn = document.getElementById('gallery-load-more');
+            if (!container || !loadMoreBtn || typeof templates === 'undefined') return;
 
-            const batchSize = 12;
-            const revealNextBatch = () => {
-                const hiddenItems = Array.from(gallery.querySelectorAll('.box.is-hidden')).slice(0, batchSize);
+            const allItems = templates.getGalleryItems();
+            let currentIndex = container.querySelectorAll('.box').length;
 
-                hiddenItems.forEach((item) => {
-                    item.classList.remove('is-hidden');
-                    item.classList.add('is-entering');
-                    window.setTimeout(() => item.classList.remove('is-entering'), 420);
-                });
+            if (currentIndex >= allItems.length) {
+                loadMoreBtn.style.display = 'none';
+                return;
+            }
 
-                if (!gallery.querySelector('.box.is-hidden')) {
-                    loadMoreBtn.remove();
+            const buildCardNode = (item) => {
+                const div = document.createElement('div');
+                div.className = item.type === 'video'
+                    ? 'box gallery-tile gallery-tile--landscape video-box is-entering'
+                    : `box gallery-tile gallery-tile--${item.shape} is-entering`;
+                div.dataset.type = item.type;
+                div.dataset.src = item.src;
+                div.tabIndex = 0;
+                div.setAttribute('role', 'button');
+                div.setAttribute('aria-label', item.alt);
+
+                if (item.type === 'video') {
+                    div.innerHTML = `
+                        <div class="video-thumb">
+                            <img src="${item.thumb}" alt="${item.alt}" loading="lazy">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <span class="gallery-shine" aria-hidden="true"></span>`;
+                } else {
+                    div.innerHTML = `
+                        <img src="${item.src}" alt="${item.alt}" loading="lazy">
+                        <span class="gallery-shine" aria-hidden="true"></span>`;
                 }
+
+                return div;
             };
 
-            loadMoreBtn.addEventListener('click', revealNextBatch);
+            const batchSize = 6;
+
+            loadMoreBtn.addEventListener('click', () => {
+                const nextBatch = allItems.slice(currentIndex, currentIndex + batchSize);
+                if (!nextBatch.length) {
+                    loadMoreBtn.style.display = 'none';
+                    return;
+                }
+
+                nextBatch.forEach((item, idx) => {
+                    const node = buildCardNode(item);
+                    node.style.animationDelay = `${idx * 65}ms`;
+                    container.appendChild(node);
+
+                    setTimeout(() => {
+                        node.classList.remove('is-entering');
+                        node.style.animationDelay = '';
+                    }, 520 + idx * 65);
+                });
+
+                currentIndex += nextBatch.length;
+
+                if (currentIndex >= allItems.length) {
+                    loadMoreBtn.style.display = 'none';
+                }
+            });
         },
 
         initGalleryLightbox() {
@@ -1534,15 +2092,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const lightboxVideo = document.getElementById('lightbox-video');
             const lightboxStage = document.querySelector('.lightbox-stage');
             const lightboxBackdrop = document.querySelector('.lightbox-backdrop');
-            const galleryItems = document.querySelectorAll('.gallery .box');
             const closeBtn = document.querySelector('.lightbox .close-btn');
+            const container = document.getElementById('gallery-box-container') || document.querySelector('.gallery .box-container');
 
-            if (!lightbox || !lightboxImg || !lightboxVideo || !lightboxStage || !lightboxBackdrop || !closeBtn || galleryItems.length === 0) return;
+            if (!lightbox || !lightboxImg || !lightboxVideo || !lightboxStage || !lightboxBackdrop || !closeBtn || !container) return;
 
-            const gallerySources = Array.from(galleryItems).map(item => ({
-                type: item.dataset.type || 'image',
-                src: item.dataset.src
-            }));
             let currentImageIndex = 0;
             let lastFocusedElement;
             let focusTrapReady = false;
@@ -1551,8 +2105,16 @@ document.addEventListener('DOMContentLoaded', () => {
             let dragCurrentY = 0;
             let isDragging = false;
 
+            const getGallerySources = () => {
+                return Array.from(container.querySelectorAll('.box')).map(item => ({
+                    type: item.dataset.type || 'image',
+                    src: item.dataset.src
+                }));
+            };
+
             const selectedMedia = () => {
-                const current = gallerySources[currentImageIndex];
+                const sources = getGallerySources();
+                const current = sources[currentImageIndex] || sources[0];
                 return current.type === 'video' ? lightboxVideo : lightboxImg;
             };
 
@@ -1594,7 +2156,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 opacity: 1
                             }
                         ], {
-                            duration: 520,
+                            duration: 480,
                             easing: 'cubic-bezier(.16, 1, .3, 1)'
                         });
                     });
@@ -1604,6 +2166,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     media.addEventListener('load', runAnimation, { once: true });
                 } else {
                     runAnimation();
+                }
+            };
+
+            const updateLightboxMedia = () => {
+                const sources = getGallerySources();
+                const current = sources[currentImageIndex];
+                if (!current) return;
+                lightbox.classList.toggle('show-video', current.type === 'video');
+
+                if (current.type === 'video') {
+                    lightboxImg.removeAttribute('src');
+                    lightboxVideo.src = current.src;
+                    lightboxVideo.load();
+                } else {
+                    lightboxVideo.pause();
+                    lightboxVideo.removeAttribute('src');
+                    lightboxImg.src = current.src;
                 }
             };
 
@@ -1632,33 +2211,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
 
-            const updateLightboxMedia = () => {
-                const current = gallerySources[currentImageIndex];
-                lightbox.classList.toggle('show-video', current.type === 'video');
-
-                if (current.type === 'video') {
-                    lightboxImg.removeAttribute('src');
-                    lightboxVideo.src = current.src;
-                    lightboxVideo.load();
-                } else {
-                    lightboxVideo.pause();
-                    lightboxVideo.removeAttribute('src');
-                    lightboxImg.src = current.src;
-                }
-            };
-
             const showNextImage = () => {
-                currentImageIndex = (currentImageIndex + 1) % gallerySources.length;
+                const sources = getGallerySources();
+                if (!sources.length) return;
+                currentImageIndex = (currentImageIndex + 1) % sources.length;
                 updateLightboxMedia();
             };
 
             const showPrevImage = () => {
-                currentImageIndex = (currentImageIndex - 1 + gallerySources.length) % gallerySources.length;
+                const sources = getGallerySources();
+                if (!sources.length) return;
+                currentImageIndex = (currentImageIndex - 1 + sources.length) % sources.length;
                 updateLightboxMedia();
             };
 
             const trapFocus = () => {
                 const focusableElements = lightbox.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                if (!focusableElements.length) return;
                 const firstFocusable = focusableElements[0];
                 const lastFocusable = focusableElements[focusableElements.length - 1];
                 firstFocusable.focus();
@@ -1669,12 +2238,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 lightbox.addEventListener('keydown', (e) => {
                     if (e.key !== 'Tab') return;
 
-                    if (e.shiftKey) { // Shift + Tab
+                    if (e.shiftKey) {
                         if (document.activeElement === firstFocusable) {
                             lastFocusable.focus();
                             e.preventDefault();
                         }
-                    } else { // Tab
+                    } else {
                         if (document.activeElement === lastFocusable) {
                             firstFocusable.focus();
                             e.preventDefault();
@@ -1720,14 +2289,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 lightboxStage.style.transform = '';
             };
 
-            galleryItems.forEach((item, index) => {
-                item.addEventListener('click', () => openLightbox(index, item));
-                item.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        openLightbox(index, item);
+            container.addEventListener('click', (e) => {
+                const box = e.target.closest('.box');
+                if (!box) return;
+                const boxes = Array.from(container.querySelectorAll('.box'));
+                const idx = boxes.indexOf(box);
+                if (idx !== -1) {
+                    openLightbox(idx, box);
+                }
+            });
+
+            container.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    const box = e.target.closest('.box');
+                    if (!box) return;
+                    e.preventDefault();
+                    const boxes = Array.from(container.querySelectorAll('.box'));
+                    const idx = boxes.indexOf(box);
+                    if (idx !== -1) {
+                        openLightbox(idx, box);
                     }
-                });
+                }
             });
 
             closeBtn.addEventListener('click', closeLightbox);
@@ -1745,39 +2327,91 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     app.init();
+
+    // ==========================================================================
+    // MOTION REVEAL & INTERACTION SYSTEM ENGINE
+    // ==========================================================================
+    const initMotionSystem = () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        // 1. IntersectionObserver for Section & Card Scroll Reveals
+        const revealTargets = document.querySelectorAll('section, .heading, .box, .photo-stack-card, .vlog-card, .blog-card, .review-card, .about-card, .book-form');
+        
+        revealTargets.forEach((el, idx) => {
+            if (!el.hasAttribute('data-motion-reveal')) {
+                el.setAttribute('data-motion-reveal', 'true');
+                if (!el.hasAttribute('data-reveal-delay') && (el.classList.contains('box') || el.classList.contains('photo-stack-card'))) {
+                    const delay = (idx % 4) * 100 + 100;
+                    el.setAttribute('data-reveal-delay', delay.toString());
+                }
+            }
+        });
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -40px 0px',
+            threshold: 0.12
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        revealTargets.forEach((el) => revealObserver.observe(el));
+
+        // 2. Sequential Hero Introduction Timeline
+        const heroSection = document.querySelector('#home');
+        if (heroSection) {
+            const heroElements = heroSection.querySelectorAll('.hero-eyebrow, h1, p, .hero-actions');
+            heroElements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(24px)';
+                el.style.transition = `opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) ${150 + index * 140}ms, transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) ${150 + index * 140}ms`;
+                
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    });
+                });
+            });
+        }
+
+        // 3. Desktop Pointer Parallax & Spatial Response
+        if (window.matchMedia('(pointer: fine)').matches) {
+            const spatialCards = document.querySelectorAll('.hero-primary, .box, .photo-stack-card');
+            
+            spatialCards.forEach((card) => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    const tiltX = (y / (rect.height / 2)) * -3;
+                    const tiltY = (x / (rect.width / 2)) * 3;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateY(-4px)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = '';
+                });
+            });
+        }
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMotionSystem);
+    } else {
+        initMotionSystem();
+    }
 });
 (() => {
-    document.documentElement.style.scrollBehavior = 'auto';
-
-    const applyNativeScroll = () => {
-        document.body.classList.add('native-scroll');
-        document.documentElement.style.scrollBehavior = 'auto';
-        document.body.style.scrollBehavior = 'auto';
-    };
-
-    if (document.body) {
-        applyNativeScroll();
-    } else {
-        document.addEventListener('DOMContentLoaded', applyNativeScroll, { once: true });
-    }
-
-    const nativeScrollTo = window.scrollTo.bind(window);
-    window.scrollTo = (...args) => {
-        if (typeof args[0] === 'object' && args[0] !== null) {
-            nativeScrollTo({ ...args[0], behavior: 'auto' });
-            return;
-        }
-        nativeScrollTo(...args);
-    };
-
-    const nativeScrollIntoView = Element.prototype.scrollIntoView;
-    Element.prototype.scrollIntoView = function scrollIntoViewNative(options) {
-        if (typeof options === 'object' && options !== null) {
-            nativeScrollIntoView.call(this, { ...options, behavior: 'auto' });
-            return;
-        }
-        nativeScrollIntoView.call(this, options);
-    };
+    document.documentElement.style.scrollBehavior = 'smooth';
 
     const keepTopHeaderHonest = () => {
         const header = document.querySelector('.header');
@@ -1790,152 +2424,49 @@ document.addEventListener('DOMContentLoaded', () => {
         header.classList.toggle('scrolled', !atHeroTop);
     };
 
-    window.addEventListener('wheel', (event) => {
-        if (!event.ctrlKey) event.stopImmediatePropagation();
-    }, { capture: true, passive: true });
-
-    window.addEventListener('touchmove', (event) => {
-        event.stopImmediatePropagation();
-    }, { capture: true, passive: true });
-
     window.addEventListener('scroll', keepTopHeaderHonest, { passive: true });
     window.addEventListener('resize', keepTopHeaderHonest, { passive: true });
     window.addEventListener('load', keepTopHeaderHonest, { once: true });
     document.addEventListener('DOMContentLoaded', keepTopHeaderHonest, { once: true });
 })();
+// Mobile Story Gallery disabled in favor of unified progressive View More gallery
 (() => {
-    const normalizeImageSrc = (src) => {
-        try {
-            const url = new URL(src, window.location.href);
-            url.search = '';
-            url.hash = '';
-            return url.href;
-        } catch (error) {
-            return src;
-        }
-    };
-
-    const initMobileStoryGallery = () => {
-        const gallery = document.querySelector('#gallery') || Array.from(document.querySelectorAll('section')).find((section) => {
-            const text = section.textContent.toLowerCase();
-            return text.includes('journey moments') || text.includes('memories from every mile') || text.includes('gallery');
-        });
-
-        if (!gallery || gallery.querySelector('.mobile-story-gallery')) return;
-
-        const source = gallery.querySelector('.gallery-grid, .gallery-masonry, .gallery-list, .gallery-cards, .photo-grid, .gallery-wrapper, .gallery-content') ||
-            Array.from(gallery.children).find((child) => child.querySelectorAll && child.querySelectorAll('img').length >= 3);
-
-        const images = Array.from(gallery.querySelectorAll('img'))
-            .filter((img) => {
-                const src = img.getAttribute('src') || '';
-                const alt = (img.getAttribute('alt') || '').toLowerCase();
-                return src && !src.toLowerCase().includes('logo') && !alt.includes('logo');
-            })
-            .reduce((items, img) => {
-                const src = normalizeImageSrc(img.currentSrc || img.src || img.getAttribute('src'));
-                if (!items.some((item) => item.key === src)) {
-                    items.push({
-                        key: src,
-                        src: img.getAttribute('src') || img.src,
-                        alt: img.getAttribute('alt') || 'The Travel Circle journey memory'
-                    });
-                }
-                return items;
-            }, [])
-            .slice(0, 5);
-
-        if (images.length < 3) return;
-
-        gallery.classList.add('mobile-gallery-enhanced');
-        Array.from(gallery.querySelectorAll('h1, h2, h3, p, .section-title, .section-subtitle, .section-heading, .section-header')).forEach((node) => {
-            if (node.closest('.mobile-story-gallery')) return;
-            const text = (node.textContent || '').toLowerCase();
-            if (text.includes('journey moments') || text.includes('memories from every mile')) {
-                node.setAttribute('data-mobile-gallery-heading', 'true');
-                const parent = node.parentElement;
-                if (parent && parent !== gallery && parent.querySelectorAll('h1, h2, h3, p').length <= 3) {
-                    parent.setAttribute('data-mobile-gallery-heading-wrap', 'true');
-                }
-            }
-        });
-        if (source) {
-            source.setAttribute('data-mobile-gallery-source', 'true');
-        }
-
-        const wrapper = document.createElement('div');
-        wrapper.className = 'mobile-story-gallery';
-        wrapper.innerHTML = `
-            <div class="mobile-story-copy">
-                <p class="mobile-story-eyebrow">Journey moments</p>
-                <h3 class="mobile-story-title">Memories from every <span>mile</span></h3>
-            </div>
-            <div class="mobile-story-stage" aria-label="Featured travel memories">
-                ${images.map((image, index) => `
-                    <figure class="mobile-story-card" tabindex="0">
-                        <img src="${image.src}" alt="${image.alt || `Travel memory ${index + 1}`}" loading="lazy">
-                    </figure>
-                `).join('')}
-            </div>
-            <div class="mobile-story-actions">
-                <button class="mobile-story-more" type="button">View more memories</button>
-            </div>
-        `;
-
-        if (source && source.parentNode) {
-            source.parentNode.insertBefore(wrapper, source);
-        } else {
-            gallery.appendChild(wrapper);
-        }
-
-        const button = wrapper.querySelector('.mobile-story-more');
-        button.addEventListener('click', () => {
-            const expanded = gallery.classList.toggle('mobile-gallery-expanded');
-            button.textContent = expanded ? 'Show featured moments' : 'View more memories';
-        });
-    };
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initMobileStoryGallery, { once: true });
-    } else {
-        initMobileStoryGallery();
-    }
-
-    window.addEventListener('load', initMobileStoryGallery, { once: true });
+    // Standard progressive gallery handles mobile and desktop unified
 })();
 // Mobile Destination Accordion Disabled
 (() => {
     const fixMobileTabletSections = () => {
-        if (!window.matchMedia('(max-width: 1024px)').matches) return;
-
         const sectionSelectors = [
-            '#services',
-            '.services',
-            '.services-section',
-            '#blogs',
-            '.blogs',
-            '.blog-section',
-            '.blogs-section',
-            '.cta-section',
-            '.journey-cta',
-            '.plan-section',
-            '.booking-cta'
+            'section',
+            '#home', '.home',
+            '#services', '.services',
+            '#destination', '.destination',
+            '#vlogs', '.vlogs',
+            '#blogs', '.blogs',
+            '#review', '.review',
+            '#gallery', '.gallery',
+            '#book-form', '.book-form',
+            '.banner', '.why-choose-us'
         ];
 
         document.querySelectorAll(sectionSelectors.join(',')).forEach((section) => {
             section.classList.add('mobile-content-ready');
             section.style.minHeight = 'auto';
-            section.style.height = 'auto';
             section.style.opacity = '1';
             section.style.visibility = 'visible';
 
-            section.querySelectorAll('[style*="opacity"], [style*="visibility"], .reveal, .scroll-reveal, .fade-in, .fade-up, .hidden, .is-hidden').forEach((node) => {
+            section.querySelectorAll('[data-aos], [style*="opacity"], [style*="visibility"], .reveal, .scroll-reveal, .fade-in, .fade-up, .hidden, .is-hidden').forEach((node) => {
                 node.classList.remove('hidden', 'is-hidden');
                 node.style.opacity = '1';
                 node.style.visibility = 'visible';
                 node.style.transform = 'none';
             });
         });
+
+        // Force-refresh AOS on mobile if loaded
+        if (window.AOS && typeof window.AOS.refresh === 'function') {
+            window.AOS.refresh();
+        }
     };
 
     if (document.readyState === 'loading') {
@@ -1944,6 +2475,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fixMobileTabletSections();
     }
 
-    window.addEventListener('load', fixMobileTabletSections, { once: true });
+    window.addEventListener('load', fixMobileTabletSections);
     window.addEventListener('resize', fixMobileTabletSections, { passive: true });
+    window.addEventListener('scroll', fixMobileTabletSections, { passive: true, once: true });
 })();
