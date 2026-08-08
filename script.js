@@ -1259,10 +1259,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (typeof gsap !== 'undefined') {
                     const tl = gsap.timeline();
-                    tl.to(overlay, { autoAlpha: 0 })
-                      .to(menu, { xPercent: 120 }, '<')
-                      .to(menuButtonTexts, { yPercent: 0 }, '<')
-                      .to(menuButtonIcon, { rotate: 0 }, '<')
+                    tl.to(menu, { x: '100%', duration: 0.5, ease: 'power3.in' })
+                      .to(bgPanels, { x: '100%', stagger: 0.08, duration: 0.4, ease: 'power3.in' }, '<')
+                      .to(overlay, { autoAlpha: 0, duration: 0.3 }, '<')
+                      .to(menuButtonTexts, { yPercent: 0, duration: 0.3 }, '<')
+                      .to(menuButtonIcon, { rotate: 0, duration: 0.3 }, '<')
                       .set(navWrap, { display: 'none' });
                 } else {
                     navWrap.style.display = 'none';
@@ -1272,6 +1273,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const openMenu = () => {
                 if (isMenuOpen) return;
                 isMenuOpen = true;
+                navWrap.style.display = 'block';
                 navWrap.setAttribute('data-nav', 'open');
                 menuBtn.setAttribute('aria-expanded', 'true');
                 document.body.classList.add('nav-open');
@@ -1279,14 +1281,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (typeof gsap !== 'undefined') {
                     const tl = gsap.timeline();
                     tl.set(navWrap, { display: 'block' })
-                      .set(menu, { xPercent: 0 }, '<')
-                      .fromTo(menuButtonTexts, { yPercent: 0 }, { yPercent: -100, stagger: 0.2 })
-                      .fromTo(menuButtonIcon, { rotate: 0 }, { rotate: 315 }, '<')
-                      .fromTo(overlay, { autoAlpha: 0 }, { autoAlpha: 1 }, '<')
-                      .fromTo(bgPanels, { xPercent: 101 }, { xPercent: 0, stagger: 0.12, duration: 0.575 }, '<')
-                      .fromTo(menuLinks, { yPercent: 140, rotate: 10 }, { yPercent: 0, rotate: 0, stagger: 0.05 }, '<+=0.35');
-                } else {
-                    navWrap.style.display = 'block';
+                      .to(overlay, { autoAlpha: 1, duration: 0.4 })
+                      .fromTo(bgPanels, { x: '100%' }, { x: '0%', stagger: 0.1, duration: 0.55, ease: 'power3.out' }, '<')
+                      .fromTo(menu, { x: '100%' }, { x: '0%', duration: 0.6, ease: 'power3.out' }, '<')
+                      .fromTo(menuButtonTexts, { yPercent: 0 }, { yPercent: -100, stagger: 0.15, duration: 0.4 }, '<')
+                      .fromTo(menuButtonIcon, { rotate: 0 }, { rotate: 315, duration: 0.4 }, '<')
+                      .fromTo(menuLinks, { y: 35, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.05, duration: 0.4, ease: 'power2.out' }, '<+=0.2');
                 }
             };
 

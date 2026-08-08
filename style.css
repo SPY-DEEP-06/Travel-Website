@@ -6827,15 +6827,29 @@ body.is-loading {
 }
 
 .nav-overlay-wrapper[data-nav="open"] {
-    display: block;
+    display: block !important;
+}
+
+.nav-overlay-wrapper[data-nav="open"] .overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+.nav-overlay-wrapper[data-nav="open"] .menu-content {
+    transform: translateX(0);
+}
+
+.nav-overlay-wrapper[data-nav="open"] .backdrop-layer {
+    transform: translateX(0);
 }
 
 .nav-overlay-wrapper .overlay {
     position: absolute;
     inset: 0;
-    background: rgba(9, 13, 22, 0.65);
+    background: rgba(9, 13, 22, 0.75);
     backdrop-filter: blur(12px);
     opacity: 0;
+    transition: opacity 0.4s ease;
     will-change: opacity;
 }
 
@@ -6851,9 +6865,11 @@ body.is-loading {
     justify-content: space-between;
     padding: 10rem 4rem 5rem 5rem;
     z-index: 2;
-    transform: translateX(120%);
+    transform: translateX(100%);
+    transition: transform 0.6s cubic-bezier(0.65, 0.01, 0.05, 0.99);
     will-change: transform;
     overflow-y: auto;
+    background: #090d16;
 }
 
 .menu-bg {
