@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow:
 
-Sitemap: https://thetravelcircle.in/sitemap.xml
+Sitemap: https://www.thetravelcircle.co.in/sitemap.xml
