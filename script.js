@@ -236,15 +236,13 @@ const templates = {
     },
     
     createAbout() {
-        const videos = this.getVideos();
         const aboutFilms = [
-            ['VID_20220614_073953.mp4', 'Morning Trail'],
-            ['VID_20240425_180456108.mp4', 'Golden Hour'],
-            ['VID_20240617_073859278.mp4', 'Scenic Motion']
-        ].filter(([video]) => videos.includes(video));
-        const featuredFilms = aboutFilms.length ? aboutFilms : videos.slice(0, 3).map((video, index) => [video, `Travel Film ${index + 1}`]);
-        const firstVideo = featuredFilms[0] ? this.mediaSrc(featuredFilms[0][0]) : 'images/ttc/VID-20200407-WA0035.mp4';
-        const videoControls = featuredFilms.map(([video, label], index) => `
+            ['images/VID_20240316_100533931.mp4', 'Grand Horizon'],
+            ['images/about-vid-1.mp4', 'Coastal Paradise'],
+            ['images/about-vid-3.mp4', 'Mountain Vista']
+        ];
+        const firstVideo = this.mediaSrc(aboutFilms[0][0]);
+        const videoControls = aboutFilms.map(([video, label], index) => `
             <button class="control-btn${index === 0 ? ' active' : ''}" data-src="${this.mediaSrc(video)}" data-label="${label}" aria-label="Play ${label}"></button>`).join('');
 
         return `
