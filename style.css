@@ -7184,18 +7184,105 @@ body.site-revealing .home {
     transform: translateX(0) scale(1) !important;
 }
 
-/* Progressive Word Text Reveal */
+/* ==========================================================================
+   22. UNIVERSAL RESPONSIVE TYPOGRAPHY & LAYOUT SAFETY SYSTEM
+   ========================================================================== */
+/* Heading Containers Width & Alignment Safety */
+.heading,
+.about .content,
+.why-choose-us .heading,
+.destination .heading,
+.services .heading,
+.gallery .heading,
+.vlogs .heading,
+.blogs .heading,
+.review .content,
+.contact .heading,
+.footer .box {
+    width: 100% !important;
+    max-width: 1000px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+    min-width: 0 !important;
+}
+
+/* Headings Fluid Typography & Natural Line Wrapping */
+.heading h1,
+.about .content h3,
+.services .heading h1,
+.why-choose-us .heading h1,
+.vlogs .heading h1,
+.blogs .heading h1,
+.contact .heading h1,
+.destination .heading h1,
+.gallery .heading h1,
+.review .content h3 {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    font-size: clamp(2.2rem, 4.5vw, 4.6rem) !important;
+    line-height: 1.25 !important;
+    box-sizing: border-box !important;
+}
+
+.heading span,
+.vlogs .heading span,
+.destination .heading span,
+.services .heading span,
+.review .heading span,
+.blogs .heading span,
+.gallery .heading span,
+.why-choose-us .heading span {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+    white-space: normal !important;
+    font-size: clamp(1.2rem, 1.8vw, 1.6rem) !important;
+    line-height: 1.4 !important;
+    margin-bottom: 0.8rem !important;
+}
+
+/* Paragraphs & Subtitles Fluid Sizing & Wrap Protection */
+p,
+.heading p,
+.about .content p,
+.why-choose-us .box p,
+.services .box p,
+.blogs .box p,
+.vlog-info p,
+.review .box p,
+.card-subtitle {
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-break: normal !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Reveal Word Layout Safety: Inline Parent with Inline-Block Inner Token */
 .reveal-word {
-    display: inline-block;
-    overflow: hidden;
-    vertical-align: top;
-    margin-right: 0.22em;
+    display: inline !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
 }
 
 .reveal-word-inner {
-    display: inline-block;
+    display: inline-block !important;
+    white-space: nowrap !important;
+    vertical-align: top !important;
     opacity: 0;
-    transform: translateY(110%);
+    transform: translateY(105%);
     transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: transform, opacity;
 }
@@ -7204,6 +7291,47 @@ body.site-revealing .home {
 .reveal-word-inner.is-revealed {
     opacity: 1 !important;
     transform: translateY(0) !important;
+}
+
+/* Card Titles & Card Inner Text Safety */
+.card-title,
+.why-choose-us .box h3,
+.services .box h3,
+.blogs .box h3,
+.vlog-info h3,
+.photo-stack-card .card-title {
+    display: block !important;
+    width: 100% !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    font-size: clamp(1.8rem, 2.8vw, 2.6rem) !important;
+    line-height: 1.3 !important;
+}
+
+/* Buttons Non-Wrapping & Layout Safety */
+.btn,
+.hero-primary,
+.talk-btn,
+.card-action-btn,
+.reach-link,
+.form-submit-btn,
+.vlog-action-btn {
+    white-space: nowrap !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Flex / Grid Children Squeezing Prevention */
+.photo-stack-card,
+.why-choose-us .box,
+.services .box,
+.blogs .box,
+.vlog-card,
+.gallery .box,
+.card-text {
+    min-width: 0 !important;
+    box-sizing: border-box !important;
 }
 
 /* Staggered Item Children */
@@ -7227,6 +7355,12 @@ body.site-revealing .home {
 .boneyard-loaded img {
     opacity: 1 !important;
     transition: opacity 0.5s ease-out !important;
+}
+
+@media (max-width: 768px) {
+    .desktop-break {
+        display: none !important;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
