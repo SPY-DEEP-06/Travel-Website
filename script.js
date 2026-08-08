@@ -117,6 +117,7 @@ const templates = {
 
 <section class="fullscreen-menu-container">
     <div data-nav="closed" class="nav-overlay-wrapper">
+        <button id="menu-close-cross" type="button" class="menu-close-cross-btn" aria-label="Close menu"><i class="fas fa-times"></i></button>
         <div class="overlay"></div>
         <nav class="menu-content">
             <div class="menu-bg">
@@ -1435,6 +1436,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     openMenu();
                 }
             };
+
+            const closeCrossBtn = document.querySelector('#menu-close-cross');
+            if (closeCrossBtn) {
+                closeCrossBtn.onclick = (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    closeMenu(false);
+                };
+            }
 
             if (overlay) {
                 overlay.onclick = (event) => {

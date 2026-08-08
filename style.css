@@ -6763,6 +6763,46 @@ body.is-loading {
 /* ==========================================================================
    20. STERLING GATE KINETIC NAVIGATION SYSTEM & PORTAL OVERLAY STYLES
    ========================================================================== */
+/* Dedicated High-Visibility Close Cross (X) Button when Menu is Open */
+.menu-close-cross-btn {
+    position: fixed !important;
+    top: 2.2rem !important;
+    right: 2.5rem !important;
+    z-index: 999999 !important;
+    width: 4.8rem !important;
+    height: 4.8rem !important;
+    border-radius: 50% !important;
+    background: rgba(15, 23, 42, 0.85) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    backdrop-filter: blur(12px) !important;
+    color: #ffffff !important;
+    font-size: 2rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: scale(0.7) rotate(-90deg) !important;
+}
+
+.nav-overlay-wrapper[data-nav="open"] .menu-close-cross-btn,
+.fullscreen-menu-container.is-open .menu-close-cross-btn {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: scale(1) rotate(0deg) !important;
+}
+
+.menu-close-cross-btn:hover {
+    background: #d9a441 !important;
+    color: #0f172a !important;
+    border-color: #d9a441 !important;
+    transform: scale(1.1) rotate(90deg) !important;
+    box-shadow: 0 10px 30px rgba(217, 164, 65, 0.5) !important;
+}
+
 .nav-close-btn.kinetic-menu-btn {
     position: relative !important;
     display: inline-flex !important;
