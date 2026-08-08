@@ -174,7 +174,7 @@ const templates = {
     },
 
     createHome() {
-        const heroVideo = this.mediaSrc('VID_20240316_100533931.mp4');
+        const heroVideo = this.mediaSrc('images/about-vid-2.mp4');
 
         return `
 <section class="home" id="home">
