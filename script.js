@@ -420,34 +420,52 @@ const templates = {
         
         const internationalDestinations = [
             {
-                title: 'Singapore - Malaysia - Thailand',
-                vibe: 'Vibrant tropical megacities, island hopping, theme parks, world-class shopping, and beach resorts.',
-                custom: 'Combined Southeast Asia grand tour including Marina Bay Sands, Genting Highlands, and Phuket beach cruises.'
+                title: 'Singapore',
+                folder: 'Singapore',
+                vibe: 'Vibrant tropical megacity, iconic skyline, Gardens by the Bay, Marina Bay Sands, world-class dining and shopping.',
+                custom: 'Luxury Singapore city tour, Night Safari, Universal Studios, and Sentosa Island getaway.'
+            },
+            {
+                title: 'Malaysia',
+                folder: 'Malaysia',
+                vibe: 'Modern skylines, misty highlands, ancient rainforests, and rich multicultural heritage.',
+                custom: 'Petronas Twin Towers, Batu Caves, Genting Highlands cable car, and Langkawi beach resorts.'
+            },
+            {
+                title: 'Thailand',
+                folder: 'thailand',
+                vibe: 'Golden temples, bustling street markets, tropical islands, and legendary Thai hospitality.',
+                custom: 'Bangkok Grand Palace, Phuket beach escapes, Phi Phi island cruises, and Chiang Mai retreats.'
             },
             {
                 title: 'Dubai',
-                vibe: 'Luxury shopping, desert safaris, and iconic sky-high attractions.',
-                custom: 'Burj Khalifa observation deck, desert dune bashing, and luxury yacht charters.'
+                folder: 'dubai',
+                vibe: 'Luxury shopping, desert safaris, and iconic sky-high architecture.',
+                custom: 'Burj Khalifa observation deck, desert dune bashing, Dubai Marina yacht cruises, and Miracle Garden tours.'
             },
             {
                 title: 'Bali',
-                vibe: 'Tropical paradise, wellness retreats, and vibrant beach culture.',
-                custom: 'Ubud jungle villas, Tanah Lot sunsets, and Nusa Penida island tours.'
+                folder: 'Bali',
+                vibe: 'Tropical paradise, volcanic landscapes, wellness retreats, and vibrant beach culture.',
+                custom: 'Ubud jungle villas, Tanah Lot sunsets, Nusa Penida island tours, and sacred water temple blessings.'
             },
             {
                 title: 'Vietnam',
-                vibe: 'Natural beauty, emerald bays, and rich historical heritage.',
-                custom: 'Ha Long Bay overnight cruises, Hoi An lantern city walks, and Mekong delta tours.'
+                folder: 'Vietnam',
+                vibe: 'Natural beauty, emerald bays, lush rice terraces, and rich historical heritage.',
+                custom: 'Ha Long Bay overnight cruises, Hoi An lantern city walks, Hanoi Old Quarter tours, and Mekong delta excursions.'
             },
             {
                 title: 'Sri Lanka - The Pearl of the Indian Ocean',
-                vibe: 'Golden beaches, misty tea plantations, ancient heritage sites, lush rainforests, diverse wildlife, and warm island hospitality.',
-                custom: 'Scenic train journeys through Ella, cultural tours of Kandy and Sigiriya, beach escapes in Bentota and Mirissa, Yala National Park wildlife safaris, whale watching cruises, and customized luxury, honeymoon, family, and adventure holidays.'
+                folder: 'srilanka',
+                vibe: 'Golden beaches, misty tea plantations, ancient heritage sites, lush rainforests, and wildlife safaris.',
+                custom: 'Scenic train journeys through Ella, cultural tours of Kandy and Sigiriya, beach escapes in Bentota, and Yala National Park wildlife safaris.'
             },
             {
                 title: 'Azerbaijan - Where Europe Meets Asia',
-                vibe: 'Modern cityscapes, ancient Silk Route heritage, dramatic mountain landscapes, Caspian Sea coastline, and unique natural wonders.',
-                custom: 'Luxury Baku city tours, Gobustan mud volcano excursions, Shahdag mountain retreats, Gabala nature escapes, Caspian Sea experiences, and personalized cultural and culinary journeys across Azerbaijan.'
+                folder: 'azerbaijaan',
+                vibe: 'Modern cityscapes, ancient Silk Route heritage, dramatic mountain landscapes, and Caspian Sea coastline.',
+                custom: 'Luxury Baku city tours, Gobustan mud volcano excursions, Shahdag mountain retreats, and Gabala nature escapes.'
             }
         ];
 
@@ -482,10 +500,13 @@ const templates = {
         }).join('');
 
         const internationalCards = internationalDestinations.map((dest, index) => {
-            const imgIndex = (index + 15) * 3;
-            const img1 = images.length ? this.mediaSrc(images[imgIndex % images.length]) : '';
-            const img2 = images.length ? this.mediaSrc(images[(imgIndex + 1) % images.length]) : img1;
-            const img3 = images.length ? this.mediaSrc(images[(imgIndex + 2) % images.length]) : img1;
+            const destMap = window.ttcMedia && window.ttcMedia.destinations;
+            const folderImages = (destMap && dest.folder && destMap[dest.folder]) || [];
+            const fallbackIndex = (index * 3) % (images.length || 1);
+            
+            const img1 = this.mediaSrc(folderImages[0] || images[fallbackIndex] || '');
+            const img2 = this.mediaSrc(folderImages[1] || folderImages[0] || images[fallbackIndex + 1] || img1);
+            const img3 = this.mediaSrc(folderImages[2] || folderImages[1] || folderImages[0] || images[fallbackIndex + 2] || img1);
             const safeTitle = (dest.title || '').replace(/"/g, '&quot;');
             const safeVibe = (dest.vibe || '').replace(/"/g, '&quot;');
             
