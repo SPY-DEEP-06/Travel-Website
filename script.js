@@ -67,7 +67,11 @@ const templates = {
             ['Blogs', '#blogs', previewFor(92), 'Stories Before You Pack', '2'],
             ['Contact', '#contact', previewFor(112), 'Talk To The Travel Circle', '3']
         ];
-        const navLinks = navItems.map(([title, href, preview, label, shape], index) => `
+
+        const topNavLinks = navItems.map(([title, href, preview, label], index) => `
+            <a data-aos="zoom-in-left" data-aos-delay="${250 + index * 70}" href="${href}" class="menu-link-item roll-link" data-preview="${preview}" data-preview-title="${label}">${this.rollText(title)}</a>`).join('');
+
+        const overlayNavLinks = navItems.map(([title, href, preview, label, shape], index) => `
             <li class="menu-list-item" data-shape="${shape}" data-preview="${preview}" data-preview-title="${label}">
                 <a href="${href}" class="nav-link menu-link-item roll-link w-inline-block">
                     <p class="nav-link-text">${this.rollText(title)}</p>
@@ -84,6 +88,11 @@ const templates = {
             </div>
         </div>
     </a>
+    <nav class="navbar" id="navbar">
+        <div class="nav-links">
+            ${topNavLinks}
+        </div>
+    </nav>
     <div class="header-actions">
         <a data-aos="zoom-in-left" data-aos-delay="850" href="#contact" class="reach-link">Reach Out</a>
         <a data-aos="zoom-in-left" data-aos-delay="950" href="#book-form" class="talk-btn">Plan My Tour</a>
@@ -149,7 +158,7 @@ const templates = {
 
             <div class="menu-content-wrapper">
                 <ul class="menu-list">
-                    ${navLinks}
+                    ${overlayNavLinks}
                 </ul>
             </div>
 
