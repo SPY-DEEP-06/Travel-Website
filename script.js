@@ -55,20 +55,25 @@ const templates = {
 
     createHeader() {
         const images = this.getImages().filter(image => !this.isDuplicateGalleryMedia(image));
-        const previewFallback = images[0] || '20160804_193605.jpg';
+        const previewFallback = images[0] || 'images/logoTTC.png';
         const previewFor = (index) => this.mediaSrc(images[index] || previewFallback);
         const navItems = [
-            ['Home', '#home', previewFor(8), 'Begin The Circle'],
-            ['About', '#about', previewFor(35), 'Meet The Travel Circle'],
-            ['Destination', '#destination', previewFor(48), 'Handpicked Escapes'],
-            ['Services', '#services', previewFor(63), 'Plans With Polish'],
-            ['Gallery', '#gallery', previewFor(76), 'Moments Worth Keeping'],
-            ['Vlogs', '#vlogs', previewFor(100), 'Travel Experiences & Reels'],
-            ['Blogs', '#blogs', previewFor(92), 'Stories Before You Pack'],
-            ['Contact', '#contact', previewFor(112), 'Talk To The Travel Circle']
+            ['Home', '#home', previewFor(8), 'Begin The Circle', '1'],
+            ['About', '#about', previewFor(35), 'Meet The Travel Circle', '2'],
+            ['Destination', '#destination', previewFor(48), 'Handpicked Escapes', '3'],
+            ['Services', '#services', previewFor(63), 'Plans With Polish', '4'],
+            ['Gallery', '#gallery', previewFor(76), 'Moments Worth Keeping', '5'],
+            ['Vlogs', '#vlogs', previewFor(100), 'Travel Experiences & Reels', '1'],
+            ['Blogs', '#blogs', previewFor(92), 'Stories Before You Pack', '2'],
+            ['Contact', '#contact', previewFor(112), 'Talk To The Travel Circle', '3']
         ];
-        const navLinks = navItems.map(([title, href, preview, label], index) => `
-            <a data-aos="zoom-in-left" data-aos-delay="${250 + index * 70}" href="${href}" class="menu-link-item roll-link" data-preview="${preview}" data-preview-title="${label}">${this.rollText(title)}</a>`).join('');
+        const navLinks = navItems.map(([title, href, preview, label, shape], index) => `
+            <li class="menu-list-item" data-shape="${shape}" data-preview="${preview}" data-preview-title="${label}">
+                <a href="${href}" class="nav-link menu-link-item roll-link w-inline-block">
+                    <p class="nav-link-text">${this.rollText(title)}</p>
+                    <div class="nav-link-hover-bg"></div>
+                </a>
+            </li>`).join('');
 
         return `
 <header class="header atelier-header ttc-modern-header">
@@ -79,27 +84,84 @@ const templates = {
             </div>
         </div>
     </a>
-    <nav class="navbar" id="navbar">
-        <div class="nav-links">
-            ${navLinks}
-        </div>
-        <div class="nav-preview" aria-hidden="true">
-            <div class="nav-preview-media">
-                <img src="${navItems[0][2]}" alt="Preview backdrop">
-            </div>
-            <strong>${navItems[0][3]}</strong>
-        </div>
-    </nav>
     <div class="header-actions">
         <a data-aos="zoom-in-left" data-aos-delay="850" href="#contact" class="reach-link">Reach Out</a>
         <a data-aos="zoom-in-left" data-aos-delay="950" href="#book-form" class="talk-btn">Plan My Tour</a>
-        <button id="menu-btn" class="hamburger-btn" aria-label="Open menu" aria-controls="navbar" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
+        <button id="menu-btn" role="button" class="nav-close-btn kinetic-menu-btn" aria-label="Toggle menu" aria-expanded="false">
+            <div class="menu-button-text">
+                <p class="p-large">Menu</p>
+                <p class="p-large">Close</p>
+            </div>
+            <div class="icon-wrap">
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 16 16" fill="none" class="menu-button-icon">
+                    <path d="M7.33333 16L7.33333 -3.2055e-07L8.66667 -3.78832e-07L8.66667 16L7.33333 16Z" fill="currentColor"></path>
+                    <path d="M16 8.66667L-2.62269e-07 8.66667L-3.78832e-07 7.33333L16 7.33333L16 8.66667Z" fill="currentColor"></path>
+                    <path d="M6 7.33333L7.33333 7.33333L7.33333 6C7.33333 6.73637 6.73638 7.33333 6 7.33333Z" fill="currentColor"></path>
+                    <path d="M10 7.33333L8.66667 8.66667L8.66667 6C8.66667 6.73638 9.26362 7.33333 10 7.33333Z" fill="currentColor"></path>
+                    <path d="M6 8.66667L7.33333 8.66667L7.33333 10C7.33333 9.26362 6.73638 8.66667 6 8.66667Z" fill="currentColor"></path>
+                    <path d="M10 8.66667L8.66667 8.66667L8.66667 10C8.66667 9.26362 9.26362 8.66667 10 8.66667Z" fill="currentColor"></path>
+                </svg>
+            </div>
         </button>
     </div>
-</header>`;
+</header>
+
+<section class="fullscreen-menu-container">
+    <div data-nav="closed" class="nav-overlay-wrapper">
+        <div class="overlay"></div>
+        <nav class="menu-content">
+            <div class="menu-bg">
+                <div class="backdrop-layer first"></div>
+                <div class="backdrop-layer second"></div>
+                <div class="backdrop-layer"></div>
+
+                <div class="ambient-background-shapes">
+                    <svg class="bg-shape bg-shape-1" viewBox="0 0 400 400" fill="none">
+                        <circle class="shape-element" cx="80" cy="120" r="40" fill="rgba(99,102,241,0.18)" />
+                        <circle class="shape-element" cx="300" cy="80" r="60" fill="rgba(139,92,246,0.15)" />
+                        <circle class="shape-element" cx="200" cy="300" r="80" fill="rgba(236,72,153,0.12)" />
+                        <circle class="shape-element" cx="350" cy="280" r="30" fill="rgba(99,102,241,0.18)" />
+                    </svg>
+                    <svg class="bg-shape bg-shape-2" viewBox="0 0 400 400" fill="none">
+                        <path class="shape-element" d="M0 200 Q100 100, 200 200 T 400 200" stroke="rgba(99,102,241,0.22)" stroke-width="60" fill="none" />
+                        <path class="shape-element" d="M0 280 Q100 180, 200 280 T 400 280" stroke="rgba(139,92,246,0.18)" stroke-width="40" fill="none" />
+                    </svg>
+                    <svg class="bg-shape bg-shape-3" viewBox="0 0 400 400" fill="none">
+                        <circle class="shape-element" cx="50" cy="50" r="8" fill="rgba(99,102,241,0.3)" />
+                        <circle class="shape-element" cx="150" cy="50" r="8" fill="rgba(139,92,246,0.3)" />
+                        <circle class="shape-element" cx="250" cy="50" r="8" fill="rgba(236,72,153,0.3)" />
+                        <circle class="shape-element" cx="350" cy="50" r="8" fill="rgba(99,102,241,0.3)" />
+                        <circle class="shape-element" cx="100" cy="150" r="12" fill="rgba(139,92,246,0.25)" />
+                        <circle class="shape-element" cx="200" cy="150" r="12" fill="rgba(236,72,153,0.25)" />
+                        <circle class="shape-element" cx="300" cy="150" r="12" fill="rgba(99,102,241,0.25)" />
+                    </svg>
+                    <svg class="bg-shape bg-shape-4" viewBox="0 0 400 400" fill="none">
+                        <path class="shape-element" d="M100 100 Q150 50, 200 100 Q250 150, 200 200 Q150 250, 100 200 Q50 150, 100 100" fill="rgba(99,102,241,0.15)" />
+                        <path class="shape-element" d="M250 200 Q300 150, 350 200 Q400 250, 350 300 Q400 250, 350 300 Q300 350, 250 300 Q200 250, 250 200" fill="rgba(236,72,153,0.12)" />
+                    </svg>
+                    <svg class="bg-shape bg-shape-5" viewBox="0 0 400 400" fill="none">
+                        <line class="shape-element" x1="0" y1="100" x2="300" y2="400" stroke="rgba(99,102,241,0.18)" stroke-width="30" />
+                        <line class="shape-element" x1="100" y1="0" x2="400" y2="300" stroke="rgba(139,92,246,0.15)" stroke-width="25" />
+                        <line class="shape-element" x1="200" y1="0" x2="400" y2="200" stroke="rgba(236,72,153,0.12)" stroke-width="20" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="menu-content-wrapper">
+                <ul class="menu-list">
+                    ${navLinks}
+                </ul>
+            </div>
+
+            <div class="nav-preview" aria-hidden="true">
+                <div class="nav-preview-media">
+                    <img src="${navItems[0][2]}" alt="Preview backdrop">
+                </div>
+                <strong>${navItems[0][3]}</strong>
+            </div>
+        </nav>
+    </div>
+</section>`;
     },
 
     createHome() {
@@ -1116,51 +1178,131 @@ document.addEventListener('DOMContentLoaded', () => {
 
         initNavbar() {
             const menuBtn = document.querySelector('#menu-btn');
-            const navbar = document.querySelector('.header .navbar');
+            const navWrap = document.querySelector('.nav-overlay-wrapper');
+            const menu = document.querySelector('.menu-content');
+            const overlay = document.querySelector('.fullscreen-menu-container .overlay');
+            const bgPanels = document.querySelectorAll('.backdrop-layer');
+            const menuLinks = document.querySelectorAll('.menu-list .nav-link');
+            const menuItems = document.querySelectorAll('.menu-list-item[data-shape]');
+            const shapesContainer = document.querySelector('.ambient-background-shapes');
+            const menuButtonTexts = menuBtn?.querySelectorAll('p');
+            const menuButtonIcon = menuBtn?.querySelector('.menu-button-icon');
 
-            if (menuBtn && navbar) {
-                const closeMenu = () => {
-                    navbar.classList.remove('active');
-                    menuBtn.classList.remove('active');
-                    document.body.classList.remove('nav-open');
-                    menuBtn.setAttribute('aria-expanded', 'false');
-                    menuBtn.setAttribute('aria-label', 'Open menu');
-                };
+            if (!menuBtn || !navWrap) return;
 
-                const openMenu = () => {
-                    navbar.classList.add('active');
-                    menuBtn.classList.add('active');
-                    document.body.classList.add('nav-open');
-                    menuBtn.setAttribute('aria-expanded', 'true');
-                    menuBtn.setAttribute('aria-label', 'Close menu');
-                };
-
-                menuBtn.onclick = (event) => {
-                    event.stopPropagation();
-                    const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
-                    if (isExpanded) {
-                        closeMenu();
-                    } else {
-                        openMenu();
-                    }
-                };
-
-                document.querySelectorAll('.header .navbar a').forEach(link => {
-                    link.onclick = closeMenu;
-                });
-
-                document.addEventListener('keydown', (event) => {
-                    if (event.key === 'Escape' && navbar.classList.contains('active')) {
-                        closeMenu();
-                    }
-                });
-
-                document.addEventListener('click', (event) => {
-                    if (!navbar.classList.contains('active')) return;
-                    if (event.target.closest('.header')) return;
-                    closeMenu();
-                });
+            // Setup CustomEase if GSAP is available
+            try {
+                if (typeof gsap !== 'undefined' && gsap.CustomEase && !gsap.parseEase('main')) {
+                    gsap.registerPlugin(gsap.CustomEase);
+                    gsap.CustomEase.create('main', '0.65, 0.01, 0.05, 0.99');
+                    gsap.defaults({ ease: 'main', duration: 0.7 });
+                }
+            } catch (e) {
+                if (typeof gsap !== 'undefined') gsap.defaults({ ease: 'power2.out', duration: 0.7 });
             }
+
+            // Shape Hover Interactions
+            menuItems.forEach((item) => {
+                const shapeIndex = item.getAttribute('data-shape');
+                const shape = shapesContainer ? shapesContainer.querySelector(`.bg-shape-${shapeIndex}`) : null;
+                if (!shape) return;
+
+                const shapeEls = shape.querySelectorAll('.shape-element');
+
+                const onEnter = () => {
+                    if (shapesContainer) {
+                        shapesContainer.querySelectorAll('.bg-shape').forEach((s) => s.classList.remove('active'));
+                    }
+                    shape.classList.add('active');
+
+                    if (typeof gsap !== 'undefined') {
+                        gsap.fromTo(shapeEls,
+                            { scale: 0.5, opacity: 0, rotation: -10 },
+                            { scale: 1, opacity: 1, rotation: 0, duration: 0.6, stagger: 0.08, ease: 'back.out(1.7)', overwrite: 'auto' }
+                        );
+                    }
+                };
+
+                const onLeave = () => {
+                    if (typeof gsap !== 'undefined') {
+                        gsap.to(shapeEls, {
+                            scale: 0.8, opacity: 0, duration: 0.3, ease: 'power2.in',
+                            onComplete: () => shape.classList.remove('active'),
+                            overwrite: 'auto'
+                        });
+                    } else {
+                        shape.classList.remove('active');
+                    }
+                };
+
+                item.addEventListener('mouseenter', onEnter);
+                item.addEventListener('mouseleave', onLeave);
+            });
+
+            let isMenuOpen = false;
+
+            const closeMenu = () => {
+                if (!isMenuOpen) return;
+                isMenuOpen = false;
+                navWrap.setAttribute('data-nav', 'closed');
+                menuBtn.setAttribute('aria-expanded', 'false');
+                document.body.classList.remove('nav-open');
+
+                if (typeof gsap !== 'undefined') {
+                    const tl = gsap.timeline();
+                    tl.to(overlay, { autoAlpha: 0 })
+                      .to(menu, { xPercent: 120 }, '<')
+                      .to(menuButtonTexts, { yPercent: 0 }, '<')
+                      .to(menuButtonIcon, { rotate: 0 }, '<')
+                      .set(navWrap, { display: 'none' });
+                } else {
+                    navWrap.style.display = 'none';
+                }
+            };
+
+            const openMenu = () => {
+                if (isMenuOpen) return;
+                isMenuOpen = true;
+                navWrap.setAttribute('data-nav', 'open');
+                menuBtn.setAttribute('aria-expanded', 'true');
+                document.body.classList.add('nav-open');
+
+                if (typeof gsap !== 'undefined') {
+                    const tl = gsap.timeline();
+                    tl.set(navWrap, { display: 'block' })
+                      .set(menu, { xPercent: 0 }, '<')
+                      .fromTo(menuButtonTexts, { yPercent: 0 }, { yPercent: -100, stagger: 0.2 })
+                      .fromTo(menuButtonIcon, { rotate: 0 }, { rotate: 315 }, '<')
+                      .fromTo(overlay, { autoAlpha: 0 }, { autoAlpha: 1 }, '<')
+                      .fromTo(bgPanels, { xPercent: 101 }, { xPercent: 0, stagger: 0.12, duration: 0.575 }, '<')
+                      .fromTo(menuLinks, { yPercent: 140, rotate: 10 }, { yPercent: 0, rotate: 0, stagger: 0.05 }, '<+=0.35');
+                } else {
+                    navWrap.style.display = 'block';
+                }
+            };
+
+            menuBtn.onclick = (event) => {
+                event.stopPropagation();
+                if (isMenuOpen) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            };
+
+            if (overlay) {
+                overlay.onclick = closeMenu;
+            }
+
+            document.querySelectorAll('.menu-list .nav-link').forEach(link => {
+                link.onclick = closeMenu;
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && isMenuOpen) {
+                    closeMenu();
+                }
+            });
         },
 
         initMenuPreview() {
