@@ -7269,29 +7269,7 @@ p,
     box-sizing: border-box !important;
 }
 
-/* Reveal Word Layout Safety: Inline Parent with Inline-Block Inner Token */
-.reveal-word {
-    display: inline !important;
-    white-space: normal !important;
-    word-break: normal !important;
-    overflow-wrap: break-word !important;
-}
-
-.reveal-word-inner {
-    display: inline-block !important;
-    white-space: nowrap !important;
-    vertical-align: top !important;
-    opacity: 0;
-    transform: translateY(105%);
-    transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform, opacity;
-}
-
-.is-revealed .reveal-word-inner,
-.reveal-word-inner.is-revealed {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-}
+/* Paragraphs & Subtitles Fluid Sizing & Wrap Protection */
 
 /* Card Titles & Card Inner Text Safety */
 .card-title,

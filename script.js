@@ -1231,17 +1231,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             if (isReduced) return;
 
-            // 1. Tag headings for progressive word reveal
-            const headings = document.querySelectorAll('.heading h1, .about .content h3, .services .heading h1, .why-choose-us .heading h1, .vlogs .heading h1, .blogs .heading h1, .contact .heading h1');
+            // 1. Tag headings for clean fade-up reveal as whole elements (NO word splitting)
+            const headings = document.querySelectorAll('.heading h1, .about .content h3, .services .heading h1, .why-choose-us .heading h1, .vlogs .heading h1, .blogs .heading h1, .contact .heading h1, .gallery .heading h1, .destination .heading h1');
             headings.forEach(heading => {
-                if (heading.dataset.revealSplitted) return;
-                heading.dataset.revealSplitted = 'true';
-                heading.setAttribute('data-reveal', 'text');
-                const words = heading.innerText.trim().split(/\s+/);
-                heading.innerHTML = words.map(w => `<span class="reveal-word"><span class="reveal-word-inner">${w}</span></span>`).join(' ');
+                heading.setAttribute('data-reveal', 'fade-up');
             });
 
-            // 2. Tag section elements and alternating card grid elements
+            // 2. Tag section eyebrows and alternating card grid elements
             document.querySelectorAll('.heading span').forEach(el => el.setAttribute('data-reveal', 'fade-up'));
 
             const cardContainers = document.querySelectorAll('.why-choose-us .box-container, .services .box-container, .blogs .box-container, .vlogs-grid, .destination-card-grid');
@@ -1271,7 +1267,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         el.classList.add('is-revealed');
                         
                         // Reveal child stagger items & alternating cards if present
-                        el.querySelectorAll('.reveal-stagger-item, .reveal-word-inner, .reveal-card-left, .reveal-card-right').forEach((child, i) => {
+                        el.querySelectorAll('.reveal-stagger-item, .reveal-card-left, .reveal-card-right').forEach((child, i) => {
                             if (!child.style.transitionDelay) {
                                 child.style.transitionDelay = `${i * 60}ms`;
                             }
