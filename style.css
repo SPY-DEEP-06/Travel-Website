@@ -7395,3 +7395,19 @@ p,
         transition: none !important;
     }
 }
+
+/* Auto-Healing Fallback & Media Recovery Styles */
+.is-fallback-image {
+    object-fit: cover !important;
+    border-radius: 12px !important;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5) !important;
+}
+
+.video-fallback-active {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+    min-height: 250px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 16px !important;
+}
