@@ -727,42 +727,42 @@ const templates = {
         <h1>ideas before you pack</h1>
     </div>
     <div class="box-container">
-        <div class="box" data-aos="fade-up" data-aos-delay="150">
+        <div class="box blog-card-trigger" data-blog-id="blog-1" data-aos="fade-up" data-aos-delay="150" role="button" tabindex="0">
             <div class="image">
                 <img src="${this.mediaSrc(blogImages[0])}" alt="Planning a meaningful journey with The Travel Circle" loading="lazy">
             </div>
             <div class="content">
-                <a href="#" class="link">The Road That Became A Memory</a>
+                <a href="#blog-modal" class="link blog-link-btn" data-blog-id="blog-1">The Road That Became A Memory</a>
                 <p>A simple route turned into a collection of scenic stops, shared laughter, local flavors, and the kind of views that make travelers go quiet.</p>
                 <div class="icon">
-                    <a href="#"><i class="fas fa-clock"></i> 15th Sept, 2025</a>
-                    <a href="#"><i class="fas fa-user"></i> by The Travel Circle</a>
+                    <span><i class="fas fa-clock"></i> 15th Sept, 2025</span>
+                    <span><i class="fas fa-user"></i> by The Travel Circle</span>
                 </div>
             </div>
         </div>
-        <div class="box" data-aos="fade-up" data-aos-delay="300">
+        <div class="box blog-card-trigger" data-blog-id="blog-2" data-aos="fade-up" data-aos-delay="300" role="button" tabindex="0">
             <div class="image">
                 <img src="${this.mediaSrc(blogImages[1])}" alt="A scenic travel story by The Travel Circle" loading="lazy">
             </div>
             <div class="content">
-                <a href="#" class="link">When The Plan Feels Effortless</a>
+                <a href="#blog-modal" class="link blog-link-btn" data-blog-id="blog-2">When The Plan Feels Effortless</a>
                 <p>The best holidays are not rushed. They have the right stays, the right pauses, and enough space to discover something beautiful along the way.</p>
                 <div class="icon">
-                    <a href="#"><i class="fas fa-clock"></i> 10th Sept, 2025</a>
-                    <a href="#"><i class="fas fa-user"></i> by The Travel Circle</a>
+                    <span><i class="fas fa-clock"></i> 10th Sept, 2025</span>
+                    <span><i class="fas fa-user"></i> by The Travel Circle</span>
                 </div>
             </div>
         </div>
-        <div class="box" data-aos="fade-up" data-aos-delay="450">
+        <div class="box blog-card-trigger" data-blog-id="blog-3" data-aos="fade-up" data-aos-delay="450" role="button" tabindex="0">
             <div class="image">
                 <img src="${this.mediaSrc(blogImages[2])}" alt="Hidden travel experience arranged by The Travel Circle" loading="lazy">
             </div>
             <div class="content">
-                <a href="#" class="link">Small Detours, Big Stories</a>
+                <a href="#blog-modal" class="link blog-link-btn" data-blog-id="blog-3">Small Detours, Big Stories</a>
                 <p>Sometimes the unforgettable part is not the famous spot. It is the bend in the road, the surprise viewpoint, or the evening nobody wanted to end.</p>
                 <div class="icon">
-                    <a href="#"><i class="fas fa-clock"></i> 5th Sept, 2025</a>
-                    <a href="#"><i class="fas fa-user"></i> by The Travel Circle</a>
+                    <span><i class="fas fa-clock"></i> 5th Sept, 2025</span>
+                    <span><i class="fas fa-user"></i> by The Travel Circle</span>
                 </div>
             </div>
         </div>
@@ -983,6 +983,31 @@ const templates = {
 </div>`;
     },
 
+    createBlogModal() {
+        return `
+<div class="blog-modal" id="blog-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="blog-modal-backdrop"></div>
+    <div class="blog-modal-card">
+        <button class="blog-modal-close" id="blog-modal-close" type="button" aria-label="Close article"><i class="fas fa-times"></i></button>
+        <div class="blog-modal-banner">
+            <img id="blog-modal-img" src="" alt="Blog article header image">
+            <span class="blog-modal-category" id="blog-modal-category">Travel Notes</span>
+        </div>
+        <div class="blog-modal-body">
+            <div class="blog-modal-meta">
+                <span><i class="fas fa-clock"></i> <span id="blog-modal-date">15th Sept, 2025</span></span>
+                <span><i class="fas fa-user"></i> <span id="blog-modal-author">by The Travel Circle</span></span>
+            </div>
+            <h2 class="blog-modal-title" id="blog-modal-title"></h2>
+            <div class="blog-modal-text" id="blog-modal-text"></div>
+            <div class="blog-modal-footer">
+                <a href="#contact" class="btn blog-modal-cta" id="blog-modal-cta">Plan A Trip Like This <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>`;
+    },
+
     createFloatingWhatsapp() {
         return `
 <a href="https://wa.me/917304979500?text=Hi%20The%20Travel%20Circle%2C%20I%20want%20to%20plan%20a%20tour!" target="_blank" rel="noopener noreferrer" class="floating-whatsapp-widget" title="Chat with us on WhatsApp 7304979500" aria-label="Chat on WhatsApp">
@@ -1012,6 +1037,7 @@ const templates = {
             ${this.createScrollTopButton()}
             ${this.createLightbox()}
             ${this.createLehModal()}
+            ${this.createBlogModal()}
             ${this.createFloatingWhatsapp()}
         `;
     }
@@ -1075,6 +1101,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.initDestinationTabs();
             this.initStateSearch();
             this.initLehModal();
+            this.initBlogModal();
         },
 
         initSkeletonScreens() {
@@ -2304,6 +2331,114 @@ document.addEventListener('DOMContentLoaded', () => {
                     const waMsg = this.generateDestinationWhatsAppMessage(destObj);
                     this.openWhatsAppEnquiry(waMsg);
                 });
+            });
+        },
+
+        initBlogModal() {
+            const blogModal = document.querySelector('#blog-modal');
+            if (!blogModal) return;
+
+            const closeBtn = document.querySelector('#blog-modal-close');
+            const backdrop = blogModal.querySelector('.blog-modal-backdrop');
+            const modalImg = document.querySelector('#blog-modal-img');
+            const modalCategory = document.querySelector('#blog-modal-category');
+            const modalDate = document.querySelector('#blog-modal-date');
+            const modalAuthor = document.querySelector('#blog-modal-author');
+            const modalTitle = document.querySelector('#blog-modal-title');
+            const modalText = document.querySelector('#blog-modal-text');
+            const modalCta = document.querySelector('#blog-modal-cta');
+
+            const blogDatabase = {
+                'blog-1': {
+                    title: 'The Road That Became A Memory',
+                    category: 'Scenic Journeys',
+                    date: '15th Sept, 2025',
+                    author: 'by The Travel Circle',
+                    image: 'images/national/Kashmir/1.jpg',
+                    content: `
+                        <p class="blog-lead">We started the morning with no rigid timeline—just a coastal road map, a full tank of fuel, and the shared promise of stopping whenever a view demanded our attention.</p>
+                        <p>By midday, the highway gave way to winding mountain roads lined with pine trees and misty valleys. We stopped at a tiny roadside cafe where an elderly local served us cardamom chai and warm bread fresh from a wood-fired oven. It wasn't on any travel itinerary, but that 45-minute pause became the highlight of our day.</p>
+                        <blockquote class="blog-quote">"The road itself had created a tapestry of shared laughter, quiet wonder, and unforgettable sights."</blockquote>
+                        <p>As the sun dipped toward the horizon, painting the sky in deep ambers and violets, we realized that the destination was almost secondary. That is the magic of traveling with an open mind and a handcrafted itinerary—leaving room for spontaneous perfection.</p>
+                    `
+                },
+                'blog-2': {
+                    title: 'When The Plan Feels Effortless',
+                    category: 'Travel Tips',
+                    date: '10th Sept, 2025',
+                    author: 'by The Travel Circle',
+                    image: 'images/national/Himachal/1.jpg',
+                    content: `
+                        <p class="blog-lead">The finest travel experiences rarely feel over-scheduled. They strike an artful balance between seamless logistics and unhurried freedom.</p>
+                        <p>When every transfer is pre-arranged, every hotel check-in is smooth, and every local guide is genuinely passionate, your mind is freed from the friction of decision fatigue. You no longer worry about taxi tariffs, missing train connections, or finding a decent dinner spot in an unfamiliar city.</p>
+                        <blockquote class="blog-quote">"True luxury in travel is not just five-star linen—it is the rare, precious feeling of total peace of mind."</blockquote>
+                        <p>Instead, you wake up calmly, savor your morning coffee overlooking emerald rice terraces or pristine sea waves, and let the day unfold with grace.</p>
+                    `
+                },
+                'blog-3': {
+                    title: 'Small Detours, Big Stories',
+                    category: 'Hidden Gems',
+                    date: '5th Sept, 2025',
+                    author: 'by The Travel Circle',
+                    image: 'images/international/dubai/1.jpg',
+                    content: `
+                        <p class="blog-lead">Ask any seasoned traveler about their favorite holiday memory, and they will rarely point to the famous landmark everyone posts on social media. More often than not, they will tell you about the accidental discovery.</p>
+                        <p>On a recent trip through Rajasthan, our driver suggested taking a 15-minute detour through a sleepy village near Jal Mahal. That small turn took us to a centuries-old stepwell hidden behind a quiet temple, completely free of crowds and shimmering softly in the afternoon light. We sat on the ancient stone steps for an hour, listening to peacocks call in the distance.</p>
+                        <blockquote class="blog-quote">"Never be afraid of the bend in the road. That is where the biggest stories are born."</blockquote>
+                        <p>At The Travel Circle, we craft itineraries that leave room for those quiet detours—because those are the moments you carry home forever.</p>
+                    `
+                }
+            };
+
+            const openBlogModal = (blogId) => {
+                const blogData = blogDatabase[blogId] || blogDatabase['blog-1'];
+                const cardImg = document.querySelector(`.blog-card-trigger[data-blog-id="${blogId}"] img`);
+
+                if (modalImg) modalImg.src = cardImg ? cardImg.src : blogData.image;
+                if (modalCategory) modalCategory.textContent = blogData.category;
+                if (modalDate) modalDate.textContent = blogData.date;
+                if (modalAuthor) modalAuthor.textContent = blogData.author;
+                if (modalTitle) modalTitle.textContent = blogData.title;
+                if (modalText) modalText.innerHTML = blogData.content;
+
+                blogModal.classList.add('active');
+                blogModal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            };
+
+            const closeBlogModal = () => {
+                blogModal.classList.remove('active');
+                blogModal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            };
+
+            // Event Listeners for Blog Triggers
+            document.addEventListener('click', (e) => {
+                const blogTrigger = e.target.closest('.blog-card-trigger, .blog-link-btn');
+                if (blogTrigger) {
+                    e.preventDefault();
+                    const blogId = blogTrigger.getAttribute('data-blog-id') || 'blog-1';
+                    openBlogModal(blogId);
+                }
+            });
+
+            if (closeBtn) closeBtn.addEventListener('click', closeBlogModal);
+            if (backdrop) backdrop.addEventListener('click', closeBlogModal);
+
+            if (modalCta) {
+                modalCta.addEventListener('click', () => {
+                    closeBlogModal();
+                    const contactSection = document.querySelector('#contact') || document.querySelector('#home');
+                    if (contactSection) {
+                        this.smoothScrollTo(contactSection);
+                    }
+                });
+            }
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && blogModal.classList.contains('active')) {
+                    closeBlogModal();
+                }
             });
         },
 
