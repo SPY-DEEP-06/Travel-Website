@@ -6553,9 +6553,6 @@ button.vlog-action-btn:hover i {
         display: none !important;
     }
 }
-    margin: 0 !important;
-    transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), text-shadow 0.3s ease !important;
-}
 
 .header .navbar .menu-link-item::before {
     content: "" !important;

@@ -1178,9 +1178,12 @@ document.addEventListener('DOMContentLoaded', () => {
             video.addEventListener('ended', hideLoader, { once: true });
             video.addEventListener('error', hideLoader, { once: true });
 
-                    if (img) img.style.opacity = '1';
+            // If the loading video file cannot buffer at all, avoid trapping visitors.
+            window.setTimeout(() => {
+                if (video.readyState === 0) {
+                    hideLoader();
                 }
-            });
+            }, 8000);
         },
 
         initRevealSystem() {
