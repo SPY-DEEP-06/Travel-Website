@@ -10,6 +10,8 @@ const templates = {
     },
 
     mediaSrc(fileName) {
+        if (!fileName) return '';
+        if (fileName.startsWith('images/') || fileName.startsWith('http')) return encodeURI(fileName);
         return `${this.mediaBase}${encodeURI(fileName)}`;
     },
 
@@ -254,77 +256,92 @@ const templates = {
         const domesticDestinations = [
             {
                 title: 'Goa',
+                folder: 'GOA',
                 vibe: 'Beaches, nightlife, and water sports.',
                 custom: 'Beach resorts, cruise parties, and heritage chapel tours.'
             },
             {
                 title: 'Kashmir',
+                folder: 'KASHMIR',
                 vibe: 'The "Paradise on Earth" with stunning landscapes.',
                 custom: 'Shikara rides on Dal Lake, Gulmarg gondola rides, and Pahalgam valley stays.'
             },
             {
                 title: 'Manali',
+                folder: 'MANALI',
                 vibe: 'Adventure, snow, and mountain retreats.',
                 custom: 'Solang valley sports, Rohtang pass snow tours, and riverside pine stays.'
             },
             {
                 title: 'Udaipur',
+                folder: 'Udaipur',
                 vibe: 'The City of Lakes and royal heritage.',
                 custom: 'Palace stays, Lake Pichola sunset boat tours, and Marwari cultural dinners.'
             },
             {
                 title: 'Jaipur',
+                folder: 'JAIPUR',
                 vibe: 'Palaces, forts, and rich culture.',
                 custom: 'Amer fort elephant rides, Pink City heritage walks, and royal dining.'
             },
             {
                 title: 'Keralam',
+                folder: 'KERALAM',
                 vibe: 'Backwaters, beaches, and Ayurveda.',
                 custom: 'Alleppey luxury houseboat stays, Munnar tea plantation tours, and Kovalam wellness retreats.'
             },
             {
                 title: 'Andaman & Nicobar',
+                folder: 'Andaman Nicobar',
                 vibe: 'Crystal-clear waters and island escapes.',
                 custom: 'Radhanagar beach escapes, Havelock scuba diving, and Cellular Jail light shows.'
             },
             {
                 title: 'Leh Ladakh',
+                folder: 'Leh Ladakh',
                 vibe: 'Scenic high-altitude landscapes and adventure tourism.',
                 custom: 'Pangong Tso lake camping, Khardung La bike expeditions, and Nubra valley camel safaris.',
                 isLeh: true
             },
             {
                 title: 'Uttarakhand - The Land of Divine Peaks',
+                folder: 'Uttrakhand',
                 vibe: 'Snow-capped Himalayas, sacred pilgrimage sites, serene lakes, charming hill stations, and thrilling adventure escapes.',
                 custom: 'Spiritual journeys to Char Dham, luxury stays in Mussoorie and Nainital, wildlife safaris in Jim Corbett National Park, and adventure-filled itineraries featuring river rafting, trekking, camping, and skiing.'
             },
             {
                 title: 'The Seven Sisters - India\'s Untouched Paradise',
+                folder: 'Seven sisters',
                 vibe: 'Pristine landscapes, rolling tea gardens, cascading waterfalls, vibrant tribal cultures, dense forests, and breathtaking mountain scenery.',
                 custom: 'Curated Northeast expeditions covering Meghalaya, Arunachal Pradesh, Assam, Nagaland, Manipur, Mizoram, and Tripura, living root bridge treks, Kaziranga wildlife safaris, Tawang monastery tours, and authentic cultural immersion experiences.'
             },
             {
                 title: 'Rann of Kutch - The White Desert Wonderland',
+                folder: 'RANN of Kuch',
                 vibe: 'Endless white salt plains, colorful cultural heritage, vibrant handicrafts, folk music, and mesmerizing desert sunsets.',
                 custom: 'Exclusive Rann Utsav experiences, luxury tent accommodations, handicraft village tours, camel safaris, stargazing evenings, and customized Gujarat cultural circuits including Bhuj and Mandvi.'
             },
             {
                 title: 'Kasol',
+                folder: 'Kasol',
                 vibe: 'Scenic Parvati Valley views, lush pine forests, and chilled mountain vibes.',
                 custom: 'Trek to Kheerganga, Manikaran hot springs, and Israel-flavored cafes.'
             },
             {
                 title: 'Darjeeling',
+                folder: 'Darjeeling',
                 vibe: 'Tea gardens and Himalayan views.',
                 custom: 'Toy train rides, Tiger Hill sunrise views, and tea estate walks.'
             },
             {
                 title: 'Maharashtra',
+                folder: 'GOA',
                 vibe: 'Beaches, hill stations, heritage sites, vineyards, and city experience.',
                 custom: 'Lonavala & Mahabaleshwar retreats, Nashik vineyard tours, and Konkan coastal drives.'
             },
             {
                 title: 'Odisha',
+                folder: 'Andaman Nicobar',
                 vibe: 'Spiritual, heritage, cultural, and wildlife experience.',
                 custom: 'Jagannath Puri pilgrimage, Konark Sun Temple tours, and Chilika Lake bird watching.'
             }
@@ -364,10 +381,13 @@ const templates = {
         ];
 
         const domesticCards = domesticDestinations.map((dest, index) => {
-            const imgIndex = index * 3;
-            const img1 = this.mediaSrc(images[imgIndex % images.length] || images[0]);
-            const img2 = this.mediaSrc(images[(imgIndex + 1) % images.length] || images[0]);
-            const img3 = this.mediaSrc(images[(imgIndex + 2) % images.length] || images[0]);
+            const destMap = window.ttcMedia && window.ttcMedia.destinations;
+            const folderImages = (destMap && dest.folder && destMap[dest.folder]) || [];
+            const fallbackIndex = (index * 3) % (images.length || 1);
+            
+            const img1 = this.mediaSrc(folderImages[0] || images[fallbackIndex] || '');
+            const img2 = this.mediaSrc(folderImages[1] || folderImages[0] || images[fallbackIndex + 1] || img1);
+            const img3 = this.mediaSrc(folderImages[2] || folderImages[1] || folderImages[0] || images[fallbackIndex + 2] || img1);
             const safeTitle = (dest.title || '').replace(/"/g, '&quot;');
             const safeVibe = (dest.vibe || '').replace(/"/g, '&quot;');
             const actionBtn = dest.isLeh 
@@ -392,9 +412,9 @@ const templates = {
 
         const internationalCards = internationalDestinations.map((dest, index) => {
             const imgIndex = (index + 15) * 3;
-            const img1 = this.mediaSrc(images[imgIndex % images.length] || images[0]);
-            const img2 = this.mediaSrc(images[(imgIndex + 1) % images.length] || images[0]);
-            const img3 = this.mediaSrc(images[(imgIndex + 2) % images.length] || images[0]);
+            const img1 = images.length ? this.mediaSrc(images[imgIndex % images.length]) : '';
+            const img2 = images.length ? this.mediaSrc(images[(imgIndex + 1) % images.length]) : img1;
+            const img3 = images.length ? this.mediaSrc(images[(imgIndex + 2) % images.length]) : img1;
             const safeTitle = (dest.title || '').replace(/"/g, '&quot;');
             const safeVibe = (dest.vibe || '').replace(/"/g, '&quot;');
             
