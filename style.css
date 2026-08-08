@@ -6764,10 +6764,10 @@ body.is-loading {
 }
 
 /* ==========================================================================
-   20. STERLING GATE KINETIC NAVIGATION SYSTEM STYLES
+   20. STERLING GATE KINETIC NAVIGATION SYSTEM & PORTAL OVERLAY STYLES
    ========================================================================== */
 .nav-close-btn.kinetic-menu-btn {
-    position: relative;
+    position: relative !important;
     display: inline-flex !important;
     align-items: center !important;
     gap: 1.2rem !important;
@@ -6782,7 +6782,7 @@ body.is-loading {
     user-select: none !important;
     overflow: hidden !important;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    z-index: 99999 !important;
+    z-index: 999999 !important;
     box-shadow: 0 4px 16px rgba(15, 23, 42, 0.25) !important;
 }
 
@@ -6827,24 +6827,43 @@ body.is-loading {
     transition: transform 0.6s cubic-bezier(0.65, 0.01, 0.05, 0.99);
 }
 
-/* Fullscreen Menu Container & Overlay */
+/* Fullscreen Menu Portal Container & Overlay */
 .fullscreen-menu-container {
-    position: relative;
-    z-index: 99980;
+    position: fixed !important;
+    inset: 0 !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    pointer-events: none !important;
+    z-index: 999950 !important;
 }
 
 .nav-overlay-wrapper {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100dvh;
+    position: fixed !important;
+    inset: 0 !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    margin: 0 !important;
+    padding: 0 !important;
     display: none;
-    z-index: 99980;
-    overflow: hidden;
+    pointer-events: none !important;
+    z-index: 999950 !important;
+    overflow: hidden !important;
 }
 
 .nav-overlay-wrapper[data-nav="open"] {
     display: block !important;
+    pointer-events: auto !important;
+}
+
+.nav-overlay-wrapper[data-nav="closed"] {
+    display: none !important;
+    pointer-events: none !important;
 }
 
 .nav-overlay-wrapper[data-nav="open"] .overlay {
@@ -7060,5 +7079,81 @@ body.is-loading {
     
     .menu-content .nav-preview {
         display: none;
+    }
+}
+
+/* ==========================================================================
+   21. UNIVERSAL SCROLL REVEAL & PROGRESSIVE WORD REVEAL SYSTEM
+   ========================================================================== */
+.site-ready [data-reveal] {
+    opacity: 0;
+    will-change: transform, opacity;
+    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.site-ready [data-reveal="fade-up"] { transform: translateY(32px); }
+.site-ready [data-reveal="fade-down"] { transform: translateY(-32px); }
+.site-ready [data-reveal="slide-left"] { transform: translateX(-36px); }
+.site-ready [data-reveal="slide-right"] { transform: translateX(36px); }
+.site-ready [data-reveal="pop"] { transform: scale(0.94); }
+
+.site-ready [data-reveal].is-revealed,
+.site-ready .is-revealed [data-reveal] {
+    opacity: 1 !important;
+    transform: translate(0, 0) scale(1) !important;
+}
+
+/* Progressive Word Text Reveal */
+.reveal-word {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    margin-right: 0.22em;
+}
+
+.reveal-word-inner {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(110%);
+    transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+}
+
+.is-revealed .reveal-word-inner,
+.reveal-word-inner.is-revealed {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Staggered Item Children */
+.reveal-stagger-item {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.is-revealed .reveal-stagger-item,
+.reveal-stagger-item.is-revealed {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Aspect ratio image containers & smooth skeleton reveals */
+.boneyard-loading img {
+    opacity: 0 !important;
+}
+
+.boneyard-loaded img {
+    opacity: 1 !important;
+    transition: opacity 0.5s ease-out !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-ready [data-reveal],
+    .reveal-word-inner,
+    .reveal-stagger-item {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
     }
 }

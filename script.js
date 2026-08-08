@@ -1037,6 +1037,7 @@ document.addEventListener('DOMContentLoaded', () => {
             this.initSkeletonScreens();
             this.initNavbar();
             this.initMenuPreview();
+            this.initRevealSystem();
             this.initSmoothScrolling();
             this.initFullSiteSlowScroll();
             this.initScrollEffects();
@@ -1177,16 +1178,66 @@ document.addEventListener('DOMContentLoaded', () => {
             video.addEventListener('ended', hideLoader, { once: true });
             video.addEventListener('error', hideLoader, { once: true });
 
-            // If the loading video file cannot buffer at all, avoid trapping visitors.
-            window.setTimeout(() => {
-                if (video.readyState === 0) {
-                    hideLoader();
+                    if (img) img.style.opacity = '1';
                 }
-            }, 8000);
+            });
+        },
+
+        initRevealSystem() {
+            const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (isReduced) return;
+
+            // 1. Tag headings for progressive word reveal
+            const headings = document.querySelectorAll('.heading h1, .about .content h3, .services .heading h1, .why-choose-us .heading h1, .vlogs .heading h1, .blogs .heading h1, .contact .heading h1');
+            headings.forEach(heading => {
+                if (heading.dataset.revealSplitted) return;
+                heading.dataset.revealSplitted = 'true';
+                heading.setAttribute('data-reveal', 'text');
+                const words = heading.innerText.trim().split(/\s+/);
+                heading.innerHTML = words.map(w => `<span class="reveal-word"><span class="reveal-word-inner">${w}</span></span>`).join(' ');
+            });
+
+            // 2. Tag section elements and card grids
+            document.querySelectorAll('.heading span').forEach(el => el.setAttribute('data-reveal', 'fade-up'));
+            document.querySelectorAll('.why-choose-us .box, .services .box, .blogs .box, .vlogs-grid .vlog-card').forEach((el, index) => {
+                el.classList.add('reveal-stagger-item');
+                el.style.transitionDelay = `${(index % 4) * 70}ms`;
+            });
+
+            // 3. Setup IntersectionObserver
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -10% 0px',
+                threshold: 0.12
+            };
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        el.classList.add('is-revealed');
+                        
+                        // Reveal child stagger items if present
+                        el.querySelectorAll('.reveal-stagger-item, .reveal-word-inner').forEach((child, i) => {
+                            if (!child.style.transitionDelay) {
+                                child.style.transitionDelay = `${i * 50}ms`;
+                            }
+                            child.classList.add('is-revealed');
+                        });
+                        
+                        obs.unobserve(el);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('[data-reveal], [data-aos], .heading, .why-choose-us .box-container, .services .box-container, .blogs .box-container, .vlogs-grid').forEach(el => {
+                observer.observe(el);
+            });
         },
 
         initNavbar() {
             const menuBtn = document.querySelector('#menu-btn');
+            const menuContainer = document.querySelector('.fullscreen-menu-container');
             const navWrap = document.querySelector('.nav-overlay-wrapper');
             const menu = document.querySelector('.menu-content');
             const overlay = document.querySelector('.fullscreen-menu-container .overlay');
@@ -1197,7 +1248,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const menuButtonTexts = menuBtn?.querySelectorAll('p');
             const menuButtonIcon = menuBtn?.querySelector('.menu-button-icon');
 
-            if (!menuBtn || !navWrap) return;
+            if (!menuBtn || !navWrap || !menuContainer) return;
+
+            // CRITICAL PORTAL FIX: Escape any parent stacking context (e.g. #app, AOS transforms, filters)
+            // by moving .fullscreen-menu-container directly to document.body
+            if (menuContainer.parentElement !== document.body) {
+                document.body.appendChild(menuContainer);
+            }
 
             // Setup CustomEase if GSAP is available
             try {
@@ -1250,6 +1307,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let isMenuOpen = false;
 
+            const lockScroll = () => {
+                const scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+                document.body.dataset.menuScrollY = scrollY;
+                document.body.style.position = 'fixed';
+                document.body.style.top = `-${scrollY}px`;
+                document.body.style.left = '0';
+                document.body.style.right = '0';
+                document.body.style.width = '100%';
+                document.body.style.overflow = 'hidden';
+            };
+
+            const unlockScroll = () => {
+                const savedScrollY = parseInt(document.body.dataset.menuScrollY || '0', 10);
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.left = '';
+                document.body.style.right = '';
+                document.body.style.width = '';
+                document.body.style.overflow = '';
+                window.scrollTo(0, savedScrollY);
+            };
+
             const closeMenu = () => {
                 if (!isMenuOpen) return;
                 isMenuOpen = false;
@@ -1258,21 +1337,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.classList.remove('nav-open');
 
                 if (typeof gsap !== 'undefined') {
-                    const tl = gsap.timeline();
-                    tl.to(menu, { x: '100%', duration: 0.5, ease: 'power3.in' })
-                      .to(bgPanels, { x: '100%', stagger: 0.08, duration: 0.4, ease: 'power3.in' }, '<')
+                    const tl = gsap.timeline({
+                        onComplete: () => {
+                            navWrap.style.display = 'none';
+                            unlockScroll();
+                        }
+                    });
+                    tl.to(menu, { x: '100%', duration: 0.45, ease: 'power3.in' })
+                      .to(bgPanels, { x: '100%', stagger: 0.06, duration: 0.35, ease: 'power3.in' }, '<')
                       .to(overlay, { autoAlpha: 0, duration: 0.3 }, '<')
                       .to(menuButtonTexts, { yPercent: 0, duration: 0.3 }, '<')
-                      .to(menuButtonIcon, { rotate: 0, duration: 0.3 }, '<')
-                      .set(navWrap, { display: 'none' });
+                      .to(menuButtonIcon, { rotate: 0, duration: 0.3 }, '<');
                 } else {
                     navWrap.style.display = 'none';
+                    unlockScroll();
                 }
             };
 
             const openMenu = () => {
                 if (isMenuOpen) return;
                 isMenuOpen = true;
+                lockScroll();
                 navWrap.style.display = 'block';
                 navWrap.setAttribute('data-nav', 'open');
                 menuBtn.setAttribute('aria-expanded', 'true');
@@ -1282,15 +1367,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     const tl = gsap.timeline();
                     tl.set(navWrap, { display: 'block' })
                       .to(overlay, { autoAlpha: 1, duration: 0.4 })
-                      .fromTo(bgPanels, { x: '100%' }, { x: '0%', stagger: 0.1, duration: 0.55, ease: 'power3.out' }, '<')
-                      .fromTo(menu, { x: '100%' }, { x: '0%', duration: 0.6, ease: 'power3.out' }, '<')
-                      .fromTo(menuButtonTexts, { yPercent: 0 }, { yPercent: -100, stagger: 0.15, duration: 0.4 }, '<')
-                      .fromTo(menuButtonIcon, { rotate: 0 }, { rotate: 315, duration: 0.4 }, '<')
-                      .fromTo(menuLinks, { y: 35, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.05, duration: 0.4, ease: 'power2.out' }, '<+=0.2');
+                      .fromTo(bgPanels, { x: '100%' }, { x: '0%', stagger: 0.08, duration: 0.5, ease: 'power3.out' }, '<')
+                      .fromTo(menu, { x: '100%' }, { x: '0%', duration: 0.55, ease: 'power3.out' }, '<')
+                      .fromTo(menuButtonTexts, { yPercent: 0 }, { yPercent: -100, stagger: 0.12, duration: 0.35 }, '<')
+                      .fromTo(menuButtonIcon, { rotate: 0 }, { rotate: 315, duration: 0.35 }, '<')
+                      .fromTo(menuLinks, { y: 30, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.04, duration: 0.35, ease: 'power2.out' }, '<+=0.15');
                 }
             };
 
             menuBtn.onclick = (event) => {
+                event.preventDefault();
                 event.stopPropagation();
                 if (isMenuOpen) {
                     closeMenu();
@@ -1300,11 +1386,16 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             if (overlay) {
-                overlay.onclick = closeMenu;
+                overlay.onclick = (event) => {
+                    event.stopPropagation();
+                    closeMenu();
+                };
             }
 
             document.querySelectorAll('.menu-list .nav-link').forEach(link => {
-                link.onclick = closeMenu;
+                link.onclick = () => {
+                    closeMenu();
+                };
             });
 
             document.addEventListener('keydown', (event) => {
