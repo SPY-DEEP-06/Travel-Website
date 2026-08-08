@@ -6486,32 +6486,35 @@ button.vlog-action-btn:hover i {
     transform: scale(1.06) !important;
 }
 
-/* 16. FULLSCREEN NAVIGATION OVERLAY SPATIAL GLASSMORPHISM & BALANCED LAYOUT */
-.header .navbar,
-.header .navbar.active {
+/* 16. INLINE DESKTOP HEADER NAVIGATION & STERLING GATE KINETIC OVERLAY INTEGRATION */
+.header {
     position: fixed !important;
-    top: 9rem !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    width: min(92%, 1050px) !important;
-    max-width: 1050px !important;
-    margin: 0 auto !important;
-    padding: 4.5rem 6rem !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    gap: 5rem !important;
-    background: rgba(0, 18, 38, 0.94) !important;
-    backdrop-filter: blur(24px) saturate(1.25) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(1.25) !important;
-    border: 1px solid rgba(185, 142, 71, 0.38) !important;
-    border-radius: 2.4rem !important;
-    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.85), inset 0 1.5px 3px rgba(255, 255, 255, 0.15), 0 0 35px rgba(185, 142, 71, 0.18) !important;
-    z-index: 10000 !important;
-    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s ease !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 99900 !important;
+    pointer-events: auto !important;
 }
 
-.header .navbar.active {
+.header .navbar {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    z-index: 1 !important;
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
@@ -6519,11 +6522,10 @@ button.vlog-action-btn:hover i {
 
 .header .navbar .nav-links {
     display: flex !important;
-    flex-direction: column !important;
-    gap: 1.6rem !important;
-    align-items: flex-start !important;
-    flex: 1 !important;
-    max-width: 520px !important;
+    flex-direction: row !important;
+    gap: 2.2rem !important;
+    align-items: center !important;
+    max-width: none !important;
 }
 
 .header .navbar .menu-link-item,
@@ -6531,13 +6533,26 @@ button.vlog-action-btn:hover i {
     position: relative !important;
     display: inline-flex !important;
     align-items: center !important;
-    gap: 1.2rem !important;
-    font-size: 2.4rem !important;
-    font-weight: 700 !important;
-    color: #ffffff !important;
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    color: rgba(255, 255, 255, 0.92) !important;
     text-decoration: none !important;
-    letter-spacing: 0.02em !important;
-    padding: 0.4rem 0 !important;
+    padding: 0.6rem 1rem !important;
+    border-radius: 9999px !important;
+    transition: all 0.3s ease !important;
+}
+
+.header .navbar .menu-link-item:hover,
+.header .navbar a:not(.logo):hover {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+}
+
+@media (max-width: 991px) {
+    .header .navbar {
+        display: none !important;
+    }
+}
     margin: 0 !important;
     transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), text-shadow 0.3s ease !important;
 }
@@ -6763,6 +6778,8 @@ body.is-loading {
     backdrop-filter: blur(12px) !important;
     color: #ffffff !important;
     cursor: pointer !important;
+    pointer-events: auto !important;
+    user-select: none !important;
     overflow: hidden !important;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
     z-index: 99999 !important;
