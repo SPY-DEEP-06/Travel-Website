@@ -7079,6 +7079,67 @@ body.is-loading {
     }
 }
 
+/* Section Offset Clearing for Fixed Header */
+section[id],
+.home,
+.about,
+.destination,
+.services,
+.gallery,
+.vlogs,
+.blogs,
+.footer {
+    scroll-margin-top: 10rem !important;
+}
+
+/* Cinematic Morph Transition: Loader -> Home */
+.site-loader {
+    position: fixed !important;
+    inset: 0 !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    z-index: 9999999 !important;
+    background: #000000 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    will-change: opacity, transform;
+}
+
+.site-loader-video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+}
+
+.site-loader.is-hidden {
+    opacity: 0 !important;
+    transform: scale(0.93) !important;
+    pointer-events: none !important;
+}
+
+body.site-revealing .home {
+    animation: homeCinematicReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes homeCinematicReveal {
+    0% {
+        opacity: 0;
+        transform: scale(1.03);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 /* ==========================================================================
    21. UNIVERSAL SCROLL REVEAL & PROGRESSIVE WORD REVEAL SYSTEM
    ========================================================================== */
@@ -7098,6 +7159,29 @@ body.is-loading {
 .site-ready .is-revealed [data-reveal] {
     opacity: 1 !important;
     transform: translate(0, 0) scale(1) !important;
+}
+
+/* Alternating Left/Right Card Reveals */
+.site-ready .reveal-card-left {
+    opacity: 0;
+    transform: translateX(-35px) scale(0.98);
+    will-change: transform, opacity;
+    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.site-ready .reveal-card-right {
+    opacity: 0;
+    transform: translateX(35px) scale(0.98);
+    will-change: transform, opacity;
+    transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.is-revealed .reveal-card-left,
+.is-revealed .reveal-card-right,
+.reveal-card-left.is-revealed,
+.reveal-card-right.is-revealed {
+    opacity: 1 !important;
+    transform: translateX(0) scale(1) !important;
 }
 
 /* Progressive Word Text Reveal */
@@ -7146,7 +7230,12 @@ body.is-loading {
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .site-loader { transition: none !important; opacity: 1 !important; transform: none !important; }
+    .site-loader.is-hidden { opacity: 0 !important; }
+    body.site-revealing .home { animation: none !important; }
     .site-ready [data-reveal],
+    .site-ready .reveal-card-left,
+    .site-ready .reveal-card-right,
     .reveal-word-inner,
     .reveal-stagger-item {
         opacity: 1 !important;
