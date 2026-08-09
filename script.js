@@ -405,13 +405,13 @@ const templates = {
             },
             {
                 title: 'Maharashtra',
-                folder: 'GOA',
+                folder: 'Maharastra',
                 vibe: 'Beaches, hill stations, heritage sites, vineyards, and city experience.',
                 custom: 'Lonavala & Mahabaleshwar retreats, Nashik vineyard tours, and Konkan coastal drives.'
             },
             {
                 title: 'Odisha',
-                folder: 'Andaman Nicobar',
+                folder: 'Odisha',
                 vibe: 'Spiritual, heritage, cultural, and wildlife experience.',
                 custom: 'Jagannath Puri pilgrimage, Konark Sun Temple tours, and Chilika Lake bird watching.'
             }
