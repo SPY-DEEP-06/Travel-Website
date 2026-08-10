@@ -7844,17 +7844,18 @@ video.is-video-paused,
     margin: 0 auto !important;
 }
 
-/* 5. Brand Logo Box & Title Styling (Left Side) */
+/* 5. Brand Logo Box & Title Styling (Left Side - Pure Original Logo PNG) */
 .header .ttc-direct-logo,
 .header a.logo,
 .header .header-logo {
     display: inline-flex !important;
     align-items: center !important;
-    gap: 1rem !important;
+    gap: 1.1rem !important;
     width: auto !important;
     height: auto !important;
     background: transparent !important;
     border: 0 !important;
+    border-radius: 0 !important;
     box-shadow: none !important;
     text-decoration: none !important;
     margin: 0 !important;
@@ -7862,29 +7863,39 @@ video.is-video-paused,
     flex-shrink: 0 !important;
 }
 
-.header .logo-box {
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 0.9rem !important;
-}
-
-.header .logo-circle-avatar {
-    width: 4.2rem !important;
-    height: 4.2rem !important;
-    border-radius: 50% !important;
-    background: #ffffff !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    overflow: hidden !important;
-    box-shadow: 0 0.4rem 1.2rem rgba(0, 33, 69, 0.18) !important;
-    flex-shrink: 0 !important;
-}
-
-.header .logo-circle-avatar img {
-    width: 86% !important;
-    height: 86% !important;
+.header .ttc-original-logo-img,
+.header .ttc-direct-logo img,
+.header a.logo img {
+    display: block !important;
+    width: auto !important;
+    height: clamp(4.4rem, 5.2vw, 5.8rem) !important;
+    max-height: 5.8rem !important;
     object-fit: contain !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    filter: drop-shadow(0 0.4rem 1rem rgba(0, 33, 69, 0.22)) !important;
+    transition: transform 0.3s ease !important;
+}
+
+.header.scrolled .ttc-original-logo-img,
+.header.scrolled .ttc-direct-logo img,
+.header.scrolled a.logo img {
+    height: clamp(4rem, 4.5vw, 4.8rem) !important;
+    max-height: 4.8rem !important;
+}
+
+.header .logo-box,
+.header .logo-circle-avatar {
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: auto !important;
+    height: auto !important;
 }
 
 .header .brand-title-text {

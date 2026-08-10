@@ -82,12 +82,8 @@ const templates = {
         return `
 <header class="header atelier-header ttc-modern-header">
     <a data-aos="zoom-in-left" data-aos-delay="150" href="#home" class="logo header-logo ttc-direct-logo" aria-label="The Travel Circle Home">
-        <div class="logo-box">
-            <div class="logo-circle-avatar">
-                <img src="images/logoTTC.png" alt="The Travel Circle logo">
-            </div>
-            <span class="brand-title-text">The Travel Circle</span>
-        </div>
+        <img src="images/logoTTC.png" alt="The Travel Circle logo" class="ttc-original-logo-img">
+        <span class="brand-title-text">The Travel Circle</span>
     </a>
     <nav class="navbar" id="navbar">
         <div class="nav-links">
