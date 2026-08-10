@@ -1916,7 +1916,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         },
 
-        openBookingFormWithDestination(destinationName, forceUpdate = true) {
+        openBookingFormWithDestination(destinationName, forceUpdate = false) {
             const bookSection = document.querySelector('#book-form');
             if (!bookSection) return;
 
@@ -1925,9 +1925,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const destInput = document.querySelector('#book-destination');
             if (destInput && destinationName) {
-                if (forceUpdate || !destInput.value || destInput.dataset.userModified !== 'true') {
+                const isUserEdited = destInput.dataset.userEdited === 'true' && destInput.value.trim().length > 0;
+                if (!isUserEdited || forceUpdate) {
                     destInput.value = destinationName;
-                    destInput.dataset.userModified = 'false';
+                    destInput.dataset.userEdited = 'false';
                 }
                 destInput.closest('.inputBox')?.classList.remove('is-invalid');
             }
@@ -1935,7 +1936,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.setTimeout(() => {
                 this.smoothScrollTo(bookSection, { duration: 800, center: true });
                 const contactInput = document.querySelector('#book-contact');
-                if (destInput && (!destInput.value || destInput.value.length === 0)) {
+                if (destInput && (!destInput.value || destInput.value.trim().length === 0)) {
                     destInput.focus();
                 } else if (contactInput) {
                     contactInput.focus();
@@ -2187,34 +2188,43 @@ document.addEventListener('DOMContentLoaded', () => {
             const bookingForm = document.querySelector('#booking-form');
             if (!bookingForm) return;
 
-            const destInput = document.querySelector('#book-destination');
-            const contactInput = document.querySelector('#book-contact');
-            const emailInput = document.querySelector('#book-email');
-            const dateFromInput = document.querySelector('#book-date-from');
-            const dateToInput = document.querySelector('#book-date-to');
-            const travelersInput = document.querySelector('#book-travelers');
+            const attachInputListeners = (formEl) => {
+                const destInput = formEl.querySelector('#book-destination');
+                if (destInput) {
+                    destInput.addEventListener('input', () => {
+                        destInput.dataset.userEdited = 'true';
+                    });
+                }
 
-            const allInputs = [destInput, contactInput, emailInput, dateFromInput, dateToInput, travelersInput].filter(Boolean);
-
-            if (destInput) {
-                destInput.addEventListener('input', () => {
-                    destInput.dataset.userModified = 'true';
+                const allInputs = formEl.querySelectorAll('input');
+                allInputs.forEach(input => {
+                    const clearInvalid = () => {
+                        const box = input.closest('.inputBox');
+                        if (box) box.classList.remove('is-invalid');
+                    };
+                    input.addEventListener('input', clearInvalid);
+                    input.addEventListener('change', clearInvalid);
                 });
-            }
+            };
 
-            allInputs.forEach(input => {
-                const clearInvalid = () => {
-                    const box = input.closest('.inputBox');
-                    if (box) box.classList.remove('is-invalid');
-                };
-                input.addEventListener('input', clearInvalid);
-                input.addEventListener('change', clearInvalid);
-            });
+            attachInputListeners(bookingForm);
 
             bookingForm.addEventListener('submit', (e) => {
                 e.preventDefault();
 
-                allInputs.forEach(input => {
+                const currentForm = e.currentTarget || bookingForm;
+
+                // DYNAMIC LIVE ELEMENT RE-QUERY ON SUBMIT
+                const destInput = currentForm.querySelector('#book-destination') || document.querySelector('#book-destination');
+                const contactInput = currentForm.querySelector('#book-contact') || document.querySelector('#book-contact');
+                const emailInput = currentForm.querySelector('#book-email') || document.querySelector('#book-email');
+                const dateFromInput = currentForm.querySelector('#book-date-from') || document.querySelector('#book-date-from');
+                const dateToInput = currentForm.querySelector('#book-date-to') || document.querySelector('#book-date-to');
+                const travelersInput = currentForm.querySelector('#book-travelers') || document.querySelector('#book-travelers');
+
+                const liveInputs = [destInput, contactInput, emailInput, dateFromInput, dateToInput, travelersInput].filter(Boolean);
+
+                liveInputs.forEach(input => {
                     const box = input.closest('.inputBox');
                     if (box) box.classList.remove('is-invalid');
                 });
@@ -2309,7 +2319,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // IF ANY REQUIRED FIELD IS MISSING/INVALID -> BLOCK SUBMISSION & SHOW ERROR MESSAGE
                 if (errorMessage) {
-                    this.displayFormMessage(bookingForm, `⚠️ ${errorMessage}`, false);
+                    this.displayFormMessage(currentForm, `⚠️ ${errorMessage}`, false);
                     if (firstInvalidInput) firstInvalidInput.focus();
                     return;
                 }
@@ -2324,12 +2334,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     travelers: numTravelers
                 });
 
-                this.displayFormMessage(bookingForm, `✅ Details verified! Opening WhatsApp with your enquiry for ${destination}...`, true);
+                this.displayFormMessage(currentForm, `✅ Details verified! Opening WhatsApp with your enquiry for ${destination}...`, true);
 
                 this.openWhatsAppEnquiry(waMsg);
 
-                if (destInput) destInput.dataset.userModified = 'false';
-                bookingForm.reset();
+                if (destInput) destInput.dataset.userEdited = 'false';
+                currentForm.reset();
             });
         },
 
