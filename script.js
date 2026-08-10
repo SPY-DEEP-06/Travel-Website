@@ -202,22 +202,22 @@ const templates = {
     createBookingForm() {
         return `
 <section class="book-form is-hidden" id="book-form" aria-hidden="true">
-    <form action="" id="booking-form">
+    <form action="" id="booking-form" novalidate>
         <h2 class="form-title">
             <span class="title-text"><i class="fas fa-paper-plane"></i> Plan Your Journey / Tour Request</span>
             <button type="button" class="form-close-btn" id="close-book-form" aria-label="Close Tour Form"><i class="fas fa-times"></i></button>
         </h2>
         <div class="inputBox">
             <span><i class="fas fa-map-marker-alt"></i> Dream Destination</span>
-            <input type="text" id="book-destination" placeholder="City, State, Country, or Experience" required>
+            <input type="text" id="book-destination" placeholder="City, State, Country, or Experience" required autocomplete="off">
         </div>
         <div class="inputBox">
             <span><i class="fas fa-phone-alt"></i> Contact Number <small class="label-compulsory">(Compulsory)</small></span>
-            <input type="tel" id="book-contact" placeholder="Enter Contact Number (e.g. 7304979500)" required pattern="[0-9]{10,12}">
+            <input type="tel" id="book-contact" placeholder="Enter 10-digit Contact Number (e.g. 8108776019)" required autocomplete="tel">
         </div>
         <div class="inputBox">
             <span><i class="fas fa-envelope"></i> Email Address <small class="label-optional">(Optional)</small></span>
-            <input type="email" id="book-email" placeholder="Enter Email Address (optional)">
+            <input type="email" id="book-email" placeholder="Enter Email Address (optional)" autocomplete="email">
         </div>
         <div class="inputBox date-range-box">
             <span><i class="fas fa-calendar-alt"></i> Travel Dates (From - To Range)</span>
@@ -1916,7 +1916,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         },
 
-        openBookingFormWithDestination(destinationName) {
+        openBookingFormWithDestination(destinationName, forceUpdate = true) {
             const bookSection = document.querySelector('#book-form');
             if (!bookSection) return;
 
@@ -1925,17 +1925,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const destInput = document.querySelector('#book-destination');
             if (destInput && destinationName) {
-                destInput.value = destinationName;
+                if (forceUpdate || !destInput.value || destInput.dataset.userModified !== 'true') {
+                    destInput.value = destinationName;
+                    destInput.dataset.userModified = 'false';
+                }
                 destInput.closest('.inputBox')?.classList.remove('is-invalid');
             }
 
             window.setTimeout(() => {
                 this.smoothScrollTo(bookSection, { duration: 800, center: true });
                 const contactInput = document.querySelector('#book-contact');
-                if (contactInput && destInput && destInput.value) {
-                    contactInput.focus();
-                } else if (destInput) {
+                if (destInput && (!destInput.value || destInput.value.length === 0)) {
                     destInput.focus();
+                } else if (contactInput) {
+                    contactInput.focus();
                 }
             }, 100);
         },
@@ -2193,6 +2196,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const allInputs = [destInput, contactInput, emailInput, dateFromInput, dateToInput, travelersInput].filter(Boolean);
 
+            if (destInput) {
+                destInput.addEventListener('input', () => {
+                    destInput.dataset.userModified = 'true';
+                });
+            }
+
             allInputs.forEach(input => {
                 const clearInvalid = () => {
                     const box = input.closest('.inputBox');
@@ -2211,7 +2220,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 const destination = destInput ? destInput.value.trim() : '';
-                const contact = contactInput ? contactInput.value.trim() : '';
+                const rawContact = contactInput ? contactInput.value.trim() : '';
                 const email = emailInput ? emailInput.value.trim() : '';
                 const dateFrom = dateFromInput ? dateFromInput.value : '';
                 const dateTo = dateToInput ? dateToInput.value : '';
@@ -2222,17 +2231,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // 1. Validate Dream Destination
                 if (!destination) {
-                    errorMessage = 'Please enter your Dream Destination (e.g. Kashmir, Goa, Maldives).';
+                    errorMessage = 'Please enter your Dream Destination (e.g. Mumbai, Kashmir, Goa).';
                     if (destInput) {
                         destInput.closest('.inputBox')?.classList.add('is-invalid');
                         firstInvalidInput = firstInvalidInput || destInput;
                     }
                 }
 
-                // 2. Validate Contact Number (Compulsory 10-12 digits)
-                const cleanContact = contact.replace(/[\s\-\+\(\)]/g, '');
-                if (!errorMessage && (!contact || !/^\d{10,12}$/.test(cleanContact))) {
-                    errorMessage = 'Please enter a valid compulsory 10-12 digit Contact Number (e.g. 7304979500).';
+                // 2. Validate Contact Number (10 to 13 digits allowed)
+                const digitsOnly = rawContact.replace(/\D/g, '');
+                if (!errorMessage && (!rawContact || digitsOnly.length < 10 || digitsOnly.length > 13)) {
+                    errorMessage = 'Please enter a valid compulsory 10-digit Contact Number (e.g. 8108776019).';
                     if (contactInput) {
                         contactInput.closest('.inputBox')?.classList.add('is-invalid');
                         firstInvalidInput = firstInvalidInput || contactInput;
@@ -2308,17 +2317,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 // ALL REQUIRED FIELDS COMPLETE & VALID -> FORMAT WHATSAPP MESSAGE & REDIRECT TO WHATSAPP
                 const waMsg = this.generateTourPlanWhatsAppMessage({
                     destination,
-                    contact: cleanContact,
+                    contact: digitsOnly,
                     email,
                     dateFrom,
                     dateTo,
                     travelers: numTravelers
                 });
 
-                this.displayFormMessage(bookingForm, `✅ Details verified! Opening WhatsApp with your formatted enquiry...`, true);
+                this.displayFormMessage(bookingForm, `✅ Details verified! Opening WhatsApp with your enquiry for ${destination}...`, true);
 
                 this.openWhatsAppEnquiry(waMsg);
 
+                if (destInput) destInput.dataset.userModified = 'false';
                 bookingForm.reset();
             });
         },
