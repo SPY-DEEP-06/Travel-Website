@@ -7810,8 +7810,9 @@ video.is-video-paused,
 .header.ttc-modern-header:not(.scrolled),
 .header.atelier-header:not(.scrolled) {
     top: 0 !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
     width: 100% !important;
     max-width: 100% !important;
     min-height: 6.4rem !important;
