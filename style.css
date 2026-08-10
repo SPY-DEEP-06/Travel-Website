@@ -7656,3 +7656,13 @@ video.is-video-paused,
     background-size: cover !important;
     background-repeat: no-repeat !important;
 }
+
+/* ==========================================================================
+   FORM VALIDATION & INPUT HIGHLIGHT STYLES
+   ========================================================================== */
+.inputBox.is-invalid input,
+.inputBox.is-invalid .date-inputs input {
+    border-color: #e11d48 !important;
+    box-shadow: 0 0 0 .3rem rgba(225, 29, 72, 0.22) !important;
+    background-color: rgba(225, 29, 72, 0.04) !important;
+}

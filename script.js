@@ -2005,47 +2005,43 @@ document.addEventListener('DOMContentLoaded', () => {
             window.open(waUrl, '_blank', 'noopener,noreferrer');
         },
 
+        formatDateReadable(dateStr) {
+            if (!dateStr) return '';
+            const parts = dateStr.split('-');
+            if (parts.length === 3) {
+                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                const year = parts[0];
+                const monthIndex = parseInt(parts[1], 10) - 1;
+                const day = parseInt(parts[2], 10);
+                if (monthIndex >= 0 && monthIndex < 12) {
+                    return `${day} ${months[monthIndex]} ${year}`;
+                }
+            }
+            return dateStr;
+        },
+
         generateTourPlanWhatsAppMessage(formData) {
             const dest = (formData.destination || '').trim();
             const contact = (formData.contact || '').trim();
-            const dateFrom = (formData.dateFrom || '').trim();
-            const dateTo = (formData.dateTo || '').trim();
-            const travelers = (formData.travelers || '').trim();
+            const dateFromFormatted = this.formatDateReadable(formData.dateFrom);
+            const dateToFormatted = this.formatDateReadable(formData.dateTo);
+            const travelers = String(formData.travelers || '').trim();
             const email = (formData.email || '').trim();
 
             const lines = [
-                "Hello The Travel Circle,",
+                "🌟 *NEW TOUR PLAN ENQUIRY — THE TRAVEL CIRCLE* 🌟",
                 "",
-                "I would like to enquire about planning a trip.",
+                `📍 *Destination:* ${dest}`,
+                `📞 *Contact Number:* ${contact}`,
+                email ? `✉️ *Email Address:* ${email}` : null,
+                `📅 *Travel Dates:* ${dateFromFormatted} to ${dateToFormatted}`,
+                `👥 *Number of Guests:* ${travelers} Guest(s)`,
                 "",
-                "Destination:",
-                dest,
+                "Hello! I would like to plan this tour with *The Travel Circle*.",
+                "Please share detailed itinerary options, package inclusions, and best pricing.",
                 "",
-                "Travel Dates:",
-                `${dateFrom} to ${dateTo}`,
-                "",
-                "Number of Travelers:",
-                travelers,
-                "",
-                "Contact Number:",
-                contact
-            ];
-
-            if (email) {
-                lines.push("");
-                lines.push("Email:");
-                lines.push(email);
-            }
-
-            lines.push(
-                "",
-                "I would like to know more about the available tour options, itinerary, pricing, inclusions, and other details.",
-                "",
-                "Please get in touch with me regarding this enquiry.",
-                "",
-                "Thank you,",
-                "I look forward to hearing from you."
-            );
+                "Thank you! Looking forward to your response."
+            ].filter(line => line !== null);
 
             return lines.join("\n");
         },
@@ -2170,73 +2166,145 @@ document.addEventListener('DOMContentLoaded', () => {
 
         initBookingForm() {
             const bookingForm = document.querySelector('#booking-form');
-            if (bookingForm) {
-                bookingForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    const destInput = document.querySelector('#book-destination');
-                    const contactInput = document.querySelector('#book-contact');
-                    const emailInput = document.querySelector('#book-email');
-                    const dateFromInput = document.querySelector('#book-date-from');
-                    const dateToInput = document.querySelector('#book-date-to');
-                    const travelersInput = document.querySelector('#book-travelers');
+            if (!bookingForm) return;
 
-                    const destination = destInput ? destInput.value.trim() : '';
-                    const contact = contactInput ? contactInput.value.trim() : '';
-                    const email = emailInput ? emailInput.value.trim() : '';
-                    const dateFrom = dateFromInput ? dateFromInput.value : '';
-                    const dateTo = dateToInput ? dateToInput.value : '';
-                    const travelers = travelersInput ? travelersInput.value : '';
+            const destInput = document.querySelector('#book-destination');
+            const contactInput = document.querySelector('#book-contact');
+            const emailInput = document.querySelector('#book-email');
+            const dateFromInput = document.querySelector('#book-date-from');
+            const dateToInput = document.querySelector('#book-date-to');
+            const travelersInput = document.querySelector('#book-travelers');
 
-                    if (!destination || !contact || !dateFrom || !dateTo || !travelers) {
-                        this.displayFormMessage(bookingForm, 'Please complete all required fields (Destination, Contact Number, Travel Dates, and Travelers) before submitting your tour enquiry.', false);
-                        return;
+            const allInputs = [destInput, contactInput, emailInput, dateFromInput, dateToInput, travelersInput].filter(Boolean);
+
+            allInputs.forEach(input => {
+                const clearInvalid = () => {
+                    const box = input.closest('.inputBox');
+                    if (box) box.classList.remove('is-invalid');
+                };
+                input.addEventListener('input', clearInvalid);
+                input.addEventListener('change', clearInvalid);
+            });
+
+            bookingForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                allInputs.forEach(input => {
+                    const box = input.closest('.inputBox');
+                    if (box) box.classList.remove('is-invalid');
+                });
+
+                const destination = destInput ? destInput.value.trim() : '';
+                const contact = contactInput ? contactInput.value.trim() : '';
+                const email = emailInput ? emailInput.value.trim() : '';
+                const dateFrom = dateFromInput ? dateFromInput.value : '';
+                const dateTo = dateToInput ? dateToInput.value : '';
+                const travelers = travelersInput ? travelersInput.value.trim() : '';
+
+                let firstInvalidInput = null;
+                let errorMessage = '';
+
+                // 1. Validate Dream Destination
+                if (!destination) {
+                    errorMessage = 'Please enter your Dream Destination (e.g. Kashmir, Goa, Maldives).';
+                    if (destInput) {
+                        destInput.closest('.inputBox')?.classList.add('is-invalid');
+                        firstInvalidInput = firstInvalidInput || destInput;
                     }
+                }
 
-                    if (!/^[0-9]{10,12}$/.test(contact)) {
-                        this.displayFormMessage(bookingForm, 'Please enter a valid compulsory 10-12 digit Contact Number.', false);
-                        if (contactInput) contactInput.focus();
-                        return;
+                // 2. Validate Contact Number (Compulsory 10-12 digits)
+                const cleanContact = contact.replace(/[\s\-\+\(\)]/g, '');
+                if (!errorMessage && (!contact || !/^\d{10,12}$/.test(cleanContact))) {
+                    errorMessage = 'Please enter a valid compulsory 10-12 digit Contact Number (e.g. 7304979500).';
+                    if (contactInput) {
+                        contactInput.closest('.inputBox')?.classList.add('is-invalid');
+                        firstInvalidInput = firstInvalidInput || contactInput;
                     }
+                }
 
+                // 3. Validate Optional Email (if filled)
+                if (!errorMessage && email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    errorMessage = 'Please enter a valid email address (or leave it blank).';
+                    if (emailInput) {
+                        emailInput.closest('.inputBox')?.classList.add('is-invalid');
+                        firstInvalidInput = firstInvalidInput || emailInput;
+                    }
+                }
+
+                // 4. Validate Travel Going Date (From)
+                if (!errorMessage && !dateFrom) {
+                    errorMessage = 'Please select your Travel Going Date (From).';
+                    if (dateFromInput) {
+                        dateFromInput.closest('.inputBox')?.classList.add('is-invalid');
+                        firstInvalidInput = firstInvalidInput || dateFromInput;
+                    }
+                }
+
+                // 5. Validate Travel Return Date (To)
+                if (!errorMessage && !dateTo) {
+                    errorMessage = 'Please select your Travel Return Date (To).';
+                    if (dateToInput) {
+                        dateToInput.closest('.inputBox')?.classList.add('is-invalid');
+                        firstInvalidInput = firstInvalidInput || dateToInput;
+                    }
+                }
+
+                // 6. Validate Date Range Order
+                if (!errorMessage && dateFrom && dateTo) {
                     const startDate = new Date(dateFrom);
                     const endDate = new Date(dateTo);
                     const today = new Date();
                     today.setHours(0, 0, 0, 0);
 
                     if (startDate < today) {
-                        this.displayFormMessage(bookingForm, 'Choose an upcoming travel start date.', false);
-                        if (dateFromInput) dateFromInput.focus();
-                        return;
+                        errorMessage = 'Please choose an upcoming travel going date.';
+                        if (dateFromInput) {
+                            dateFromInput.closest('.inputBox')?.classList.add('is-invalid');
+                            firstInvalidInput = firstInvalidInput || dateFromInput;
+                        }
+                    } else if (endDate < startDate) {
+                        errorMessage = 'Return date (To) must be on or after your travel going date (From).';
+                        if (dateToInput) {
+                            dateToInput.closest('.inputBox')?.classList.add('is-invalid');
+                            firstInvalidInput = firstInvalidInput || dateToInput;
+                        }
                     }
+                }
 
-                    if (endDate < startDate) {
-                        this.displayFormMessage(bookingForm, 'Return date must be on or after your travel start date.', false);
-                        if (dateToInput) dateToInput.focus();
-                        return;
+                // 7. Validate Travelers Count
+                const numTravelers = parseInt(travelers, 10);
+                if (!errorMessage && (isNaN(numTravelers) || numTravelers < 1)) {
+                    errorMessage = 'Please specify at least 1 guest/traveler.';
+                    if (travelersInput) {
+                        travelersInput.closest('.inputBox')?.classList.add('is-invalid');
+                        firstInvalidInput = firstInvalidInput || travelersInput;
                     }
+                }
 
-                    if (parseInt(travelers, 10) < 1) {
-                        this.displayFormMessage(bookingForm, 'Add at least one traveler to start the plan.', false);
-                        if (travelersInput) travelersInput.focus();
-                        return;
-                    }
+                // IF ANY REQUIRED FIELD IS MISSING/INVALID -> BLOCK SUBMISSION & SHOW ERROR MESSAGE
+                if (errorMessage) {
+                    this.displayFormMessage(bookingForm, `⚠️ ${errorMessage}`, false);
+                    if (firstInvalidInput) firstInvalidInput.focus();
+                    return;
+                }
 
-                    const waMsg = this.generateTourPlanWhatsAppMessage({
-                        destination,
-                        contact,
-                        email,
-                        dateFrom,
-                        dateTo,
-                        travelers
-                    });
-
-                    this.displayFormMessage(bookingForm, `Thank you! Opening WhatsApp with your enquiry for ${destination}...`, true);
-
-                    this.openWhatsAppEnquiry(waMsg);
-
-                    bookingForm.reset();
+                // ALL REQUIRED FIELDS COMPLETE & VALID -> FORMAT WHATSAPP MESSAGE & REDIRECT TO WHATSAPP
+                const waMsg = this.generateTourPlanWhatsAppMessage({
+                    destination,
+                    contact: cleanContact,
+                    email,
+                    dateFrom,
+                    dateTo,
+                    travelers: numTravelers
                 });
-            }
+
+                this.displayFormMessage(bookingForm, `✅ Details verified! Opening WhatsApp with your formatted enquiry...`, true);
+
+                this.openWhatsAppEnquiry(waMsg);
+
+                bookingForm.reset();
+            });
         },
 
         initStateSearch() {
