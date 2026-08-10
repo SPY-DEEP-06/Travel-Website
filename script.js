@@ -86,6 +86,7 @@ const templates = {
             <div class="logo-circle-avatar">
                 <img src="images/logoTTC.png" alt="The Travel Circle logo">
             </div>
+            <span class="brand-title-text">The Travel Circle</span>
         </div>
     </a>
     <nav class="navbar" id="navbar">

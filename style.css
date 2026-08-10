@@ -3528,6 +3528,17 @@ body.nav-open .header.ttc-modern-header .hamburger-btn span {
 /* Force latest header shape above older theme rules & guarantee 100% horizontal centering on all devices */
 .header,
 .header.ttc-modern-header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    z-index: 99900 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
+    pointer-events: auto !important;
     transition: top 0.42s cubic-bezier(0.16, 1, 0.3, 1),
                 left 0.42s cubic-bezier(0.16, 1, 0.3, 1),
                 transform 0.42s cubic-bezier(0.16, 1, 0.3, 1),
@@ -3550,13 +3561,14 @@ body.nav-open .header.ttc-modern-header .hamburger-btn span {
     transform: translateX(-50%) !important;
     width: 100% !important;
     max-width: 100% !important;
-    min-height: 5.2rem !important;
-    padding: .55rem clamp(1rem, 3.5vw, 4rem) !important;
-    background: linear-gradient(180deg, rgba(0, 33, 69, .22), rgba(0, 33, 69, .03)) !important;
-    border-bottom: .1rem solid rgba(255, 255, 255, .14) !important;
+    min-height: 6.2rem !important;
+    padding: .6rem clamp(1.6rem, 5vw, 6rem) !important;
+    background: linear-gradient(180deg, rgba(0, 20, 45, .88), rgba(0, 20, 45, 0)) !important;
+    border-bottom: .1rem solid rgba(255, 255, 255, .12) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    box-sizing: border-box !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
 }
 
 .header.ttc-modern-header.scrolled {
@@ -3564,75 +3576,138 @@ body.nav-open .header.ttc-modern-header .hamburger-btn span {
     left: 50% !important;
     right: auto !important;
     transform: translateX(-50%) !important;
-    width: min(calc(100% - clamp(1.6rem, 5vw, 6.4rem)), 1280px) !important;
-    min-height: 4.8rem !important;
-    padding: .45rem clamp(.9rem, 2.4vw, 2rem) !important;
-    background: rgba(255, 255, 255, .92) !important;
-    border: .1rem solid rgba(185, 142, 71, .24) !important;
+    width: min(calc(100% - clamp(1.6rem, 5vw, 6.4rem)), 1240px) !important;
+    min-height: 5.2rem !important;
+    padding: .45rem clamp(1rem, 2.5vw, 2.2rem) !important;
+    background: rgba(255, 255, 255, .95) !important;
+    border: .1rem solid rgba(185, 142, 71, .28) !important;
     border-radius: 999px !important;
     box-shadow: 0 1.2rem 3.2rem rgba(0, 33, 69, .16) !important;
+    backdrop-filter: blur(20px) saturate(1.2) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(1.2) !important;
     box-sizing: border-box !important;
     margin: 0 auto !important;
 }
 
-.header.ttc-modern-header .ttc-direct-logo,
-.header.ttc-modern-header .hamburger-btn,
-.header.ttc-modern-header .reach-link,
-.header.ttc-modern-header .talk-btn {
-    transition: all 0.42s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
 .header.ttc-modern-header .ttc-direct-logo {
-    width: clamp(4.1rem, 4.4vw, 5.4rem) !important;
-    height: clamp(4.1rem, 4.4vw, 5.4rem) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    width: auto !important;
+    height: auto !important;
     background: transparent !important;
     border: 0 !important;
     box-shadow: none !important;
+    text-decoration: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
-.header.ttc-modern-header.scrolled .ttc-direct-logo {
-    width: clamp(3.8rem, 3.8vw, 4.8rem) !important;
-    height: clamp(3.8rem, 3.8vw, 4.8rem) !important;
+.header.ttc-modern-header .logo-box {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: .9rem !important;
 }
 
-.header.ttc-modern-header .hamburger-btn {
+.header.ttc-modern-header .logo-circle-avatar {
     width: 4.2rem !important;
     height: 4.2rem !important;
     border-radius: 50% !important;
-}
-
-.header.ttc-modern-header:not(.scrolled) .hamburger-btn {
-    background: rgba(0, 33, 69, .18) !important;
-    border-color: rgba(255, 255, 255, .24) !important;
-}
-
-.header.ttc-modern-header.scrolled .hamburger-btn {
-    background: rgba(243, 242, 233, .78) !important;
-    border-color: rgba(0, 33, 69, .12) !important;
-}
-
-.header.ttc-modern-header:not(.scrolled) .hamburger-btn span {
     background: #fff !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    box-shadow: 0 .4rem 1.2rem rgba(0, 33, 69, .18) !important;
+    flex-shrink: 0 !important;
 }
 
-.header.ttc-modern-header.scrolled .hamburger-btn span {
-    background: var(--deep-navy) !important;
+.header.ttc-modern-header .logo-circle-avatar img {
+    width: 86% !important;
+    height: 86% !important;
+    object-fit: contain !important;
+}
+
+.header.ttc-modern-header .brand-title-text {
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif !important;
+    font-size: clamp(1.35rem, 1.5vw, 1.7rem) !important;
+    font-weight: 700 !important;
+    letter-spacing: -.02em !important;
+    white-space: nowrap !important;
+    transition: color .4s ease !important;
+}
+
+.header.ttc-modern-header:not(.scrolled) .brand-title-text {
+    color: #fff !important;
+    text-shadow: 0 .2rem .8rem rgba(0, 0, 0, .4) !important;
+}
+
+.header.ttc-modern-header.scrolled .brand-title-text {
+    color: var(--deep-navy, #002145) !important;
+}
+
+.header.ttc-modern-header .header-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: clamp(.8rem, 1.8vw, 1.4rem) !important;
+    flex-shrink: 0 !important;
+}
+
+.header.ttc-modern-header .reach-link {
+    font-size: 1.4rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    padding: .6rem 1rem !important;
+    transition: color .3s ease !important;
+    white-space: nowrap !important;
 }
 
 .header.ttc-modern-header:not(.scrolled) .reach-link {
-    color: rgba(255, 255, 255, .9) !important;
+    color: rgba(255, 255, 255, .92) !important;
 }
 
 .header.ttc-modern-header.scrolled .reach-link {
-    color: rgba(0, 33, 69, .78) !important;
+    color: rgba(0, 33, 69, .85) !important;
 }
 
 .header.ttc-modern-header .talk-btn {
-    min-height: 3.9rem !important;
-    padding: 0 2rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 3.8rem !important;
+    padding: 0 clamp(1.2rem, 2vw, 1.8rem) !important;
     border-radius: 999px !important;
+    font-size: 1.35rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    transition: all .3s ease !important;
+}
+
+.header.ttc-modern-header:not(.scrolled) .talk-btn {
+    background: var(--deep-navy, #002145) !important;
     color: #fff !important;
-    background: rgba(0, 33, 69, .92) !important;
+    border: .1rem solid rgba(255, 255, 255, .2) !important;
+    box-shadow: 0 .4rem 1.2rem rgba(0, 0, 0, .2) !important;
+}
+
+.header.ttc-modern-header.scrolled .talk-btn {
+    background: var(--deep-navy, #002145) !important;
+    color: #fff !important;
+    box-shadow: 0 .4rem 1.2rem rgba(0, 33, 69, .22) !important;
+}
+
+/* SECTION OCCLUSION / COVERAGE PREVENTION */
+section,
+.about,
+.destination,
+.services,
+.gallery,
+.vlogs,
+.blogs,
+.contact,
+.book-form {
+    scroll-margin-top: 8.5rem !important;
 }
 
 .header.ttc-modern-header .navbar {
