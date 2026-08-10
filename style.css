@@ -7765,3 +7765,193 @@ video.is-video-paused,
     box-shadow: 0 0 0 .3rem rgba(225, 29, 72, 0.22) !important;
     background-color: rgba(225, 29, 72, 0.04) !important;
 }
+
+/* ==========================================================================
+   MASTER UNIFIED LUXURY FLOATING HEADER & NAVIGATION (FINAL CASCADE PRIORITY)
+   ========================================================================== */
+.header,
+.header.ttc-modern-header,
+.header.atelier-header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    z-index: 99900 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
+    pointer-events: auto !important;
+    transition: top 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+                width 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+                height 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+                padding 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+                background 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+                border-radius 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+                backdrop-filter 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+                -webkit-backdrop-filter 0.42s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    will-change: transform, width, background, box-shadow, top;
+}
+
+/* 1. HERO TOP STATE (UNSCROLLED AT TOP OF PAGE) */
+.header.ttc-modern-header:not(.scrolled),
+.header.atelier-header:not(.scrolled) {
+    top: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 6.2rem !important;
+    padding: 0.6rem clamp(1.6rem, 5vw, 6rem) !important;
+    background: linear-gradient(180deg, rgba(0, 20, 45, 0.88), rgba(0, 20, 45, 0)) !important;
+    border-bottom: 0.1rem solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+}
+
+/* 2. FLOATING CAPSULE STATE (SCROLLED) */
+.header.ttc-modern-header.scrolled,
+.header.atelier-header.scrolled {
+    top: 0.9rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: min(calc(100% - clamp(1.6rem, 5vw, 6.4rem)), 1240px) !important;
+    min-height: 5.2rem !important;
+    padding: 0.45rem clamp(1rem, 2.5vw, 2.2rem) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 0.1rem solid rgba(185, 142, 71, 0.28) !important;
+    border-radius: 999px !important;
+    box-shadow: 0 1.2rem 3.2rem rgba(0, 33, 69, 0.16) !important;
+    backdrop-filter: blur(20px) saturate(1.2) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(1.2) !important;
+    margin: 0 auto !important;
+}
+
+/* BRAND LOGO CONTAINER & TITLE TEXT */
+.header .ttc-direct-logo,
+.header a.logo {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    width: auto !important;
+    height: auto !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.header .logo-box {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.9rem !important;
+}
+
+.header .logo-circle-avatar {
+    width: 4.2rem !important;
+    height: 4.2rem !important;
+    border-radius: 50% !important;
+    background: #ffffff !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    box-shadow: 0 0.4rem 1.2rem rgba(0, 33, 69, 0.18) !important;
+    flex-shrink: 0 !important;
+}
+
+.header .logo-circle-avatar img {
+    width: 86% !important;
+    height: 86% !important;
+    object-fit: contain !important;
+}
+
+.header .brand-title-text {
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif !important;
+    font-size: clamp(1.35rem, 1.5vw, 1.7rem) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+    white-space: nowrap !important;
+    transition: color 0.4s ease !important;
+}
+
+.header:not(.scrolled) .brand-title-text {
+    color: #ffffff !important;
+    text-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.4) !important;
+}
+
+.header.scrolled .brand-title-text {
+    color: var(--deep-navy, #002145) !important;
+}
+
+/* HEADER ACTION BUTTONS & LINKS */
+.header .header-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: clamp(0.8rem, 1.8vw, 1.4rem) !important;
+    flex-shrink: 0 !important;
+}
+
+.header .reach-link {
+    font-size: 1.4rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    padding: 0.6rem 1rem !important;
+    transition: color 0.3s ease !important;
+    white-space: nowrap !important;
+}
+
+.header:not(.scrolled) .reach-link {
+    color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.header.scrolled .reach-link {
+    color: rgba(0, 33, 69, 0.85) !important;
+}
+
+.header .talk-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 3.8rem !important;
+    padding: 0 clamp(1.2rem, 2vw, 1.8rem) !important;
+    border-radius: 999px !important;
+    font-size: 1.35rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    transition: all 0.3s ease !important;
+}
+
+.header:not(.scrolled) .talk-btn {
+    background: var(--deep-navy, #002145) !important;
+    color: #ffffff !important;
+    border: 0.1rem solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.2) !important;
+}
+
+.header.scrolled .talk-btn {
+    background: var(--deep-navy, #002145) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0.4rem 1.2rem rgba(0, 33, 69, 0.22) !important;
+}
+
+/* SECTION OCCLUSION / COVERAGE PREVENTION */
+section,
+.about,
+.destination,
+.services,
+.gallery,
+.vlogs,
+.blogs,
+.contact,
+.book-form {
+    scroll-margin-top: 8.5rem !important;
+}
