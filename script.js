@@ -1916,6 +1916,30 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         },
 
+        openBookingFormWithDestination(destinationName) {
+            const bookSection = document.querySelector('#book-form');
+            if (!bookSection) return;
+
+            bookSection.classList.remove('is-hidden');
+            bookSection.setAttribute('aria-hidden', 'false');
+
+            const destInput = document.querySelector('#book-destination');
+            if (destInput && destinationName) {
+                destInput.value = destinationName;
+                destInput.closest('.inputBox')?.classList.remove('is-invalid');
+            }
+
+            window.setTimeout(() => {
+                this.smoothScrollTo(bookSection, { duration: 800, center: true });
+                const contactInput = document.querySelector('#book-contact');
+                if (contactInput && destInput && destInput.value) {
+                    contactInput.focus();
+                } else if (destInput) {
+                    destInput.focus();
+                }
+            }, 100);
+        },
+
         initVideoSwitcher() {
             const controlBtns = document.querySelectorAll('.about .controls .control-btn');
             const videoPlayer = document.querySelector('.about .video-container .video');
@@ -2140,11 +2164,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (btn) {
                     e.preventDefault();
                     const title = btn.getAttribute('data-dest-title') || '';
-                    const category = btn.getAttribute('data-dest-category') || 'India';
-                    const vibe = btn.getAttribute('data-dest-vibe') || '';
-
-                    const waMsg = this.generateDestinationWhatsAppMessage({ title, category, vibe });
-                    this.openWhatsAppEnquiry(waMsg);
+                    this.openBookingFormWithDestination(title);
                 }
             });
         },
@@ -2154,12 +2174,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const btn = e.target.closest('.vlog-wa-btn');
                 if (btn) {
                     e.preventDefault();
-                    const destination = btn.getAttribute('data-vlog-dest') || '';
-                    const title = btn.getAttribute('data-vlog-title') || '';
-                    const desc = btn.getAttribute('data-vlog-desc') || '';
-
-                    const waMsg = this.generateVlogWhatsAppMessage({ destination, title, desc });
-                    this.openWhatsAppEnquiry(waMsg);
+                    const destination = btn.getAttribute('data-vlog-dest') || btn.getAttribute('data-vlog-title') || '';
+                    this.openBookingFormWithDestination(destination);
                 }
             });
         },
@@ -2392,14 +2408,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.addEventListener('click', () => {
                     const choice = btn.getAttribute('data-leh-choice') || 'Leh Ladakh Tour';
                     closeLehModal();
-
-                    const destObj = {
-                        title: `Leh Ladakh (${choice})`,
-                        category: 'India',
-                        vibe: 'Pangong Tso lake camping, Khardung La bike expeditions, and Nubra valley camel safaris.'
-                    };
-                    const waMsg = this.generateDestinationWhatsAppMessage(destObj);
-                    this.openWhatsAppEnquiry(waMsg);
+                    this.openBookingFormWithDestination(`Leh Ladakh (${choice})`);
                 });
             });
         },
@@ -2498,10 +2507,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (modalCta) {
                 modalCta.addEventListener('click', () => {
                     closeBlogModal();
-                    const contactSection = document.querySelector('#contact') || document.querySelector('#home');
-                    if (contactSection) {
-                        this.smoothScrollTo(contactSection);
-                    }
+                    const blogTitle = modalTitle ? modalTitle.textContent.trim() : '';
+                    this.openBookingFormWithDestination(blogTitle || 'Blog Tour Enquiry');
                 });
             }
 
