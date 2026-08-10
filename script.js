@@ -1825,17 +1825,27 @@ document.addEventListener('DOMContentLoaded', () => {
             const header = document.querySelector('.header');
             const scrollTopBtn = document.querySelector('.scroll-top-btn');
 
-            const handleScroll = () => {
+            let ticking = false;
+            const updateScrollState = () => {
+                const scrollY = window.scrollY || window.pageYOffset;
+                const isScrolled = scrollY > 20;
+
                 if (header) {
-        header.classList.toggle('scrolled', window.scrollY > 90);
+                    header.classList.toggle('scrolled', isScrolled);
                 }
 
                 if (scrollTopBtn) {
-                    scrollTopBtn.classList.toggle('active', window.scrollY > 250);
+                    scrollTopBtn.classList.toggle('active', scrollY > 250);
                 }
+                ticking = false;
             };
 
-            window.addEventListener('scroll', throttle(handleScroll, 100));
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(updateScrollState);
+                    ticking = true;
+                }
+            }, { passive: true });
         },
 
         initHeroSectionFlow() {
@@ -3030,13 +3040,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const keepTopHeaderHonest = () => {
         const header = document.querySelector('.header');
-        const hero = document.querySelector('#home');
-        if (!header || !hero) return;
+        if (!header) return;
 
-        const heroBox = hero.getBoundingClientRect();
-        const atHeroTop = window.scrollY <= 12 || (heroBox.top <= 0 && heroBox.bottom > window.innerHeight * .72);
-        document.body.classList.toggle('at-hero-top', atHeroTop);
-        header.classList.toggle('scrolled', !atHeroTop);
+        const scrollY = window.scrollY || window.pageYOffset;
+        const isScrolled = scrollY > 20;
+        document.body.classList.toggle('at-hero-top', !isScrolled);
+        header.classList.toggle('scrolled', isScrolled);
     };
 
     window.addEventListener('scroll', keepTopHeaderHonest, { passive: true });
