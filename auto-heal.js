@@ -217,7 +217,7 @@
     }
 
     // --------------------------------------------------------------------------
-    // 7. SAFARI & APPLE DEVICE VIDEO AUTOPLAY GUARDIAN
+    // 7. SAFARI & APPLE DEVICE LOW POWER MODE VIDEO GUARDIAN
     // --------------------------------------------------------------------------
     function initSafariVideoGuardian() {
         const bgVideos = document.querySelectorAll('.hero-video, .site-loader-video, .about video');
@@ -230,22 +230,45 @@
             video.setAttribute('webkit-playsinline', '');
             video.removeAttribute('controls');
 
-            const attemptPlay = () => {
-                video.play().catch(() => {});
+            const container = video.closest('.home, .about, .video-container, .site-loader') || video.parentElement;
+
+            const handlePlaySuccess = () => {
+                video.classList.remove('is-video-paused');
+                if (container) container.classList.remove('is-video-paused');
             };
+
+            const handlePlayFailure = () => {
+                // Low Power Mode on iOS detected: hide video element so native OS play button disappears
+                video.classList.add('is-video-paused');
+                if (container) container.classList.add('is-video-paused');
+            };
+
+            const attemptPlay = () => {
+                const promise = video.play();
+                if (promise !== undefined) {
+                    promise.then(handlePlaySuccess).catch(handlePlayFailure);
+                } else if (video.paused) {
+                    handlePlayFailure();
+                } else {
+                    handlePlaySuccess();
+                }
+            };
+
+            video.addEventListener('play', handlePlaySuccess);
+            video.addEventListener('playing', handlePlaySuccess);
 
             attemptPlay();
 
             const onGesture = () => {
-                attemptPlay();
-                window.removeEventListener('touchstart', onGesture);
-                window.removeEventListener('scroll', onGesture);
-                window.removeEventListener('click', onGesture);
+                const promise = video.play();
+                if (promise !== undefined) {
+                    promise.then(handlePlaySuccess).catch(() => {});
+                }
             };
 
-            window.addEventListener('touchstart', onGesture, { passive: true, once: true });
-            window.addEventListener('scroll', onGesture, { passive: true, once: true });
-            window.addEventListener('click', onGesture, { passive: true, once: true });
+            window.addEventListener('touchstart', onGesture, { passive: true });
+            window.addEventListener('scroll', onGesture, { passive: true });
+            window.addEventListener('click', onGesture, { passive: true });
         });
     }
 

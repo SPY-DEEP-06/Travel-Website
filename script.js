@@ -176,10 +176,11 @@ const templates = {
 
     createHome() {
         const heroVideo = this.mediaSrc('images/about-vid-2.mp4');
+        const heroPoster = this.mediaSrc('images/national/Kashmir/1.jpg');
 
         return `
 <section class="home" id="home">
-    <video class="hero-video" src="${heroVideo}" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback controlslist="nodownload nofullscreen noremoteplayback" aria-hidden="true"></video>
+    <video class="hero-video" src="${heroVideo}" poster="${heroPoster}" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback controlslist="nodownload nofullscreen noremoteplayback" aria-hidden="true"></video>
     <div class="hero-overlay"></div>
     <div class="content atelier-hero-content">
         <span class="hero-eyebrow" data-aos="fade-up" data-aos-delay="100">YOUR JOURNEY STARTS HERE</span>
@@ -243,13 +244,14 @@ const templates = {
             ['images/about-vid-3.mp4', 'Mountain Vista']
         ];
         const firstVideo = this.mediaSrc(aboutFilms[0][0]);
+        const firstVideoPoster = this.mediaSrc('images/national/Himachal/1.jpg');
         const videoControls = aboutFilms.map(([video, label], index) => `
             <button class="control-btn${index === 0 ? ' active' : ''}" data-src="${this.mediaSrc(video)}" data-label="${label}" aria-label="Play ${label}"></button>`).join('');
 
         return `
 <section class="about" id="about">
     <div class="video-container">
-        <video src="${firstVideo}" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback controlslist="nodownload nofullscreen noremoteplayback" class="video"></video>
+        <video src="${firstVideo}" poster="${firstVideoPoster}" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback controlslist="nodownload nofullscreen noremoteplayback" class="video"></video>
         <div class="controls" role="group" aria-label="Video selection controls">
             ${videoControls}
         </div>

@@ -7631,3 +7631,28 @@ video::-webkit-media-controls-volume-slider {
 .about .video {
     pointer-events: none !important;
 }
+
+/* iOS Low Power Mode Video & Native Play Button Suppression */
+video.is-video-paused,
+.is-video-paused video,
+.home.is-video-paused .hero-video,
+.about .video-container.is-video-paused video {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Fallback Poster Backgrounds when Video Autoplay is blocked by Low Power Mode */
+.home {
+    background-image: url('images/national/Kashmir/1.jpg') !important;
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}
+
+.about .video-container {
+    background-image: url('images/national/Himachal/1.jpg') !important;
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}
