@@ -3525,29 +3525,37 @@ body.nav-open .header.ttc-modern-header .hamburger-btn span {
         height: 3.9rem;
     }
 }
-/* Force latest header shape above older theme rules */
+/* Force latest header shape above older theme rules & guarantee 100% horizontal centering on all devices */
 .header.ttc-modern-header:not(.scrolled) {
     top: 0 !important;
     left: 0 !important;
     right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    transform: none !important;
     min-height: 5.2rem !important;
     padding: .55rem clamp(1rem, 3.5vw, 4rem) !important;
     background: linear-gradient(180deg, rgba(0, 33, 69, .18), rgba(0, 33, 69, .03)) !important;
     border-bottom: .1rem solid rgba(255, 255, 255, .14) !important;
     border-radius: 0 !important;
     box-shadow: none !important;
+    box-sizing: border-box !important;
 }
 
 .header.ttc-modern-header.scrolled {
     top: .9rem !important;
-    left: clamp(.9rem, 3vw, 3.2rem) !important;
-    right: clamp(.9rem, 3vw, 3.2rem) !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    width: min(calc(100% - clamp(1.6rem, 5vw, 6.4rem)), 1280px) !important;
     min-height: 4.8rem !important;
     padding: .45rem clamp(.9rem, 2.4vw, 2rem) !important;
     background: rgba(255, 255, 255, .9) !important;
     border: .1rem solid rgba(185, 142, 71, .24) !important;
     border-radius: 999px !important;
     box-shadow: 0 1.2rem 3.2rem rgba(0, 33, 69, .16) !important;
+    box-sizing: border-box !important;
+    margin: 0 auto !important;
 }
 
 .header.ttc-modern-header .ttc-direct-logo {
@@ -3625,9 +3633,13 @@ body.nav-open .header.ttc-modern-header .hamburger-btn span {
 
     .header.ttc-modern-header.scrolled {
         top: .7rem !important;
-        left: .8rem !important;
-        right: .8rem !important;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) !important;
+        width: calc(100% - 1.6rem) !important;
+        max-width: calc(100vw - 1.6rem) !important;
         min-height: 4.6rem !important;
+        box-sizing: border-box !important;
     }
 
     .header.ttc-modern-header .reach-link {
@@ -7590,4 +7602,32 @@ p,
     .blog-modal-banner {
         height: 220px !important;
     }
+}
+
+/* ==========================================================================
+   SAFARI & APPLE DEVICE VIDEO PLAY BUTTON & CONTROLS SUPPRESSION
+   ========================================================================== */
+video::-webkit-media-controls,
+video::-webkit-media-controls-start-playback-button,
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls-panel,
+video::-webkit-media-controls-overlay-play-button,
+video::-webkit-media-controls-enclosure,
+video::-webkit-media-controls-timeline,
+video::-webkit-media-controls-current-time-display,
+video::-webkit-media-controls-time-remaining-display,
+video::-webkit-media-controls-mute-button,
+video::-webkit-media-controls-toggle-closed-captions-button,
+video::-webkit-media-controls-volume-slider {
+    display: none !important;
+    -webkit-appearance: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+.hero-video,
+.site-loader-video,
+.about .video {
+    pointer-events: none !important;
 }

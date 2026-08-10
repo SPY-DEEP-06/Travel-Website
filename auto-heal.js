@@ -217,6 +217,39 @@
     }
 
     // --------------------------------------------------------------------------
+    // 7. SAFARI & APPLE DEVICE VIDEO AUTOPLAY GUARDIAN
+    // --------------------------------------------------------------------------
+    function initSafariVideoGuardian() {
+        const bgVideos = document.querySelectorAll('.hero-video, .site-loader-video, .about video');
+        bgVideos.forEach(video => {
+            video.muted = true;
+            video.defaultMuted = true;
+            video.playsInline = true;
+            video.setAttribute('muted', '');
+            video.setAttribute('playsinline', '');
+            video.setAttribute('webkit-playsinline', '');
+            video.removeAttribute('controls');
+
+            const attemptPlay = () => {
+                video.play().catch(() => {});
+            };
+
+            attemptPlay();
+
+            const onGesture = () => {
+                attemptPlay();
+                window.removeEventListener('touchstart', onGesture);
+                window.removeEventListener('scroll', onGesture);
+                window.removeEventListener('click', onGesture);
+            };
+
+            window.addEventListener('touchstart', onGesture, { passive: true, once: true });
+            window.addEventListener('scroll', onGesture, { passive: true, once: true });
+            window.addEventListener('click', onGesture, { passive: true, once: true });
+        });
+    }
+
+    // --------------------------------------------------------------------------
     // SYSTEM INITIALIZATION
     // --------------------------------------------------------------------------
     if (document.readyState === 'loading') {
@@ -225,12 +258,14 @@
             initAnimationSafetyNet();
             initOverflowGuardian();
             initInteractionGuardian();
+            initSafariVideoGuardian();
         });
     } else {
         initStuckLoaderGuard();
         initAnimationSafetyNet();
         initOverflowGuardian();
         initInteractionGuardian();
+        initSafariVideoGuardian();
     }
 
 })();

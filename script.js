@@ -48,7 +48,7 @@ const templates = {
             : 'assets/loading/landscape_Loading_animation_travel_website…_1080p_202606260037.mp4';
         return `
 <div class="site-loader" id="site-loader" aria-label="Loading The Travel Circle">
-    <video class="site-loader-video" src="${videoSrc}" muted autoplay playsinline preload="auto"></video>
+    <video class="site-loader-video" src="${videoSrc}" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback controlslist="nodownload nofullscreen noremoteplayback"></video>
     <div class="site-loader-shade"></div>
 </div>`;
     },
@@ -179,7 +179,7 @@ const templates = {
 
         return `
 <section class="home" id="home">
-    <video class="hero-video" src="${heroVideo}" muted autoplay loop playsinline preload="metadata"></video>
+    <video class="hero-video" src="${heroVideo}" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback controlslist="nodownload nofullscreen noremoteplayback" aria-hidden="true"></video>
     <div class="hero-overlay"></div>
     <div class="content atelier-hero-content">
         <span class="hero-eyebrow" data-aos="fade-up" data-aos-delay="100">YOUR JOURNEY STARTS HERE</span>
@@ -249,7 +249,7 @@ const templates = {
         return `
 <section class="about" id="about">
     <div class="video-container">
-        <video src="${firstVideo}" muted autoplay loop playsinline class="video"></video>
+        <video src="${firstVideo}" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback controlslist="nodownload nofullscreen noremoteplayback" class="video"></video>
         <div class="controls" role="group" aria-label="Video selection controls">
             ${videoControls}
         </div>
