@@ -2175,7 +2175,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (btn) {
                     e.preventDefault();
                     const title = btn.getAttribute('data-dest-title') || '';
-                    this.openBookingFormWithDestination(title);
+                    const category = btn.getAttribute('data-dest-category') || '';
+                    const vibe = btn.getAttribute('data-dest-vibe') || '';
+                    const message = this.generateDestinationWhatsAppMessage({ title, category, vibe });
+                    this.openWhatsAppEnquiry(message);
                 }
             });
         },
