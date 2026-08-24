@@ -45,7 +45,7 @@ export function Component() {
       const menuItems = containerRef.current!.querySelectorAll(".menu-list-item[data-shape]");
       const shapesContainer = containerRef.current!.querySelector(".ambient-background-shapes");
       
-      menuItems.forEach((item) => {
+      menuItems.forEach((item: Element) => {
         const shapeIndex = item.getAttribute("data-shape");
         const shape = shapesContainer ? shapesContainer.querySelector(`.bg-shape-${shapeIndex}`) : null;
         
@@ -55,7 +55,7 @@ export function Component() {
 
         const onEnter = () => {
              if (shapesContainer) {
-                 shapesContainer.querySelectorAll(".bg-shape").forEach((s) => s.classList.remove("active"));
+                 shapesContainer.querySelectorAll(".bg-shape").forEach((s: Element) => s.classList.remove("active"));
              }
              shape.classList.add("active");
              
@@ -116,11 +116,16 @@ export function Component() {
             if (navWrap) navWrap.setAttribute("data-nav", "open");
             
             tl.set(navWrap, { display: "block" })
-              .set(menu, { xPercent: 0 }, "<")
-              .fromTo(menuButtonTexts, { yPercent: 0 }, { yPercent: -100, stagger: 0.2 })
-              .fromTo(menuButtonIcon, { rotate: 0 }, { rotate: 315 }, "<")
-              
-              .fromTo(overlay, { autoAlpha: 0 }, { autoAlpha: 1 }, "<")
+              .set(menu, { xPercent: 0 }, "<");
+
+            if (menuButtonTexts && menuButtonTexts.length) {
+              tl.fromTo(menuButtonTexts, { yPercent: 0 }, { yPercent: -100, stagger: 0.2 }, "<");
+            }
+            if (menuButtonIcon) {
+              tl.fromTo(menuButtonIcon, { rotate: 0 }, { rotate: 315 }, "<");
+            }
+
+            tl.fromTo(overlay, { autoAlpha: 0 }, { autoAlpha: 1 }, "<")
               .fromTo(bgPanels, { xPercent: 101 }, { xPercent: 0, stagger: 0.12, duration: 0.575 }, "<")
               .fromTo(menuLinks, { yPercent: 140, rotate: 10 }, { yPercent: 0, rotate: 0, stagger: 0.05 }, "<+=0.35");
               
@@ -133,11 +138,16 @@ export function Component() {
             if (navWrap) navWrap.setAttribute("data-nav", "closed");
 
             tl.to(overlay, { autoAlpha: 0 })
-              .to(menu, { xPercent: 120 }, "<")
-              .to(menuButtonTexts, { yPercent: 0 }, "<")
-              .to(menuButtonIcon, { rotate: 0 }, "<")
+              .to(menu, { xPercent: 120 }, "<");
 
-              .set(navWrap, { display: "none" });
+            if (menuButtonTexts && menuButtonTexts.length) {
+              tl.to(menuButtonTexts, { yPercent: 0 }, "<");
+            }
+            if (menuButtonIcon) {
+              tl.to(menuButtonIcon, { rotate: 0 }, "<");
+            }
+
+            tl.set(navWrap, { display: "none" });
         }
 
       }, containerRef);
@@ -156,7 +166,7 @@ export function Component() {
     return () => window.removeEventListener("keydown", handleEsc);
   }, [isMenuOpen]);
 
-  const toggleMenu = () => setIsMenuOpen(prev => !prev);
+  const toggleMenu = () => setIsMenuOpen((prev: boolean) => !prev);
   const closeMenu = () => setIsMenuOpen(false);
 
   return (

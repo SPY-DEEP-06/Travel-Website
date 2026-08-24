@@ -173,7 +173,7 @@ const templates = {
 
     createHome() {
         const heroVideo = this.mediaSrc('images/about-vid-2.mp4');
-        const heroPoster = this.mediaSrc('images/national/Kashmir/1.jpg');
+        const heroPoster = this.mediaSrc('images/national/KASHMIR/K 1.1.jpeg');
 
         return `
 <section class="home" id="home">
@@ -241,7 +241,7 @@ const templates = {
             ['images/about-vid-3.mp4', 'Mountain Vista']
         ];
         const firstVideo = this.mediaSrc(aboutFilms[0][0]);
-        const firstVideoPoster = this.mediaSrc('images/national/Himachal/1.jpg');
+        const firstVideoPoster = this.mediaSrc('images/national/MANALI/M 1.1.jpeg');
         const videoControls = aboutFilms.map(([video, label], index) => `
             <button class="control-btn${index === 0 ? ' active' : ''}" data-src="${this.mediaSrc(video)}" data-label="${label}" aria-label="Play ${label}"></button>`).join('');
 
@@ -2169,6 +2169,62 @@ document.addEventListener('DOMContentLoaded', () => {
             return lines.join("\n");
         },
 
+        openWhatsAppWithUserDetails(presetMessage) {
+            const overlay = document.createElement('div');
+            overlay.style.position = 'fixed';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+            overlay.style.display = 'flex';
+            overlay.style.alignItems = 'center';
+            overlay.style.justifyContent = 'center';
+            overlay.style.zIndex = '999999';
+
+            const modal = document.createElement('div');
+            modal.style.backgroundColor = '#fff';
+            modal.style.padding = '30px';
+            modal.style.borderRadius = '12px';
+            modal.style.width = '90%';
+            modal.style.maxWidth = '400px';
+            modal.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
+            modal.style.textAlign = 'center';
+            modal.style.fontFamily = 'inherit';
+
+            modal.innerHTML = `
+                <h3 style="margin-bottom: 20px; color: #333; font-size: 1.5rem;">Enter Your Details</h3>
+                <p style="margin-bottom: 20px; color: #666; font-size: 0.95rem;">Please provide your name and phone number so we can assist you better.</p>
+                <input type="text" id="wa-name" placeholder="Your Name" required style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1rem;">
+                <input type="tel" id="wa-phone" placeholder="Your Phone Number" required style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1rem;">
+                <div style="display: flex; gap: 10px; justify-content: space-between;">
+                    <button id="wa-cancel" style="flex: 1; padding: 12px; border: none; border-radius: 6px; background-color: #f1f1f1; color: #333; cursor: pointer; font-weight: bold; font-size: 1rem;">Cancel</button>
+                    <button id="wa-submit" style="flex: 1; padding: 12px; border: none; border-radius: 6px; background-color: #25D366; color: white; cursor: pointer; font-weight: bold; font-size: 1rem;">Continue to WhatsApp</button>
+                </div>
+            `;
+
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+
+            document.getElementById('wa-cancel').addEventListener('click', () => {
+                document.body.removeChild(overlay);
+            });
+
+            document.getElementById('wa-submit').addEventListener('click', () => {
+                const name = document.getElementById('wa-name').value.trim();
+                const phone = document.getElementById('wa-phone').value.trim();
+                
+                if (!name || !phone) {
+                    alert("Please enter both Name and Phone Number.");
+                    return;
+                }
+                
+                document.body.removeChild(overlay);
+                const finalMessage = `*Name:* ${name}\n*Phone:* ${phone}\n\n${presetMessage}`;
+                this.openWhatsAppEnquiry(finalMessage);
+            });
+        },
+
         initDestinationWhatsApp() {
             document.addEventListener('click', (e) => {
                 const btn = e.target.closest('.dest-wa-btn');
@@ -2178,7 +2234,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const category = btn.getAttribute('data-dest-category') || '';
                     const vibe = btn.getAttribute('data-dest-vibe') || '';
                     const message = this.generateDestinationWhatsAppMessage({ title, category, vibe });
-                    this.openWhatsAppEnquiry(message);
+                    this.openWhatsAppWithUserDetails(message);
                 }
             });
         },
@@ -2188,8 +2244,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const btn = e.target.closest('.vlog-wa-btn');
                 if (btn) {
                     e.preventDefault();
-                    const destination = btn.getAttribute('data-vlog-dest') || btn.getAttribute('data-vlog-title') || '';
-                    this.openBookingFormWithDestination(destination);
+                    const title = btn.getAttribute('data-vlog-title') || '';
+                    const dest = btn.getAttribute('data-vlog-dest') || title;
+                    const message = this.generateVlogWhatsAppMessage({ destination: dest, title: title, desc: '' });
+                    this.openWhatsAppWithUserDetails(message);
                 }
             });
         },
@@ -2463,7 +2521,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     category: 'Scenic Journeys',
                     date: '15th Sept, 2025',
                     author: 'by The Travel Circle',
-                    image: 'images/national/Kashmir/1.jpg',
+                    image: 'images/national/KASHMIR/K 1.1.jpeg',
                     content: `
                         <p class="blog-lead">We started the morning with no rigid timeline—just a coastal road map, a full tank of fuel, and the shared promise of stopping whenever a view demanded our attention.</p>
                         <p>By midday, the highway gave way to winding mountain roads lined with pine trees and misty valleys. We stopped at a tiny roadside cafe where an elderly local served us cardamom chai and warm bread fresh from a wood-fired oven. It wasn't on any travel itinerary, but that 45-minute pause became the highlight of our day.</p>
@@ -2476,7 +2534,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     category: 'Travel Tips',
                     date: '10th Sept, 2025',
                     author: 'by The Travel Circle',
-                    image: 'images/national/Himachal/1.jpg',
+                    image: 'images/national/MANALI/M 1.1.jpeg',
                     content: `
                         <p class="blog-lead">The finest travel experiences rarely feel over-scheduled. They strike an artful balance between seamless logistics and unhurried freedom.</p>
                         <p>When every transfer is pre-arranged, every hotel check-in is smooth, and every local guide is genuinely passionate, your mind is freed from the friction of decision fatigue. You no longer worry about taxi tariffs, missing train connections, or finding a decent dinner spot in an unfamiliar city.</p>
@@ -2489,7 +2547,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     category: 'Hidden Gems',
                     date: '5th Sept, 2025',
                     author: 'by The Travel Circle',
-                    image: 'images/international/dubai/1.jpg',
+                    image: 'images/international/dubai/1.1.jpeg',
                     content: `
                         <p class="blog-lead">Ask any seasoned traveler about their favorite holiday memory, and they will rarely point to the famous landmark everyone posts on social media. More often than not, they will tell you about the accidental discovery.</p>
                         <p>On a recent trip through Rajasthan, our driver suggested taking a 15-minute detour through a sleepy village near Jal Mahal. That small turn took us to a centuries-old stepwell hidden behind a quiet temple, completely free of crowds and shimmering softly in the afternoon light. We sat on the ancient stone steps for an hour, listening to peacocks call in the distance.</p>
