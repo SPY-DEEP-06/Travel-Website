@@ -114,102 +114,28 @@
 }
 
 /* ==========================================================================
-   MAGICUI TEXT ANIMATE ENGINE (Framer Motion Inspired)
+   FRAMER-MOTION & MAGIC-UI BLUR-IN-UP TRANSITION ENGINE
    ========================================================================== */
-.text-animate {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    vertical-align: baseline;
-}
-
-.text-animate .ta-word {
-    display: inline-block;
-    margin-right: 0.28em;
-    will-change: transform, opacity, filter;
-}
-
-.text-animate .ta-word:last-child {
-    margin-right: 0;
-}
-
-.text-animate .ta-char {
-    display: inline-block;
-    will-change: transform, opacity, filter;
-}
-
-.text-animate .ta-space {
-    display: inline-block;
-    width: 0.28em;
-}
-
-/* 1. BlurInUp Variant */
-.ta-blurInUp .ta-word,
-.ta-blurInUp .ta-char {
+[data-aos="blur-in-up"] {
     opacity: 0;
     filter: blur(8px);
-    transform: translateY(16px);
-    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: var(--ta-delay, 0s);
+    transform: translateY(22px);
+    transition-property: opacity, transform, filter;
+    transition-duration: 0.65s;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity, filter;
 }
 
-.ta-blurInUp.is-in-view .ta-word,
-.ta-blurInUp.is-in-view .ta-char {
+[data-aos="blur-in-up"].aos-animate {
     opacity: 1;
     filter: blur(0px);
     transform: translateY(0);
 }
 
-/* 2. SlideUp Variant */
-.ta-slideUp .ta-word,
-.ta-slideUp .ta-char {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.48s cubic-bezier(0.16, 1, 0.3, 1), transform 0.48s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: var(--ta-delay, 0s);
-}
-
-.ta-slideUp.is-in-view .ta-word,
-.ta-slideUp.is-in-view .ta-char {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* 3. ScaleUp Variant */
-.ta-scaleUp .ta-word,
-.ta-scaleUp .ta-char {
-    opacity: 0;
-    transform: scale(0.85);
-    transition: opacity 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-    transition-delay: var(--ta-delay, 0s);
-}
-
-.ta-scaleUp.is-in-view .ta-word,
-.ta-scaleUp.is-in-view .ta-char {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* 4. FadeIn Variant */
-.ta-fadeIn .ta-word,
-.ta-fadeIn .ta-char {
-    opacity: 0;
-    transform: translateY(6px);
-    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-    transition-delay: var(--ta-delay, 0s);
-}
-
-.ta-fadeIn.is-in-view .ta-word,
-.ta-fadeIn.is-in-view .ta-char {
-    opacity: 1;
-    transform: translateY(0);
-}
-
 @media (prefers-reduced-motion: reduce) {
-    .text-animate .ta-word,
-    .text-animate .ta-char {
-        opacity: 1 !important;
+    [data-aos="blur-in-up"] {
         filter: none !important;
+        opacity: 1 !important;
         transform: none !important;
         transition: none !important;
     }

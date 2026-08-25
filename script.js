@@ -41,37 +41,6 @@ const templates = {
         return `<span class="roll-text" data-text="${label}"><span>${label}</span></span>`;
     },
 
-    textAnimate(text, options = {}) {
-        const {
-            animation = 'blurInUp',
-            by = 'word',
-            delay = 0,
-            duration = 0.45,
-            className = ''
-        } = options;
-
-        if (!text) return '';
-
-        if (by === 'character') {
-            const chars = text.split('');
-            const charSpans = chars.map((char, index) => {
-                if (char === ' ') return '<span class="ta-space">&nbsp;</span>';
-                const charDelay = (delay + index * 0.025).toFixed(3);
-                return `<span class="ta-char" style="--ta-delay: ${charDelay}s;" aria-hidden="true">${char}</span>`;
-            }).join('');
-            return `<span class="text-animate ta-${animation} ${className}" data-text-animate="${animation}" aria-label="${text}">${charSpans}</span>`;
-        }
-
-        const words = text.split(/\s+/).filter(Boolean);
-        const stagger = duration / Math.max(words.length, 1);
-        const wordSpans = words.map((word, index) => {
-            const wordDelay = (delay + index * Math.min(stagger, 0.055)).toFixed(3);
-            return `<span class="ta-word" style="--ta-delay: ${wordDelay}s;" aria-hidden="true">${word}</span>`;
-        }).join(' ');
-
-        return `<span class="text-animate ta-${animation} ${className}" data-text-animate="${animation}" aria-label="${text}">${wordSpans}</span>`;
-    },
-
     createPageLoader() {
         const usePortrait = window.matchMedia('(max-width: 1024px) and (orientation: portrait)').matches || window.matchMedia('(max-width: 768px)').matches;
         const videoSrc = usePortrait
@@ -288,8 +257,8 @@ const templates = {
         </div>
     </div>
     <div class="content">
-        <span>${this.textAnimate('about us', { animation: 'fadeIn', by: 'character' })}</span>
-        <h3>${this.textAnimate('Crafting Unforgettable Journeys', { animation: 'blurInUp', by: 'word' })}</h3>
+        <span>about us</span>
+        <h3>Crafting Unforgettable Journeys</h3>
         <p>At The Travel Circle, we believe that travel is not just about reaching a destination—it's about creating memories, discovering new cultures, and experiencing the world in meaningful ways. Founded with a passion for exploration and a commitment to exceptional service, our mission is to turn every travel dream into an unforgettable journey.</p>
         <p>We understand that every traveller is unique, and so are their travel aspirations. Whether you're planning a relaxing beach escape, an exciting adventure, a romantic honeymoon, a family vacation, a corporate retreat, or an international getaway, we create personalized travel experiences tailored to your preferences, budget, and interests.</p>
         <p>Our team is dedicated to making travel plans simple, seamless, and stress-free. From flight and hotel bookings to visa assistance, curated holiday packages, cruise vacations, group tours, and customized itineraries, we take care of every detail so you can focus on enjoying your journey.</p>
@@ -311,9 +280,9 @@ const templates = {
     createWhyChooseUs() {
         return `
 <section class="why-choose-us" id="why-us">
-    <div class="heading">
-        <span>${this.textAnimate('our values', { animation: 'fadeIn', by: 'character' })}</span>
-        <h1>${this.textAnimate('why choose the travel circle?', { animation: 'blurInUp', by: 'word' })}</h1>
+    <div class="heading" data-aos="blur-in-up">
+        <span>our values</span>
+        <h1>why choose the travel circle?</h1>
     </div>
     <div class="box-container">
         <div class="box" data-aos="fade-up" data-aos-delay="150">
@@ -348,7 +317,7 @@ const templates = {
         </div>
     </div>
     <div class="why-choose-us-tagline" data-aos="zoom-in">
-        "At The Travel Circle, we don't just plan trips—we create <span class="marker-underline">experiences that stay with you forever</span>."
+        "At The Travel Circle, we don't just plan trips—we create experiences that stay with you forever."
     </div>
 </section>`;
     },
@@ -578,7 +547,7 @@ const templates = {
     </div>
     
     <div class="why-choose-us-tagline" data-aos="zoom-in" style="margin-top: 5rem; text-align: center;">
-        "From the nearest getaway to the farthest corner of the world, <span class="marker-underline">no destination is beyond our reach</span>. If you can dream it, we can plan it."
+        "From the nearest getaway to the farthest corner of the world, no destination is beyond our reach. If you can dream it, we can plan it."
     </div>
 </section>`;
     },
@@ -605,9 +574,9 @@ const templates = {
 
         return `
 <section class="services" id="services">
-    <div class="heading">
-        <span>${this.textAnimate('what we arrange', { animation: 'fadeIn', by: 'character' })}</span>
-        <h1>${this.textAnimate('Every Detail, Beautifully Handled', { animation: 'blurInUp', by: 'word' })}</h1>
+    <div class="heading" data-aos="blur-in-up">
+        <span>what we arrange</span>
+        <h1>Every Detail, Beautifully Handled</h1>
     </div>
     <div class="box-container">
         ${serviceCards}
@@ -672,9 +641,9 @@ const templates = {
 
         return `
 <section class="gallery" id="gallery">
-    <div class="heading">
-        <span>${this.textAnimate('journey moments', { animation: 'fadeIn', by: 'character' })}</span>
-        <h1>${this.textAnimate('memories from every mile', { animation: 'blurInUp', by: 'word' })}</h1>
+    <div class="heading" data-aos="blur-in-up">
+        <span>journey moments</span>
+        <h1>memories from every mile</h1>
     </div>
     <div class="box-container" id="gallery-box-container">
         ${initialCards}
@@ -692,8 +661,8 @@ const templates = {
         return `
 <section class="review" id="review">
     <div class="content" data-aos="fade-right" data-aos-delay="300">
-        <span>${this.textAnimate('traveler stories', { animation: 'fadeIn', by: 'character' })}</span>
-        <h3>${this.textAnimate('people return with better stories', { animation: 'blurInUp', by: 'word' })}</h3>
+        <span>traveler stories</span>
+        <h3>people return with better stories</h3>
         <p>Every itinerary is personal, so every review feels different. Here is what travelers love about letting The Travel Circle plan the details while they enjoy the journey.</p>
     </div>
     <div class="review-slider" data-aos="fade-left" data-aos-delay="600">
@@ -755,9 +724,9 @@ const templates = {
 
         return `
 <section class="blogs" id="blogs">
-    <div class="heading">
-        <span>${this.textAnimate('travel notes', { animation: 'fadeIn', by: 'character' })}</span>
-        <h1>${this.textAnimate('ideas before you pack', { animation: 'blurInUp', by: 'word' })}</h1>
+    <div class="heading" data-aos="blur-in-up">
+        <span>travel notes</span>
+        <h1>ideas before you pack</h1>
     </div>
     <div class="box-container">
         <div class="box blog-card-trigger" data-blog-id="blog-1" data-aos="fade-up" data-aos-delay="150" role="button" tabindex="0">
@@ -806,9 +775,9 @@ const templates = {
     createBanner() {
         return `
 <div class="banner">
-    <div class="content" data-aos="zoom-in-up" data-aos-delay="300">
-        <span>${this.textAnimate('ready when you are', { animation: 'fadeIn', by: 'character' })}</span>
-        <h3>${this.textAnimate('Your Next Story Starts With A Plan', { animation: 'blurInUp', by: 'word' })}</h3>
+    <div class="content" data-aos="blur-in-up" data-aos-delay="300">
+        <span>ready when you are</span>
+        <h3>Your Next Story Starts With A Plan</h3>
         <p>At The Travel Circle, we don't just plan trips—we create experiences that stay with you forever. Let's start planning your next adventure together!</p>
         <a href="#book-form" class="btn">plan my journey</a>
     </div>
@@ -1136,7 +1105,6 @@ document.addEventListener('DOMContentLoaded', () => {
             this.initStateSearch();
             this.initLehModal();
             this.initBlogModal();
-            this.initTextAnimate();
         },
 
         initSkeletonScreens() {
@@ -2701,26 +2669,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     closeBlogModal();
                 }
             });
-        },
-
-        initTextAnimate() {
-            const targets = document.querySelectorAll('.text-animate, [data-text-animate]');
-            if (!targets.length) return;
-
-            if ('IntersectionObserver' in window) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('is-in-view');
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
-
-                targets.forEach(el => observer.observe(el));
-            } else {
-                targets.forEach(el => el.classList.add('is-in-view'));
-            }
         },
 
         initNewsletterForm() {
