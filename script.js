@@ -183,9 +183,9 @@ const templates = {
         <span class="hero-eyebrow" data-aos="fade-up" data-aos-delay="100">YOUR JOURNEY STARTS HERE</span>
         <h1 data-aos="fade-up" data-aos-delay="200">
             We're Officially<br>
-            <span data-highlighter="underline" data-hl-color="#d4af37" data-hl-width="2.5"><em>Taking Off.</em></span>
+            <span class="marker-underline-gold"><em>Taking Off.</em></span>
         </h1>
-        <p data-aos="fade-up" data-aos-delay="350">Welcome to <strong>The Travel Circle</strong> — your trusted partner in creating <span data-highlighter="highlight" data-hl-color="rgba(185, 142, 71, 0.25)">unforgettable journeys</span>.<br class="desktop-break">Whether it's a relaxing beach escape, a thrilling adventure, a family vacation, a romantic honeymoon, or an international getaway, we're here to turn your travel dreams into reality.</p>
+        <p data-aos="fade-up" data-aos-delay="350">Welcome to <strong>The Travel Circle</strong> — your trusted partner in creating <span class="marker-highlight">unforgettable journeys</span>.<br class="desktop-break">Whether it's a relaxing beach escape, a thrilling adventure, a family vacation, a romantic honeymoon, or an international getaway, we're here to turn your travel dreams into reality.</p>
 
         <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
             <a href="#book-form" class="hero-primary">Start My Journey
@@ -258,8 +258,8 @@ const templates = {
     </div>
     <div class="content">
         <span>about us</span>
-        <h3>Crafting <span data-highlighter="underline" data-hl-color="#b98e47" data-hl-width="2.2">Unforgettable Journeys</span></h3>
-        <p>At The Travel Circle, we believe that travel is not just about reaching a destination—it's about creating memories, discovering new cultures, and experiencing the world in meaningful ways. Founded with a passion for exploration and a commitment to exceptional service, our mission is to turn every travel dream into an <span data-highlighter="highlight" data-hl-color="rgba(185, 142, 71, 0.22)">unforgettable journey</span>.</p>
+        <h3>Crafting <span class="marker-underline">Unforgettable Journeys</span></h3>
+        <p>At The Travel Circle, we believe that travel is not just about reaching a destination—it's about creating memories, discovering new cultures, and experiencing the world in meaningful ways. Founded with a passion for exploration and a commitment to exceptional service, our mission is to turn every travel dream into an <span class="marker-highlight">unforgettable journey</span>.</p>
         <p>We understand that every traveller is unique, and so are their travel aspirations. Whether you're planning a relaxing beach escape, an exciting adventure, a romantic honeymoon, a family vacation, a corporate retreat, or an international getaway, we create personalized travel experiences tailored to your preferences, budget, and interests.</p>
         <p>Our team is dedicated to making travel plans simple, seamless, and stress-free. From flight and hotel bookings to visa assistance, curated holiday packages, cruise vacations, group tours, and customized itineraries, we take care of every detail so you can focus on enjoying your journey.</p>
         
@@ -282,7 +282,7 @@ const templates = {
 <section class="why-choose-us" id="why-us">
     <div class="heading">
         <span>our values</span>
-        <h1>why choose <span data-highlighter="highlight" data-hl-color="rgba(185, 142, 71, 0.22)">the travel circle?</span></h1>
+        <h1>why choose <span class="marker-highlight">the travel circle?</span></h1>
     </div>
     <div class="box-container">
         <div class="box" data-aos="fade-up" data-aos-delay="150">
@@ -317,7 +317,7 @@ const templates = {
         </div>
     </div>
     <div class="why-choose-us-tagline" data-aos="zoom-in">
-        "At The Travel Circle, we don't just plan trips—we create <span data-highlighter="underline" data-hl-color="#b98e47" data-hl-width="2">experiences that stay with you forever</span>."
+        "At The Travel Circle, we don't just plan trips—we create <span class="marker-underline">experiences that stay with you forever</span>."
     </div>
 </section>`;
     },
@@ -547,7 +547,7 @@ const templates = {
     </div>
     
     <div class="why-choose-us-tagline" data-aos="zoom-in" style="margin-top: 5rem; text-align: center;">
-        "From the nearest getaway to the farthest corner of the world, <span data-highlighter="underline" data-hl-color="#b98e47" data-hl-width="2">no destination is beyond our reach</span>. If you can dream it, we can plan it."
+        "From the nearest getaway to the farthest corner of the world, <span class="marker-underline">no destination is beyond our reach</span>. If you can dream it, we can plan it."
     </div>
 </section>`;
     },
@@ -656,98 +656,63 @@ const templates = {
 
     createReview() {
         const images = this.getImages();
-        const reviewAvatars = [images[18], images[26], images[34], images[42], images[10], images[22]].map(image => image || images[0]);
+        const reviewerImages = [images[56], images[72], images[96], images[120]].map(image => image || images[0]);
 
         return `
 <section class="review" id="review">
-    <div class="heading">
-        <span>guest journals</span>
-        <h1>words from fellow travelers</h1>
+    <div class="content" data-aos="fade-right" data-aos-delay="300">
+        <span>traveler stories</span>
+        <h3>people return with better stories</h3>
+        <p>Every itinerary is personal, so every review feels different. Here is what travelers love about letting The Travel Circle plan the details while they enjoy the journey.</p>
     </div>
-    <div class="review-slider-wrapper">
-        <div class="review-track" id="review-track">
-            <div class="review-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="review-header">
-                    <img src="${this.mediaSrc(reviewAvatars[0])}" class="user" alt="Aarav Sharma - Verified Guest" loading="lazy">
-                    <div class="user-meta">
-                        <h3>Aarav Sharma</h3>
-                        <span>Kashmir Expedition</span>
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+    <div class="review-slider" data-aos="fade-left" data-aos-delay="600">
+        <div class="slider-wrapper">
+            <div class="box-container">
+                <div class="box">
+                    <p>The Travel Circle turned our honeymoon into a dream route. Every transfer, stay, and sunset felt perfectly timed.</p>
+                    <div class="user">
+                        <img src="${this.mediaSrc(reviewerImages[0])}" alt="The Travel Circle traveler memory" loading="lazy">
+                        <div class="info">
+                            <h3>Aarav Mehta</h3>
+                            <span>honeymoon traveler</span>
                         </div>
                     </div>
                 </div>
-                <p>"The Travel Circle curated our entire Kashmir tour down to the smallest detail. From the houseboat in Dal Lake to the snow activities in Gulmarg, everything was flawless!"</p>
-            </div>
-            <div class="review-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="review-header">
-                    <img src="${this.mediaSrc(reviewAvatars[1])}" class="user" alt="Priya Nair - Verified Guest" loading="lazy">
-                    <div class="user-meta">
-                        <h3>Priya Nair</h3>
-                        <span>Kerala Backwaters</span>
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <div class="box">
+                    <p>We asked for a relaxed beach holiday, and they gave us calm mornings, beautiful rooms, and zero stress.</p>
+                    <div class="user">
+                        <img src="${this.mediaSrc(reviewerImages[1])}" alt="The Travel Circle family travel memory" loading="lazy">
+                        <div class="info">
+                            <h3>Nisha Kapoor</h3>
+                            <span>family traveler</span>
                         </div>
                     </div>
                 </div>
-                <p>"Unbelievable hospitality and smooth coordination. Our private houseboat stay in Alleppey and the Munnar tea estate tour were unforgettable experiences."</p>
-            </div>
-            <div class="review-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="review-header">
-                    <img src="${this.mediaSrc(reviewAvatars[2])}" class="user" alt="Rohan Verma - Verified Guest" loading="lazy">
-                    <div class="user-meta">
-                        <h3>Rohan Verma</h3>
-                        <span>Leh Ladakh Bike Expedition</span>
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <div class="box">
+                    <p>Our mountain trip had the right mix of thrill and comfort. The planning was sharp, thoughtful, and easy.</p>
+                    <div class="user">
+                        <img src="${this.mediaSrc(reviewerImages[2])}" alt="The Travel Circle adventure memory" loading="lazy">
+                        <div class="info">
+                            <h3>Rohan Verma</h3>
+                            <span>adventure seeker</span>
                         </div>
                     </div>
                 </div>
-                <p>"The bike ride through Khardung La and Pangong Tso with backup support was exhilarating. Safety, logistics, and stay were managed with top professionalism."</p>
-            </div>
-            <div class="review-card" data-aos="fade-up" data-aos-delay="400">
-                <div class="review-header">
-                    <img src="${this.mediaSrc(reviewAvatars[3])}" class="user" alt="Sneha Kulkarni - Verified Guest" loading="lazy">
-                    <div class="user-meta">
-                        <h3>Sneha Kulkarni</h3>
-                        <span>Bali Island Escape</span>
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <div class="box">
+                    <p>The local experiences were the best part. We did not just visit places; we actually felt connected to them.</p>
+                    <div class="user">
+                        <img src="${this.mediaSrc(reviewerImages[3])}" alt="The Travel Circle culture travel memory" loading="lazy">
+                        <div class="info">
+                            <h3>Meera Iyer</h3>
+                            <span>culture explorer</span>
                         </div>
                     </div>
                 </div>
-                <p>"Our Bali honeymoon was like a dream come true! Private pool villas, sunset dinner at Jimbaran, and hassle-free transfers. Truly the best travel planners."</p>
-            </div>
-            <div class="review-card" data-aos="fade-up" data-aos-delay="500">
-                <div class="review-header">
-                    <img src="${this.mediaSrc(reviewAvatars[4])}" class="user" alt="Vikram Malhotra - Verified Guest" loading="lazy">
-                    <div class="user-meta">
-                        <h3>Vikram Malhotra</h3>
-                        <span>Dubai City & Desert Safari</span>
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                </div>
-                <p>"From visa assistance to luxury yacht bookings and desert safari camp, The Travel Circle gave us a VIP experience throughout our Dubai vacation."</p>
-            </div>
-            <div class="review-card" data-aos="fade-up" data-aos-delay="600">
-                <div class="review-header">
-                    <img src="${this.mediaSrc(reviewAvatars[5])}" class="user" alt="Ananya Deshmukh - Verified Guest" loading="lazy">
-                    <div class="user-meta">
-                        <h3>Ananya Deshmukh</h3>
-                        <span>Manali Mountain Retreat</span>
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                </div>
-                <p>"Scenic river-view cottage in Manali, seamless cab driver, and thoughtful itinerary recommendations. We felt completely safe and pampered!"</p>
             </div>
         </div>
-        <div class="review-controls">
-            <button class="review-nav-btn prev-btn" id="review-prev" aria-label="Previous Review"><i class="fas fa-chevron-left"></i></button>
-            <button class="review-nav-btn next-btn" id="review-next" aria-label="Next Review"><i class="fas fa-chevron-right"></i></button>
+        <div class="slider-controls">
+            <button id="prev-review" class="slider-btn" aria-label="Previous review"><i class="fas fa-chevron-left"></i></button>
+            <button id="next-review" class="slider-btn" aria-label="Next review"><i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
 </section>`;
@@ -761,7 +726,7 @@ const templates = {
 <section class="blogs" id="blogs">
     <div class="heading">
         <span>travel notes</span>
-        <h1>ideas before <span data-highlighter="underline" data-hl-color="#b98e47" data-hl-width="2">you pack</span></h1>
+        <h1>ideas before <span class="marker-underline">you pack</span></h1>
     </div>
     <div class="box-container">
         <div class="box blog-card-trigger" data-blog-id="blog-1" data-aos="fade-up" data-aos-delay="150" role="button" tabindex="0">
@@ -812,7 +777,7 @@ const templates = {
 <div class="banner">
     <div class="content" data-aos="zoom-in-up" data-aos-delay="300">
         <span>ready when you are</span>
-        <h3>Your Next Story Starts With <span data-highlighter="highlight" data-hl-color="rgba(185, 142, 71, 0.32)">A Plan</span></h3>
+        <h3>Your Next Story Starts With <span class="marker-highlight">A Plan</span></h3>
         <p>At The Travel Circle, we don't just plan trips—we create experiences that stay with you forever. Let's start planning your next adventure together!</p>
         <a href="#book-form" class="btn">plan my journey</a>
     </div>
@@ -1140,7 +1105,6 @@ document.addEventListener('DOMContentLoaded', () => {
             this.initStateSearch();
             this.initLehModal();
             this.initBlogModal();
-            this.initHighlighterSystem();
         },
 
         initSkeletonScreens() {
@@ -2705,67 +2669,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     closeBlogModal();
                 }
             });
-        },
-
-        initHighlighterSystem() {
-            const elements = document.querySelectorAll('[data-highlighter]');
-            if (!elements.length) return;
-
-            const annotateElement = (el) => {
-                if (el.dataset.highlighted === 'true') return;
-                el.dataset.highlighted = 'true';
-
-                const action = el.getAttribute('data-highlighter') || 'highlight';
-                const color = el.getAttribute('data-hl-color') || (action === 'highlight' ? 'rgba(185, 142, 71, 0.25)' : '#b98e47');
-                const strokeWidth = parseFloat(el.getAttribute('data-hl-width')) || 1.8;
-                const animationDuration = parseInt(el.getAttribute('data-hl-duration'), 10) || 650;
-                const iterations = parseInt(el.getAttribute('data-hl-iterations'), 10) || 2;
-                const padding = parseInt(el.getAttribute('data-hl-padding'), 10) || 3;
-                const multiline = el.getAttribute('data-hl-multiline') !== 'false';
-
-                if (window.RoughNotation && typeof window.RoughNotation.annotate === 'function') {
-                    try {
-                        const annotation = window.RoughNotation.annotate(el, {
-                            type: action,
-                            color: color,
-                            strokeWidth: strokeWidth,
-                            animationDuration: animationDuration,
-                            iterations: iterations,
-                            padding: padding,
-                            multiline: multiline
-                        });
-                        annotation.show();
-
-                        let resizeTimer;
-                        window.addEventListener('resize', () => {
-                            clearTimeout(resizeTimer);
-                            resizeTimer = setTimeout(() => {
-                                if (annotation && typeof annotation.hide === 'function') {
-                                    annotation.hide();
-                                    annotation.show();
-                                }
-                            }, 250);
-                        }, { passive: true });
-                    } catch (err) {
-                        console.warn('RoughNotation annotation failed gracefully:', err);
-                    }
-                }
-            };
-
-            if ('IntersectionObserver' in window) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            annotateElement(entry.target);
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-                elements.forEach(el => observer.observe(el));
-            } else {
-                elements.forEach(annotateElement);
-            }
         },
 
         initNewsletterForm() {

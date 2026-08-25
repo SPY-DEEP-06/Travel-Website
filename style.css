@@ -64,20 +64,53 @@
     outline-offset: 3px;
 }
 
-/* Magic UI Rough Notation Highlighter Integration */
-[data-highlighter] {
+/* ==========================================================================
+   PURE CSS ARTISAN TEXT HIGHLIGHTER & HAND-DRAWN MARKER STROKES
+   ========================================================================== */
+.marker-highlight {
+    position: relative;
+    display: inline;
+    padding: 0.12em 0.35em;
+    margin: 0 -0.1em;
+    border-radius: 0.25em;
+    background: linear-gradient(104deg, rgba(212, 162, 58, 0) 0.9%, rgba(212, 162, 58, 0.22) 2.4%, rgba(212, 162, 58, 0.28) 5.8%, rgba(212, 162, 58, 0.22) 93%, rgba(212, 162, 58, 0.26) 96%, rgba(212, 162, 58, 0) 98.5%);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    color: inherit;
+}
+
+.marker-underline {
     position: relative;
     display: inline-block;
-    background: transparent;
-    z-index: 1;
+    color: inherit;
 }
 
-[data-highlighter] em {
-    font-style: italic;
+.marker-underline::after {
+    content: '';
+    position: absolute;
+    left: -2%;
+    bottom: -0.16em;
+    width: 104%;
+    height: 0.22em;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2,7 C45,1 150,11 198,4 C140,9 60,3 3,9' fill='none' stroke='%23b98e47' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center bottom / 100% 100%;
+    pointer-events: none;
 }
 
-.rough-annotation {
-    pointer-events: none !important;
+.marker-underline-gold {
+    position: relative;
+    display: inline-block;
+    color: inherit;
+}
+
+.marker-underline-gold::after {
+    content: '';
+    position: absolute;
+    left: -2%;
+    bottom: -0.16em;
+    width: 104%;
+    height: 0.24em;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2,6 C50,2 145,10 198,5 C135,9 65,3 4,8' fill='none' stroke='%23d4af37' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center bottom / 100% 100%;
+    pointer-events: none;
 }
 
 html {
