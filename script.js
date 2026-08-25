@@ -620,7 +620,7 @@ const templates = {
 
     createGallery() {
         const items = this.getGalleryItems();
-        const initialCount = 6;
+        const initialCount = 8;
         const initialItems = items.slice(0, initialCount);
 
         const cardHtml = (item) => {
@@ -2837,7 +2837,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return div;
             };
 
-            const batchSize = 6;
+            const batchSize = 8;
 
             loadMoreBtn.addEventListener('click', () => {
                 const nextBatch = allItems.slice(currentIndex, currentIndex + batchSize);
@@ -2846,21 +2846,59 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                nextBatch.forEach((item, idx) => {
+                const newNodes = [];
+                nextBatch.forEach((item) => {
                     const node = buildCardNode(item);
-                    node.style.animationDelay = `${idx * 65}ms`;
                     container.appendChild(node);
-
-                    setTimeout(() => {
-                        node.classList.remove('is-entering');
-                        node.style.animationDelay = '';
-                    }, 520 + idx * 65);
+                    newNodes.push(node);
                 });
+
+                if (typeof gsap !== 'undefined') {
+                    gsap.fromTo(newNodes, 
+                        { opacity: 0, y: 40, scale: 0.95 },
+                        { 
+                            opacity: 1, 
+                            y: 0, 
+                            scale: 1, 
+                            duration: 0.8, 
+                            ease: "power3.out", 
+                            stagger: 0.08,
+                            onComplete: () => {
+                                newNodes.forEach(node => node.classList.remove('is-entering'));
+                                if (typeof ScrollTrigger !== 'undefined') {
+                                    ScrollTrigger.refresh();
+                                }
+                            }
+                        }
+                    );
+                } else {
+                    newNodes.forEach((node, idx) => {
+                        node.style.animationDelay = `${idx * 65}ms`;
+                        setTimeout(() => {
+                            node.classList.remove('is-entering');
+                            node.style.animationDelay = '';
+                        }, 520 + idx * 65);
+                    });
+                }
 
                 currentIndex += nextBatch.length;
 
                 if (currentIndex >= allItems.length) {
-                    loadMoreBtn.style.display = 'none';
+                    if (typeof gsap !== 'undefined') {
+                        gsap.to(loadMoreBtn, {
+                            opacity: 0,
+                            scale: 0.9,
+                            duration: 0.35,
+                            onComplete: () => {
+                                loadMoreBtn.style.display = 'none';
+                                if (typeof ScrollTrigger !== 'undefined') {
+                                    ScrollTrigger.refresh();
+                                }
+                            }
+                        });
+                    } else {
+                        loadMoreBtn.style.display = 'none';
+                    }
                 }
             });
         },
