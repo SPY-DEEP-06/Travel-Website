@@ -200,16 +200,19 @@ const templates = {
         return `
 <section class="book-form is-hidden" id="book-form" aria-hidden="true">
     <form action="" id="booking-form" novalidate>
-        <h2 class="form-title">
-            <span class="title-text"><i class="fas fa-paper-plane"></i> Plan Your Journey / Tour Request</span>
-            <button type="button" class="form-close-btn" id="close-book-form" aria-label="Close Tour Form"><i class="fas fa-times"></i></button>
-        </h2>
+        <div class="form-header-wrap">
+            <h2 class="form-title">
+                <span class="title-text"><i class="fas fa-paper-plane"></i> Plan Your Journey / Tour Request</span>
+                <button type="button" class="form-close-btn" id="close-book-form" aria-label="Close Tour Form"><i class="fas fa-times"></i></button>
+            </h2>
+            <p class="form-subheading">Share your travel dreams with us and let our specialists curate your custom itinerary.</p>
+        </div>
         <div class="inputBox">
-            <span><i class="fas fa-map-marker-alt"></i> Dream Destination</span>
+            <span><i class="fas fa-map-marker-alt"></i> Dream Destination <span class="req-star">*</span></span>
             <input type="text" id="book-destination" placeholder="City, State, Country, or Experience" required autocomplete="off">
         </div>
         <div class="inputBox">
-            <span><i class="fas fa-phone-alt"></i> Contact Number <small class="label-compulsory">(Compulsory)</small></span>
+            <span><i class="fas fa-phone-alt"></i> Contact Number <span class="req-star">*</span></span>
             <input type="tel" id="book-contact" placeholder="Enter 10-digit Contact Number (e.g. 8108776019)" required autocomplete="tel">
         </div>
         <div class="inputBox">
@@ -217,7 +220,7 @@ const templates = {
             <input type="email" id="book-email" placeholder="Enter Email Address (optional)" autocomplete="email">
         </div>
         <div class="inputBox date-range-box">
-            <span><i class="fas fa-calendar-alt"></i> Travel Dates (From - To Range)</span>
+            <span><i class="fas fa-calendar-alt"></i> Travel Dates (From - To Range) <span class="req-star">*</span></span>
             <div class="date-inputs">
                 <input type="date" id="book-date-from" aria-label="Going Date (From)" required>
                 <span class="date-sep">to</span>
@@ -225,7 +228,7 @@ const templates = {
             </div>
         </div>
         <div class="inputBox">
-            <span><i class="fas fa-users"></i> Travelers</span>
+            <span><i class="fas fa-users"></i> Travelers <span class="req-star">*</span></span>
             <input type="number" id="book-travelers" placeholder="Number of Guests" min="1" required>
         </div>
         <button type="submit" class="btn form-submit-btn">Submit Tour Plan <i class="fas fa-paper-plane"></i></button>
@@ -2171,43 +2174,87 @@ document.addEventListener('DOMContentLoaded', () => {
 
         openWhatsAppWithUserDetails(presetMessage) {
             const overlay = document.createElement('div');
+            overlay.className = 'ttc-details-modal-overlay';
             overlay.style.position = 'fixed';
-            overlay.style.top = '0';
-            overlay.style.left = '0';
-            overlay.style.width = '100%';
-            overlay.style.height = '100%';
-            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+            overlay.style.inset = '0';
+            overlay.style.width = '100vw';
+            overlay.style.height = '100dvh';
+            overlay.style.backgroundColor = 'rgba(15, 23, 42, 0.72)';
+            overlay.style.backdropFilter = 'blur(10px)';
+            overlay.style.webkitBackdropFilter = 'blur(10px)';
             overlay.style.display = 'flex';
             overlay.style.alignItems = 'center';
             overlay.style.justifyContent = 'center';
             overlay.style.zIndex = '999999';
+            overlay.style.padding = '1.5rem';
+            overlay.style.animation = 'fadeIn 0.25s ease-out';
 
             const modal = document.createElement('div');
-            modal.style.backgroundColor = '#fff';
-            modal.style.padding = '30px';
-            modal.style.borderRadius = '12px';
-            modal.style.width = '90%';
-            modal.style.maxWidth = '400px';
-            modal.style.boxShadow = '0 10px 25px rgba(0,0,0,0.2)';
-            modal.style.textAlign = 'center';
-            modal.style.fontFamily = 'inherit';
+            modal.className = 'ttc-details-modal';
+            modal.style.backgroundColor = '#ffffff';
+            modal.style.padding = '3.2rem 2.8rem';
+            modal.style.borderRadius = '2rem';
+            modal.style.width = '100%';
+            modal.style.maxWidth = '440px';
+            modal.style.border = '1px solid rgba(185, 142, 71, 0.35)';
+            modal.style.boxShadow = '0 25px 60px -10px rgba(15, 23, 42, 0.25), 0 0 30px rgba(185, 142, 71, 0.15)';
+            modal.style.textAlign = 'left';
+            modal.style.position = 'relative';
+            modal.style.animation = 'formExpandReveal 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards';
 
             modal.innerHTML = `
-                <h3 style="margin-bottom: 20px; color: #333; font-size: 1.5rem;">Enter Your Details</h3>
-                <p style="margin-bottom: 20px; color: #666; font-size: 0.95rem;">Please provide your name and phone number so we can assist you better.</p>
-                <input type="text" id="wa-name" placeholder="Your Name" required style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1rem;">
-                <input type="tel" id="wa-phone" placeholder="Your Phone Number" required style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1rem;">
-                <div style="display: flex; gap: 10px; justify-content: space-between;">
-                    <button id="wa-cancel" style="flex: 1; padding: 12px; border: none; border-radius: 6px; background-color: #f1f1f1; color: #333; cursor: pointer; font-weight: bold; font-size: 1rem;">Cancel</button>
-                    <button id="wa-submit" style="flex: 1; padding: 12px; border: none; border-radius: 6px; background-color: #25D366; color: white; cursor: pointer; font-weight: bold; font-size: 1rem;">Continue to WhatsApp</button>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem;">
+                    <h3 style="color: #0f172a; font-size: 2rem; font-weight: 700; display: flex; align-items: center; gap: 0.8rem; margin: 0;">
+                        <i class="fab fa-whatsapp" style="color: #25D366; font-size: 2.4rem;"></i> Start WhatsApp Inquiry
+                    </h3>
+                    <button type="button" id="wa-close-x" style="background: rgba(15, 23, 42, 0.06); border: none; width: 3.2rem; height: 3.2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #64748b; cursor: pointer; font-size: 1.4rem; transition: all 0.2s ease;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <p style="margin-bottom: 2.2rem; color: #475569; font-size: 1.35rem; line-height: 1.5;">Please share your name & phone number so our travel curator can connect with you directly on WhatsApp.</p>
+                
+                <div style="margin-bottom: 1.6rem;">
+                    <label style="display: block; font-size: 1.35rem; font-weight: 600; color: #0f172a; margin-bottom: 0.6rem;">
+                        <i class="fas fa-user" style="color: #b98e47; margin-right: 0.4rem;"></i> Full Name <span class="req-star">*</span>
+                    </label>
+                    <input type="text" id="wa-name" placeholder="Enter Your Full Name" required style="width: 100%; padding: 1.2rem 1.6rem; border: 1.5px solid rgba(185, 142, 71, 0.3); border-radius: 5rem; font-size: 1.45rem; color: #0f172a; background: #fafafa; outline: none; transition: all 0.25s ease;">
+                </div>
+
+                <div style="margin-bottom: 2.4rem;">
+                    <label style="display: block; font-size: 1.35rem; font-weight: 600; color: #0f172a; margin-bottom: 0.6rem;">
+                        <i class="fas fa-phone-alt" style="color: #b98e47; margin-right: 0.4rem;"></i> Contact Number <span class="req-star">*</span>
+                    </label>
+                    <input type="tel" id="wa-phone" placeholder="Enter 10-digit Mobile Number" required style="width: 100%; padding: 1.2rem 1.6rem; border: 1.5px solid rgba(185, 142, 71, 0.3); border-radius: 5rem; font-size: 1.45rem; color: #0f172a; background: #fafafa; outline: none; transition: all 0.25s ease;">
+                </div>
+
+                <div style="display: flex; gap: 1.2rem; align-items: center;">
+                    <button id="wa-cancel" type="button" style="flex: 1; padding: 1.3rem; border: 1px solid rgba(15, 23, 42, 0.12); border-radius: 5rem; background: #f8fafc; color: #475569; cursor: pointer; font-weight: 600; font-size: 1.45rem; transition: all 0.2s ease;">Cancel</button>
+                    <button id="wa-submit" type="button" style="flex: 2; padding: 1.3rem; border: none; border-radius: 5rem; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: #ffffff; cursor: pointer; font-weight: 700; font-size: 1.45rem; display: flex; align-items: center; justify-content: center; gap: 0.8rem; box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35); transition: all 0.25s ease;">
+                        <i class="fab fa-whatsapp" style="font-size: 1.7rem;"></i> Open WhatsApp
+                    </button>
                 </div>
             `;
 
             overlay.appendChild(modal);
             document.body.appendChild(overlay);
 
-            document.getElementById('wa-cancel').addEventListener('click', () => {
-                document.body.removeChild(overlay);
+            // Focus on first input
+            setTimeout(() => {
+                const nameInp = document.getElementById('wa-name');
+                if (nameInp) nameInp.focus();
+            }, 100);
+
+            const closeModal = () => {
+                if (document.body.contains(overlay)) {
+                    document.body.removeChild(overlay);
+                }
+            };
+
+            const closeX = document.getElementById('wa-close-x');
+            if (closeX) closeX.addEventListener('click', closeModal);
+            document.getElementById('wa-cancel').addEventListener('click', closeModal);
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) closeModal();
             });
 
             document.getElementById('wa-submit').addEventListener('click', () => {
@@ -2215,11 +2262,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const phone = document.getElementById('wa-phone').value.trim();
                 
                 if (!name || !phone) {
-                    alert("Please enter both Name and Phone Number.");
+                    alert("Please enter both Name and Contact Number.");
                     return;
                 }
                 
-                document.body.removeChild(overlay);
+                closeModal();
                 const travellerHeader = [
                     "👤 *GUEST CONTACT DETAILS:*",
                     `  ▪️ *Name:* ${name}`,
@@ -2326,7 +2373,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 2. Validate Contact Number (10 to 13 digits allowed)
                 const digitsOnly = rawContact.replace(/\D/g, '');
                 if (!errorMessage && (!rawContact || digitsOnly.length < 10 || digitsOnly.length > 13)) {
-                    errorMessage = 'Please enter a valid compulsory 10-digit Contact Number (e.g. 8108776019).';
+                    errorMessage = 'Please enter a valid 10-digit Contact Number (e.g. 8108776019).';
                     if (contactInput) {
                         contactInput.closest('.inputBox')?.classList.add('is-invalid');
                         firstInvalidInput = firstInvalidInput || contactInput;

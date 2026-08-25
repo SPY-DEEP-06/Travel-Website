@@ -5961,17 +5961,17 @@ body.at-hero-top .header.ttc-modern-header .hamburger-btn {
     visibility: visible !important;
     pointer-events: auto !important;
     width: min(92%, 116rem) !important;
-    margin: 3.5rem auto 4.5rem !important;
+    margin: 4rem auto 5rem !important;
     height: auto !important;
     max-height: none !important;
     min-height: auto !important;
     overflow: visible !important;
-    padding: 3.5rem 3rem 4.5rem !important;
-    background: rgba(255, 255, 255, 0.92) !important;
-    border-radius: 2rem !important;
-    border: 1px solid rgba(185, 142, 71, 0.35) !important;
-    box-shadow: 0 25px 60px -12px rgba(15, 23, 42, 0.12), 0 0 30px rgba(185, 142, 71, 0.2), 0 0 2px rgba(255, 255, 255, 0.8) !important;
-    backdrop-filter: blur(24px) !important;
+    padding: 4rem 3.8rem 4.8rem !important;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.96) 0%, rgba(250, 248, 245, 0.93) 100%) !important;
+    border-radius: 2.4rem !important;
+    border: 1.5px solid rgba(185, 142, 71, 0.4) !important;
+    box-shadow: 0 30px 70px -15px rgba(15, 23, 42, 0.14), 0 0 35px rgba(185, 142, 71, 0.18), inset 0 1.5px 0 rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(28px) !important;
     position: relative !important;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
     animation: formExpandReveal 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
@@ -5994,34 +5994,47 @@ body.at-hero-top .header.ttc-modern-header .hamburger-btn {
     inset: 0 !important;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.08) 40%, rgba(255, 255, 255, 0) 100%) !important;
     pointer-events: none !important;
+    border-radius: 2.4rem !important;
     z-index: 1 !important;
+}
+
+.book-form .form-header-wrap {
+    grid-column: 1 / -1 !important;
+    margin-bottom: 2.2rem !important;
 }
 
 .book-form .form-title {
     font-size: 2.3rem !important;
     font-weight: 700 !important;
     color: #0f172a !important; /* High-contrast deep charcoal navy */
-    margin-bottom: 2.5rem !important;
+    margin-bottom: 0.8rem !important;
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
     width: 100% !important;
-    grid-column: 1 / -1 !important;
+}
+
+.book-form .form-subheading {
+    font-size: 1.4rem !important;
+    color: #475569 !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
 }
 
 .book-form .form-title .title-text {
     display: flex !important;
     align-items: center !important;
-    gap: 1rem !important;
+    gap: 1.2rem !important;
 }
 
 .book-form .form-title i.fa-paper-plane {
     color: #b98e47 !important;
     font-size: 2rem !important;
-    background: rgba(185, 142, 71, 0.12) !important;
+    background: rgba(185, 142, 71, 0.14) !important;
     padding: 0.9rem !important;
     border-radius: 50% !important;
-    border: 1px solid rgba(185, 142, 71, 0.25) !important;
+    border: 1px solid rgba(185, 142, 71, 0.3) !important;
 }
 
 .book-form .form-close-btn {
@@ -6052,7 +6065,7 @@ body.at-hero-top .header.ttc-modern-header .hamburger-btn {
     display: flex !important;
     align-items: center !important;
     gap: 0.6rem !important;
-    margin-bottom: 0.8rem !important;
+    margin-bottom: 0.9rem !important;
 }
 
 .book-form form .inputBox span i {
@@ -6060,11 +6073,18 @@ body.at-hero-top .header.ttc-modern-header .hamburger-btn {
     font-size: 1.5rem !important;
 }
 
+.req-star {
+    color: #e11d48 !important;
+    font-weight: 700 !important;
+    font-size: 1.55rem !important;
+    margin-left: 0.3rem !important;
+    line-height: 1 !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+}
+
 .book-form .label-compulsory {
-    color: #b98e47 !important;
-    font-weight: 600 !important;
-    font-size: 1.25rem !important;
-    margin-left: 0.4rem !important;
+    display: none !important;
 }
 
 .book-form .label-optional {
@@ -6076,13 +6096,13 @@ body.at-hero-top .header.ttc-modern-header .hamburger-btn {
 
 .book-form form .inputBox input {
     width: 100% !important;
-    padding: 1.3rem 1.8rem !important;
+    padding: 1.35rem 1.8rem !important;
     border-radius: 5rem !important;
-    border: 1px solid rgba(185, 142, 71, 0.3) !important;
+    border: 1.5px solid rgba(185, 142, 71, 0.3) !important;
     font-size: 1.5rem !important;
     font-weight: 500 !important;
     color: #0f172a !important; /* Deep charcoal navy text */
-    background: rgba(255, 255, 255, 0.92) !important;
+    background: rgba(255, 255, 255, 0.96) !important;
     backdrop-filter: blur(8px) !important;
     box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03) !important;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -6096,7 +6116,7 @@ body.at-hero-top .header.ttc-modern-header .hamburger-btn {
 }
 
 .book-form form .inputBox input:hover {
-    border-color: rgba(185, 142, 71, 0.6) !important;
+    border-color: rgba(185, 142, 71, 0.65) !important;
     transform: translateY(-1px) !important;
     background: #ffffff !important;
 }
@@ -6104,7 +6124,7 @@ body.at-hero-top .header.ttc-modern-header .hamburger-btn {
 .book-form form .inputBox input:focus {
     border-color: #b98e47 !important;
     background: #ffffff !important;
-    box-shadow: 0 0 0 3px rgba(185, 142, 71, 0.2), 0 4px 15px rgba(15, 23, 42, 0.06) !important;
+    box-shadow: 0 0 0 4px rgba(185, 142, 71, 0.22), 0 6px 20px rgba(15, 23, 42, 0.08) !important;
     transform: translateY(-1px) !important;
 }
 
@@ -6122,7 +6142,7 @@ body.at-hero-top .header.ttc-modern-header .hamburger-btn {
     min-width: 0 !important;
     min-height: 4.8rem !important;
     padding: 1.1rem 1.4rem !important;
-    background: rgba(255, 255, 255, 0.95) !important;
+    background: rgba(255, 255, 255, 0.96) !important;
     color: #0f172a !important;
     font-size: 1.4rem !important;
     font-family: inherit !important;
@@ -6158,30 +6178,30 @@ body.at-hero-top .header.ttc-modern-header .hamburger-btn {
 .book-form form input[type="submit"] {
     grid-column: 1 / -1 !important;
     width: 100% !important;
-    padding: 1.4rem 3.5rem !important;
-    font-size: 1.6rem !important;
+    padding: 1.5rem 3.5rem !important;
+    font-size: 1.65rem !important;
     font-weight: 700 !important;
     color: #ffffff !important;
-    background: #0f172a !important;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
     border: 1.5px solid #b98e47 !important;
     border-radius: 5rem !important;
     cursor: pointer !important;
-    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.2) !important;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.25) !important;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 1rem !important;
-    margin-top: 1rem !important;
+    margin-top: 1.2rem !important;
 }
 
 .book-form form .form-submit-btn:hover,
 .book-form form input[type="submit"]:hover {
-    background: #b98e47 !important;
+    background: linear-gradient(135deg, #d4af37 0%, #b98e47 100%) !important;
     color: #0f172a !important;
     border-color: #b98e47 !important;
     transform: translateY(-2px) !important;
-    box-shadow: 0 12px 30px rgba(185, 142, 71, 0.4) !important;
+    box-shadow: 0 14px 35px rgba(185, 142, 71, 0.45) !important;
 }
 
 .photo-stack-card.state-searched {
