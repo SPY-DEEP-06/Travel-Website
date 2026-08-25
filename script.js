@@ -75,7 +75,7 @@ const templates = {
         ];
 
         const topNavLinks = navItems.map(([title, href, preview, label], index) => `
-            <a data-aos="zoom-in-left" data-aos-delay="${250 + index * 70}" href="${href}" class="menu-link-item roll-link" data-preview="${preview}" data-preview-title="${label}">${this.rollText(title)}</a>`).join('');
+            <a href="${href}" class="menu-link-item roll-link" data-preview="${preview}" data-preview-title="${label}">${this.rollText(title)}</a>`).join('');
 
         const overlayNavLinks = navItems.map(([title, href, preview, label, shape], index) => `
             <li class="menu-list-item" data-shape="${shape}" data-preview="${preview}" data-preview-title="${label}">
@@ -87,7 +87,7 @@ const templates = {
 
         return `
 <header class="header atelier-header ttc-modern-header">
-    <a data-aos="zoom-in-left" data-aos-delay="150" href="#home" class="logo header-logo ttc-direct-logo" aria-label="The Travel Circle Home">
+    <a href="#home" class="logo header-logo ttc-direct-logo" aria-label="The Travel Circle Home">
         <img src="images/logoTTC.png" alt="The Travel Circle logo" class="ttc-original-logo-img">
         <span class="brand-title-text">The Travel Circle</span>
     </a>
@@ -97,8 +97,8 @@ const templates = {
         </div>
     </nav>
     <div class="header-actions">
-        <a data-aos="zoom-in-left" data-aos-delay="850" href="#contact" class="reach-link">Reach Out</a>
-        <a data-aos="zoom-in-left" data-aos-delay="950" href="#book-form" class="talk-btn">Plan My Tour</a>
+        <a href="#contact" class="reach-link">Reach Out</a>
+        <a href="#book-form" class="talk-btn">Plan My Tour</a>
         <button id="menu-btn" role="button" class="nav-close-btn kinetic-menu-btn" aria-label="Toggle menu" aria-expanded="false">
             <div class="menu-button-text">
                 <p class="p-large">Menu</p>
@@ -178,8 +178,8 @@ const templates = {
     },
 
     createHome() {
-        const heroVideo = this.mediaSrc('images/about-vid-2.mp4');
-        const heroPoster = this.mediaSrc('images/national/KASHMIR/K 1.1.jpeg');
+        const heroVideo = this.mediaSrc('VID_20240316_100533931.mp4');
+        const heroPoster = this.mediaSrc('images/national/Kashmir/1.jpg');
 
         return `
 <section class="home" id="home">
@@ -265,16 +265,15 @@ const templates = {
     <div class="content">
         <span>about us</span>
         <h3>Crafting Unforgettable Journeys</h3>
-        <p>At The Travel Circle, we believe that travel is not just about reaching a destination—it's about creating memories, discovering new cultures, and experiencing the world in meaningful ways. Founded with a passion for exploration and a commitment to exceptional service, our mission is to turn every travel dream into an unforgettable journey.</p>
-        <p>We understand that every traveller is unique, and so are their travel aspirations. Whether you're planning a relaxing beach escape, an exciting adventure, a romantic honeymoon, a family vacation, a corporate retreat, or an international getaway, we create personalized travel experiences tailored to your preferences, budget, and interests.</p>
-        <p>Our team is dedicated to making travel plans simple, seamless, and stress-free. From flight and hotel bookings to visa assistance, curated holiday packages, cruise vacations, group tours, and customized itineraries, we take care of every detail so you can focus on enjoying your journey.</p>
+        <p class="about-lead">At The Travel Circle, we believe that travel is more than just reaching a destination—it is about crafting moments that linger long after you return. Founded with a passion for exploration, our mission is to turn your unique travel dreams into a beautifully orchestrated reality.</p>
+        <p>Whether you seek a serene coastal escape, a thrilling mountain expedition, or a seamless international getaway, our dedicated team handles every detail. From bespoke itineraries and luxury accommodations to flight and visa assistance, we ensure your journey is absolutely effortless.</p>
         
         <div class="about-vision-mission">
-            <div class="about-card" data-aos="fade-right">
+            <div class="about-card">
                 <h4><i class="fas fa-eye"></i> Our Vision</h4>
                 <p>To be the most trusted travel partner, inspiring people to explore the world by delivering exceptional, personalized, and unforgettable travel experiences.</p>
             </div>
-            <div class="about-card" data-aos="fade-left">
+            <div class="about-card">
                 <h4><i class="fas fa-bullseye"></i> Our Mission</h4>
                 <p>To provide personalized, reliable, and hassle-free travel experiences that turn every journey into a memorable and meaningful adventure.</p>
             </div>
@@ -291,38 +290,38 @@ const templates = {
         <h1>why choose the travel circle?</h1>
     </div>
     <div class="box-container">
-        <div class="box" data-aos="fade-up" data-aos-delay="150">
+        <div class="box">
             <i class="fas fa-user-check"></i>
             <h3>Personalized Experiences</h3>
             <p>Every journey is thoughtfully designed to match your preferences, interests, budget, and travel aspirations.</p>
         </div>
-        <div class="box" data-aos="fade-up" data-aos-delay="300">
+        <div class="box">
             <i class="fas fa-compass"></i>
             <h3>Expert Travel Guidance</h3>
             <p>Our experienced travel experts provide valuable insights and recommendations to help you choose the perfect destination.</p>
         </div>
-        <div class="box" data-aos="fade-up" data-aos-delay="450">
+        <div class="box">
             <i class="fas fa-tags"></i>
             <h3>Competitive Pricing</h3>
             <p>We offer the best value for your money through competitive pricing and special deals without compromising quality.</p>
         </div>
-        <div class="box" data-aos="fade-up" data-aos-delay="600">
+        <div class="box">
             <i class="fas fa-route"></i>
             <h3>End-to-End Planning</h3>
             <p>From the initial planning stage to your safe return home, we manage every aspect of your trip for a seamless experience.</p>
         </div>
-        <div class="box" data-aos="fade-up" data-aos-delay="750">
+        <div class="box">
             <i class="fas fa-map-marked-alt"></i>
             <h3>Curated Holiday Packages</h3>
             <p>We curate a wide range of customized holiday packages across India and around the world to suit every type of traveller.</p>
         </div>
-        <div class="box" data-aos="fade-up" data-aos-delay="900">
+        <div class="box">
             <i class="fas fa-award"></i>
             <h3>Attention to Every Detail</h3>
             <p>Our committed team provides personalized assistance and takes care of every detail to ensure a memorable journey.</p>
         </div>
     </div>
-    <div class="why-choose-us-tagline" data-aos="zoom-in">
+    <div class="why-choose-us-tagline">
         "At The Travel Circle, we don't just plan trips—we create experiences that stay with you forever."
     </div>
 </section>`;
@@ -491,7 +490,7 @@ const templates = {
                 : `<button type="button" class="card-action-btn dest-wa-btn" data-dest-title="${safeTitle}" data-dest-category="India" data-dest-vibe="${safeVibe}">plan this tour <i class="fas fa-arrow-right"></i></button>`;
 
             return `
-        <div class="photo-stack-card${dest.isLeh ? ' card-highlight-leh' : ''}" data-aos="fade-up" data-aos-delay="${100 + (index % 4) * 80}" data-dest-card="${dest.title}">
+        <div class="photo-stack-card${dest.isLeh ? ' card-highlight-leh' : ''}" data-dest-card="${dest.title}">
             <div class="card-text">
                 <span class="card-category">INDIA</span>
                 <h3 class="card-title">${dest.title}</h3>
@@ -518,7 +517,7 @@ const templates = {
             const safeVibe = (dest.vibe || '').replace(/"/g, '&quot;');
             
             return `
-        <div class="photo-stack-card" data-aos="fade-up" data-aos-delay="${100 + (index % 4) * 80}" data-dest-card="${dest.title}">
+        <div class="photo-stack-card" data-dest-card="${dest.title}">
             <div class="card-text">
                 <span class="card-category">INTERNATIONAL</span>
                 <h3 class="card-title">${dest.title}</h3>
@@ -552,7 +551,7 @@ const templates = {
         ${internationalCards}
     </div>
     
-    <div class="why-choose-us-tagline" data-aos="zoom-in" style="margin-top: 5rem; text-align: center;">
+    <div class="why-choose-us-tagline" style="margin-top: 5rem; text-align: center;">
         "From the nearest getaway to the farthest corner of the world, no destination is beyond our reach. If you can dream it, we can plan it."
     </div>
 </section>`;
@@ -572,7 +571,7 @@ const templates = {
         ];
 
         const serviceCards = servicesList.map(([title, description, icon], index) => `
-        <div class="box" data-aos="zoom-in-up" data-aos-delay="${100 + (index % 3) * 100}">
+        <div class="box">
             <i class="${icon}"></i>
             <h3>${title}</h3>
             <p>${description}</p>
@@ -666,12 +665,12 @@ const templates = {
 
         return `
 <section class="review" id="review">
-    <div class="content" data-aos="fade-right" data-aos-delay="300">
+    <div class="content">
         <span>traveler stories</span>
         <h3>people return with better stories</h3>
         <p>Every itinerary is personal, so every review feels different. Here is what travelers love about letting The Travel Circle plan the details while they enjoy the journey.</p>
     </div>
-    <div class="review-slider" data-aos="fade-left" data-aos-delay="600">
+    <div class="review-slider">
         <div class="slider-wrapper">
             <div class="box-container">
                 <div class="box">
@@ -735,7 +734,7 @@ const templates = {
         <h1>ideas before you pack</h1>
     </div>
     <div class="box-container">
-        <div class="box blog-card-trigger" data-blog-id="blog-1" data-aos="fade-up" data-aos-delay="150" role="button" tabindex="0">
+        <div class="box blog-card-trigger" data-blog-id="blog-1" role="button" tabindex="0">
             <div class="image">
                 <img src="${this.mediaSrc(blogImages[0])}" alt="Planning a meaningful journey with The Travel Circle" loading="lazy">
             </div>
@@ -748,7 +747,7 @@ const templates = {
                 </div>
             </div>
         </div>
-        <div class="box blog-card-trigger" data-blog-id="blog-2" data-aos="fade-up" data-aos-delay="300" role="button" tabindex="0">
+        <div class="box blog-card-trigger" data-blog-id="blog-2" role="button" tabindex="0">
             <div class="image">
                 <img src="${this.mediaSrc(blogImages[1])}" alt="A scenic travel story by The Travel Circle" loading="lazy">
             </div>
@@ -761,7 +760,7 @@ const templates = {
                 </div>
             </div>
         </div>
-        <div class="box blog-card-trigger" data-blog-id="blog-3" data-aos="fade-up" data-aos-delay="450" role="button" tabindex="0">
+        <div class="box blog-card-trigger" data-blog-id="blog-3" role="button" tabindex="0">
             <div class="image">
                 <img src="${this.mediaSrc(blogImages[2])}" alt="Hidden travel experience arranged by The Travel Circle" loading="lazy">
             </div>
@@ -781,7 +780,7 @@ const templates = {
     createBanner() {
         return `
 <div class="banner">
-    <div class="content" data-aos="blur-in-up" data-aos-delay="300">
+    <div class="content">
         <span>ready when you are</span>
         <h3>Your Next Story Starts With A Plan</h3>
         <p>At The Travel Circle, we don't just plan trips—we create experiences that stay with you forever. Let's start planning your next adventure together!</p>
@@ -834,7 +833,7 @@ const templates = {
             const safeDesc = (vlog.desc || '').replace(/"/g, '&quot;');
 
             return `
-        <div class="vlog-card" data-aos="fade-up" data-aos-delay="${150 + idx * 100}">
+        <div class="vlog-card">
             <div class="vlog-media">
                 <img src="${vlog.image}" alt="${vlog.title}" loading="lazy">
                 <span class="vlog-badge"><i class="fas fa-play-circle"></i> ${vlog.duration}</span>
@@ -878,7 +877,7 @@ const templates = {
         return `
 <section class="footer" id="contact">
     <div class="box-container">
-        <div class="box" data-aos="fade-up" data-aos-delay="150">
+        <div class="box">
             <a href="#home" class="logo brand-logo footer-logo" aria-label="The Travel Circle Home">
                 <div class="logo-box">
                     <div class="logo-circle-avatar">
@@ -893,11 +892,11 @@ const templates = {
                 <a href="#" class="fab fa-instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer"></a>
             </div>
         </div>
-        <div class="box" data-aos="fade-up" data-aos-delay="300">
+        <div class="box">
             <h3>explore</h3>
             ${footerLinks}
         </div>
-        <div class="box" data-aos="fade-up" data-aos-delay="450">
+        <div class="box">
             <h3>contact The Travel Circle</h3>
             <div class="footer-contact-list">
                 <div class="footer-contact-item">
@@ -937,7 +936,7 @@ const templates = {
                 </div>
             </div>
         </div>
-        <div class="box" data-aos="fade-up" data-aos-delay="600">
+        <div class="box">
             <h3><i class="fas fa-envelope-open-text"></i> travel inspiration</h3>
             <p>get trip ideas, seasonal escapes, and planning tips</p>
             <form action="" id="newsletter-form">
@@ -3109,62 +3108,89 @@ document.addEventListener('DOMContentLoaded', () => {
     app.init();
 
     // ==========================================================================
-    // MOTION REVEAL & INTERACTION SYSTEM ENGINE
+    // MOTION REVEAL & INTERACTION SYSTEM ENGINE (GSAP + ScrollTrigger)
     // ==========================================================================
     const initMotionSystem = () => {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-        // 1. IntersectionObserver for Section & Card Scroll Reveals
-        const revealTargets = document.querySelectorAll('section:not(#book-form):not(.book-form), .heading, .box, .photo-stack-card, .vlog-card, .blog-card, .review-card, .about-card');
         
-        revealTargets.forEach((el, idx) => {
-            if (!el.hasAttribute('data-motion-reveal')) {
-                el.setAttribute('data-motion-reveal', 'true');
-                if (!el.hasAttribute('data-reveal-delay') && (el.classList.contains('box') || el.classList.contains('photo-stack-card'))) {
-                    const delay = (idx % 4) * 100 + 100;
-                    el.setAttribute('data-reveal-delay', delay.toString());
-                }
-            }
-        });
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+        gsap.registerPlugin(ScrollTrigger);
 
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px 0px -40px 0px',
-            threshold: 0.12
-        };
+        // Utility ease for cinematic feel
+        const premiumEase = "power3.out";
+        const duration = 1.2;
 
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-revealed');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        revealTargets.forEach((el) => revealObserver.observe(el));
-
-        // 2. Sequential Hero Introduction Timeline
+        // 1. Sequential Hero Introduction Timeline
         const heroSection = document.querySelector('#home');
         if (heroSection) {
             const heroElements = heroSection.querySelectorAll('.hero-eyebrow, h1, p, .hero-actions');
-            heroElements.forEach((el, index) => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(24px)';
-                el.style.transition = `opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) ${150 + index * 140}ms, transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) ${150 + index * 140}ms`;
-                
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        el.style.opacity = '1';
-                        el.style.transform = 'translateY(0)';
-                    });
-                });
+            
+            // Set initial state
+            gsap.set(heroElements, { opacity: 0, y: 30, scale: 0.98 });
+            
+            // Animate in sequence
+            gsap.to(heroElements, {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: duration,
+                ease: premiumEase,
+                stagger: 0.15,
+                delay: 0.3 // slight delay after preloader
             });
         }
 
-        // 3. Desktop Pointer Parallax & Spatial Response
+        // 2. Section Reveals on Scroll (Fade, Move Up, slight scale)
+        const sections = document.querySelectorAll('section:not(#home), .heading');
+        sections.forEach((section) => {
+            gsap.fromTo(section, 
+                { opacity: 0, y: 50, scale: 0.98 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 1.4,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 85%", // Trigger when top of section is 85% down viewport
+                        toggleActions: "play none none none"
+                    }
+                }
+            );
+        });
+
+        // 3. Staggered Card Reveals (Services, Destination, Review, Gallery, Blog)
+        const cardContainers = document.querySelectorAll('.box-container, .destination .box-container, .review-slider, .vlog-container, .photo-stack');
+        
+        cardContainers.forEach((container) => {
+            // Find child cards inside each container
+            const cards = container.querySelectorAll('.box, .photo-stack-card, .vlog-card, .blog-card, .review-card, .about-card');
+            
+            if (cards.length > 0) {
+                gsap.fromTo(cards,
+                    { opacity: 0, y: 60, scale: 0.95 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                        duration: 1.2,
+                        ease: premiumEase,
+                        stagger: 0.1, // Stagger effect
+                        scrollTrigger: {
+                            trigger: container,
+                            start: "top 80%", 
+                            toggleActions: "play none none none"
+                        }
+                    }
+                );
+            }
+        });
+
+        // 4. Desktop Pointer Parallax & Spatial Response
         if (window.matchMedia('(pointer: fine)').matches) {
-            const spatialCards = document.querySelectorAll('.hero-primary, .box, .photo-stack-card');
+            const spatialCards = document.querySelectorAll('.hero-primary, .box, .photo-stack-card, .vlog-card, .blog-card');
             
             spatialCards.forEach((card) => {
                 card.addEventListener('mousemove', (e) => {
@@ -3174,11 +3200,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     const tiltX = (y / (rect.height / 2)) * -3;
                     const tiltY = (x / (rect.width / 2)) * 3;
                     
-                    card.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateY(-4px)`;
+                    gsap.to(card, {
+                        rotationX: tiltX,
+                        rotationY: tiltY,
+                        y: -4,
+                        duration: 0.5,
+                        ease: "power2.out",
+                        transformPerspective: 1000
+                    });
                 });
 
                 card.addEventListener('mouseleave', () => {
-                    card.style.transform = '';
+                    gsap.to(card, {
+                        rotationX: 0,
+                        rotationY: 0,
+                        y: 0,
+                        duration: 0.8,
+                        ease: "elastic.out(1, 0.3)"
+                    });
                 });
             });
         }
@@ -3238,11 +3277,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const bookForm = document.querySelector('#book-form');
         if (bookForm && bookForm.getAttribute('aria-hidden') === 'true' && !bookForm.classList.contains('is-hidden')) {
             bookForm.classList.add('is-hidden');
-        }
-
-        // Force-refresh AOS / Reveal on mobile if loaded
-        if (window.AOS && typeof window.AOS.refresh === 'function') {
-            window.AOS.refresh();
         }
     };
 
