@@ -2503,7 +2503,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.addEventListener('click', () => {
                     const choice = btn.getAttribute('data-leh-choice') || 'Leh Ladakh Tour';
                     closeLehModal();
-                    this.openBookingFormWithDestination(`Leh Ladakh (${choice})`);
+                    const message = this.generateDestinationWhatsAppMessage({
+                        title: `Leh Ladakh (${choice})`,
+                        category: 'India',
+                        vibe: 'Epic high-altitude mountain passes, Pangong Tso lake, Nubra valley, and thrilling motorcycle routes.'
+                    });
+                    this.openWhatsAppWithUserDetails(message);
                 });
             });
         },
@@ -2602,8 +2607,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (modalCta) {
                 modalCta.addEventListener('click', () => {
                     closeBlogModal();
-                    const blogTitle = modalTitle ? modalTitle.textContent.trim() : '';
-                    this.openBookingFormWithDestination(blogTitle || 'Blog Tour Enquiry');
+                    const blogTitle = modalTitle ? modalTitle.textContent.trim() : 'Scenic Journeys';
+                    const message = this.generateDestinationWhatsAppMessage({
+                        title: blogTitle,
+                        category: 'Story Tour Enquiry',
+                        vibe: 'Handcrafted itinerary inspired by The Travel Circle journal story.'
+                    });
+                    this.openWhatsAppWithUserDetails(message);
                 });
             }
 
@@ -3025,7 +3035,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
         // 1. IntersectionObserver for Section & Card Scroll Reveals
-        const revealTargets = document.querySelectorAll('section, .heading, .box, .photo-stack-card, .vlog-card, .blog-card, .review-card, .about-card, .book-form');
+        const revealTargets = document.querySelectorAll('section:not(#book-form):not(.book-form), .heading, .box, .photo-stack-card, .vlog-card, .blog-card, .review-card, .about-card');
         
         revealTargets.forEach((el, idx) => {
             if (!el.hasAttribute('data-motion-reveal')) {
@@ -3126,7 +3136,7 @@ document.addEventListener('DOMContentLoaded', () => {
 (() => {
     const fixMobileTabletSections = () => {
         const sectionSelectors = [
-            'section',
+            'section:not(#book-form):not(.book-form)',
             '#home', '.home',
             '#services', '.services',
             '#destination', '.destination',
@@ -3134,23 +3144,31 @@ document.addEventListener('DOMContentLoaded', () => {
             '#blogs', '.blogs',
             '#review', '.review',
             '#gallery', '.gallery',
-            '#book-form', '.book-form',
             '.banner', '.why-choose-us'
         ];
 
         document.querySelectorAll(sectionSelectors.join(',')).forEach((section) => {
+            if (section.id === 'book-form' || section.classList.contains('book-form') || section.closest('#book-form')) return;
+
             section.classList.add('mobile-content-ready');
             section.style.minHeight = 'auto';
             section.style.opacity = '1';
             section.style.visibility = 'visible';
 
             section.querySelectorAll('[data-aos], [style*="opacity"], [style*="visibility"], .reveal, .scroll-reveal, .fade-in, .fade-up, .hidden, .is-hidden').forEach((node) => {
+                if (node.id === 'book-form' || node.classList.contains('book-form') || node.closest('#book-form')) return;
                 node.classList.remove('hidden', 'is-hidden');
                 node.style.opacity = '1';
                 node.style.visibility = 'visible';
                 node.style.transform = 'none';
             });
         });
+
+        // Ensure book-form remains strictly hidden unless explicitly requested by user
+        const bookForm = document.querySelector('#book-form');
+        if (bookForm && bookForm.getAttribute('aria-hidden') === 'true' && !bookForm.classList.contains('is-hidden')) {
+            bookForm.classList.add('is-hidden');
+        }
 
         // Force-refresh AOS on mobile if loaded
         if (window.AOS && typeof window.AOS.refresh === 'function') {
