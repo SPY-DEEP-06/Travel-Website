@@ -917,10 +917,10 @@ const templates = {
                     <i class="fas fa-map-marker-alt"></i>
                     <div class="footer-contact-text">
                         <span class="contact-label">Address</span>
-                        <a href="https://maps.google.com/?q=House+no.+4166+A,+Shop+no.+112,+First+Floor,+Karanja+Navapada,+Near+New+Karanja,+Taluka+Uran,+District+Raigad,+PIN+400702" target="_blank" rel="noopener noreferrer" class="address-link">
+                        <a href="https://maps.google.com/?q=House+no.+4166+A,+Shop+no.+112,+First+Floor,+Karanja+Navapada,+Near+New+Karanja+Jetty+Road,+Taluka+Uran,+District+Raigad,+PIN+400702" target="_blank" rel="noopener noreferrer" class="address-link">
                             House no. 4166 A, Shop no. 112,<br>
                             First Floor, Karanja Navapada,<br>
-                            Near New Karanja,<br>
+                            Near New Karanja Jetty Road,<br>
                             Taluka Uran, District Raigad,<br>
                             PIN 400702
                         </a>
