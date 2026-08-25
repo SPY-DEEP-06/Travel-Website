@@ -50,7 +50,13 @@
     outline: none;
     border: none;
     text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
     transition: color .25s ease, background-color .25s ease, border-color .25s ease, opacity .25s ease, transform .35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+::selection {
+    background: rgba(185, 142, 71, 0.35);
+    color: #0f172a;
 }
 
 *:focus-visible {
@@ -6106,10 +6112,36 @@ body.at-hero-top .header.ttc-modern-header .hamburger-btn {
     display: flex !important;
     align-items: center !important;
     gap: 1rem !important;
+    width: 100% !important;
+    -webkit-tap-highlight-color: transparent !important;
+    user-select: none !important;
 }
 
 .date-range-box .date-inputs input[type="date"] {
     flex: 1 !important;
+    min-width: 0 !important;
+    min-height: 4.8rem !important;
+    padding: 1.1rem 1.4rem !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: #0f172a !important;
+    font-size: 1.4rem !important;
+    font-family: inherit !important;
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
+    user-select: text !important;
+    -webkit-user-select: text !important;
+}
+
+.date-range-box .date-inputs input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer !important;
+    opacity: 0.75 !important;
+    padding: 0.2rem !important;
+    margin-left: 0.4rem !important;
+    transition: opacity 0.2s ease !important;
+}
+
+.date-range-box .date-inputs input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1 !important;
 }
 
 .date-range-box .date-sep {
@@ -6117,6 +6149,9 @@ body.at-hero-top .header.ttc-modern-header .hamburger-btn {
     font-weight: 700 !important;
     font-size: 1.4rem !important;
     text-transform: lowercase !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    flex-shrink: 0 !important;
 }
 
 .book-form form .form-submit-btn,

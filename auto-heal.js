@@ -203,10 +203,11 @@
     // 6. INTERACTION & POINTER-EVENTS GUARDIAN
     // --------------------------------------------------------------------------
     function initInteractionGuardian() {
-        // Ensure menu button & interactive elements are never blocked by phantom overlays
+        // Ensure menu button & visible interactive elements are never blocked by phantom overlays
         setTimeout(() => {
-            const interactiveButtons = document.querySelectorAll('#menu-btn, .menu-close-cross-btn, .btn, .hero-primary, .talk-btn, .card-action-btn');
+            const interactiveButtons = document.querySelectorAll('#menu-btn, .menu-close-cross-btn, .btn:not(.book-form *):not(.is-hidden *), .hero-primary, .talk-btn, .card-action-btn');
             interactiveButtons.forEach(btn => {
+                if (btn.closest('.is-hidden, #book-form.is-hidden, [aria-hidden="true"]')) return;
                 const computed = window.getComputedStyle(btn);
                 if (computed.pointerEvents === 'none') {
                     autoLog('InteractionGuardian', 'Restoring pointer-events to interactive element', { element: btn });
