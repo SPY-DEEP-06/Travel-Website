@@ -172,8 +172,8 @@ const templates = {
     },
 
     createHome() {
-        const heroVideo = this.mediaSrc('images/about-vid-2.mp4');
-        const heroPoster = this.mediaSrc('images/national/KASHMIR/K 1.1.jpeg');
+        const heroVideo = this.mediaSrc('images/VID_20240316_100533931.mp4');
+        const heroPoster = this.mediaSrc('images/national/MANALI/M 1.1.jpeg');
 
         return `
 <section class="home" id="home">
@@ -183,9 +183,9 @@ const templates = {
         <span class="hero-eyebrow" data-aos="fade-up" data-aos-delay="100">YOUR JOURNEY STARTS HERE</span>
         <h1 data-aos="fade-up" data-aos-delay="200">
             We're Officially<br>
-            <span class="marker-underline-gold"><em>Taking Off.</em></span>
+            <em>Taking Off.</em>
         </h1>
-        <p data-aos="fade-up" data-aos-delay="350">Welcome to <strong>The Travel Circle</strong> — your trusted partner in creating <span class="marker-highlight">unforgettable journeys</span>.<br class="desktop-break">Whether it's a relaxing beach escape, a thrilling adventure, a family vacation, a romantic honeymoon, or an international getaway, we're here to turn your travel dreams into reality.</p>
+        <p data-aos="fade-up" data-aos-delay="350">Welcome to <strong>The Travel Circle</strong> — your trusted partner in creating unforgettable journeys.<br class="desktop-break">Whether it's a relaxing beach escape, a thrilling adventure, a family vacation, a romantic honeymoon, or an international getaway, we're here to turn your travel dreams into reality.</p>
 
         <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
             <a href="#book-form" class="hero-primary">Start My Journey
@@ -258,8 +258,8 @@ const templates = {
     </div>
     <div class="content">
         <span>about us</span>
-        <h3>Crafting <span class="marker-underline">Unforgettable Journeys</span></h3>
-        <p>At The Travel Circle, we believe that travel is not just about reaching a destination—it's about creating memories, discovering new cultures, and experiencing the world in meaningful ways. Founded with a passion for exploration and a commitment to exceptional service, our mission is to turn every travel dream into an <span class="marker-highlight">unforgettable journey</span>.</p>
+        <h3>Crafting Unforgettable Journeys</h3>
+        <p>At The Travel Circle, we believe that travel is not just about reaching a destination—it's about creating memories, discovering new cultures, and experiencing the world in meaningful ways. Founded with a passion for exploration and a commitment to exceptional service, our mission is to turn every travel dream into an unforgettable journey.</p>
         <p>We understand that every traveller is unique, and so are their travel aspirations. Whether you're planning a relaxing beach escape, an exciting adventure, a romantic honeymoon, a family vacation, a corporate retreat, or an international getaway, we create personalized travel experiences tailored to your preferences, budget, and interests.</p>
         <p>Our team is dedicated to making travel plans simple, seamless, and stress-free. From flight and hotel bookings to visa assistance, curated holiday packages, cruise vacations, group tours, and customized itineraries, we take care of every detail so you can focus on enjoying your journey.</p>
         
