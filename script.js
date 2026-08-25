@@ -1171,13 +1171,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     btn.classList.add('active');
                     
                     const target = btn.getAttribute('data-target');
-                    if (target === 'domestic') {
-                        domesticContent.classList.add('active');
-                        internationalContent.classList.remove('active');
-                    } else {
-                        domesticContent.classList.remove('active');
-                        internationalContent.classList.add('active');
-                    }
+                    const activeContent = target === 'domestic' ? domesticContent : internationalContent;
+                    const inactiveContent = target === 'domestic' ? internationalContent : domesticContent;
+
+                    inactiveContent.classList.remove('active');
+                    activeContent.classList.add('active');
+
+                    // Stagger newly visible cards sequentially
+                    const cards = activeContent.querySelectorAll('.photo-stack-card');
+                    cards.forEach((card, index) => {
+                        card.classList.remove('is-revealed');
+                        card.style.setProperty('--card-stagger', (index % 4).toString());
+                    });
+
+                    requestAnimationFrame(() => {
+                        cards.forEach(card => card.classList.add('is-revealed'));
+                    });
                     
                     // Refresh AOS animations
                     if (typeof AOS !== 'undefined') {
