@@ -250,27 +250,54 @@ const templates = {
 
         return `
 <section class="about" id="about">
-    <div class="video-container">
+    <div class="video-container" data-aos="fade-right">
+        <div class="video-reel-badge">
+            <span class="pulse-dot"></span> Live Travel Reel
+        </div>
         <video src="${firstVideo}" poster="${firstVideoPoster}" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback controlslist="nodownload nofullscreen noremoteplayback" class="video"></video>
         <div class="controls" role="group" aria-label="Video selection controls">
             ${videoControls}
         </div>
     </div>
-    <div class="content">
-        <span>about us</span>
-        <h3>Crafting Unforgettable Journeys</h3>
-        <p>At The Travel Circle, we believe that travel is not just about reaching a destination—it's about creating memories, discovering new cultures, and experiencing the world in meaningful ways. Founded with a passion for exploration and a commitment to exceptional service, our mission is to turn every travel dream into an unforgettable journey.</p>
-        <p>We understand that every traveller is unique, and so are their travel aspirations. Whether you're planning a relaxing beach escape, an exciting adventure, a romantic honeymoon, a family vacation, a corporate retreat, or an international getaway, we create personalized travel experiences tailored to your preferences, budget, and interests.</p>
-        <p>Our team is dedicated to making travel plans simple, seamless, and stress-free. From flight and hotel bookings to visa assistance, curated holiday packages, cruise vacations, group tours, and customized itineraries, we take care of every detail so you can focus on enjoying your journey.</p>
+    <div class="content" data-aos="fade-left">
+        <span class="about-tag">about us</span>
+        <h3>Crafting Unforgettable <em>Journeys</em></h3>
+        <p class="about-lead">Travel is not just about reaching a destination—it's about collecting unforgettable stories, discovering cultures, and experiencing the world with effortless peace of mind.</p>
         
-        <div class="about-vision-mission">
-            <div class="about-card" data-aos="fade-right">
-                <h4><i class="fas fa-eye"></i> Our Vision</h4>
-                <p>To be the most trusted travel partner, inspiring people to explore the world by delivering exceptional, personalized, and unforgettable travel experiences.</p>
+        <div class="about-pillars-grid">
+            <div class="about-pillar-chip"><i class="fas fa-magic"></i> Tailor-Made Itineraries</div>
+            <div class="about-pillar-chip"><i class="fas fa-shield-alt"></i> 100% Stress-Free Planning</div>
+            <div class="about-pillar-chip"><i class="fas fa-hotel"></i> Handpicked Luxury Stays</div>
+            <div class="about-pillar-chip"><i class="fas fa-headset"></i> 24/7 Dedicated Concierge</div>
+        </div>
+
+        <div class="about-stats-strip">
+            <div class="stat-box" data-aos="zoom-in" data-aos-delay="100">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Happy Journeys</span>
             </div>
-            <div class="about-card" data-aos="fade-left">
+            <div class="stat-box" data-aos="zoom-in" data-aos-delay="200">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Destinations</span>
+            </div>
+            <div class="stat-box" data-aos="zoom-in" data-aos-delay="300">
+                <span class="stat-number">99.8%</span>
+                <span class="stat-label">Guest Delight</span>
+            </div>
+            <div class="stat-box" data-aos="zoom-in" data-aos-delay="400">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Live Support</span>
+            </div>
+        </div>
+
+        <div class="about-vision-mission">
+            <div class="about-card" data-aos="fade-up" data-aos-delay="150">
+                <h4><i class="fas fa-eye"></i> Our Vision</h4>
+                <p>To be the most trusted travel circle, inspiring wanderers with authentic, bespoke, and seamless holiday expeditions across India and worldwide.</p>
+            </div>
+            <div class="about-card" data-aos="fade-up" data-aos-delay="250">
                 <h4><i class="fas fa-bullseye"></i> Our Mission</h4>
-                <p>To provide personalized, reliable, and hassle-free travel experiences that turn every journey into a memorable and meaningful adventure.</p>
+                <p>To deliver personalized, reliable, and stress-free travel experiences where every detail is cared for so you can savor every moment.</p>
             </div>
         </div>
     </div>
@@ -3082,13 +3109,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
         // 1. IntersectionObserver for Section & Card Scroll Reveals
-        const revealTargets = document.querySelectorAll('section:not(#book-form):not(.book-form), .heading, .box, .photo-stack-card, .vlog-card, .blog-card, .review-card, .about-card');
+        const revealTargets = document.querySelectorAll('section:not(#book-form):not(.book-form), .heading, .box, .photo-stack-card, .vlog-card, .blog-card, .review-card, .about-card, .stat-box, .about-pillar-chip');
         
         revealTargets.forEach((el, idx) => {
             if (!el.hasAttribute('data-motion-reveal')) {
                 el.setAttribute('data-motion-reveal', 'true');
-                if (!el.hasAttribute('data-reveal-delay') && (el.classList.contains('box') || el.classList.contains('photo-stack-card'))) {
-                    const delay = (idx % 4) * 100 + 100;
+                if (!el.hasAttribute('data-reveal-delay') && (el.classList.contains('box') || el.classList.contains('photo-stack-card') || el.classList.contains('stat-box'))) {
+                    const delay = (idx % 4) * 80 + 80;
                     el.setAttribute('data-reveal-delay', delay.toString());
                 }
             }
@@ -3104,6 +3131,14 @@ document.addEventListener('DOMContentLoaded', () => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-revealed');
+                    
+                    // Animate stat counters if this is a stat box
+                    const statNum = entry.target.querySelector ? entry.target.querySelector('.stat-number') : null;
+                    if (statNum && !statNum.dataset.animated) {
+                        statNum.dataset.animated = 'true';
+                        statNum.style.animation = 'searchHighlight 0.6s ease-out';
+                    }
+
                     observer.unobserve(entry.target);
                 }
             });
@@ -3131,17 +3166,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 3. Desktop Pointer Parallax & Spatial Response
         if (window.matchMedia('(pointer: fine)').matches) {
-            const spatialCards = document.querySelectorAll('.hero-primary, .box, .photo-stack-card');
+            const spatialCards = document.querySelectorAll('.hero-primary, .box, .photo-stack-card, .about-card, .stat-box, .about-pillar-chip');
             
             spatialCards.forEach((card) => {
                 card.addEventListener('mousemove', (e) => {
                     const rect = card.getBoundingClientRect();
                     const x = e.clientX - rect.left - rect.width / 2;
                     const y = e.clientY - rect.top - rect.height / 2;
-                    const tiltX = (y / (rect.height / 2)) * -3;
-                    const tiltY = (x / (rect.width / 2)) * 3;
+                    const tiltX = (y / (rect.height / 2)) * -2.5;
+                    const tiltY = (x / (rect.width / 2)) * 2.5;
                     
-                    card.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateY(-4px)`;
+                    card.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateY(-3px)`;
                 });
 
                 card.addEventListener('mouseleave', () => {
