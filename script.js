@@ -41,6 +41,19 @@ const templates = {
         return `<span class="roll-text" data-text="${label}"><span>${label}</span></span>`;
     },
 
+    text3DFlip(text, className = '') {
+        const words = text.trim().split(/\s+/);
+        let globalCharIdx = 0;
+        const wordsHtml = words.map(word => {
+            const charsHtml = Array.from(word).map(char => {
+                const idx = globalCharIdx++;
+                return `<span class="text-3d-char" style="--char-index: ${idx};"><span class="text-3d-front">${char}</span><span class="text-3d-back">${char}</span></span>`;
+            }).join('');
+            return `<span class="text-3d-word">${charsHtml}</span>`;
+        }).join(' ');
+        return `<span class="text-3d-flip ${className}" aria-label="${text}">${wordsHtml}</span>`;
+    },
+
     createPageLoader() {
         const usePortrait = window.matchMedia('(max-width: 1024px) and (orientation: portrait)').matches || window.matchMedia('(max-width: 768px)').matches;
         const videoSrc = usePortrait
@@ -180,7 +193,7 @@ const templates = {
     <video class="hero-video" src="${heroVideo}" poster="${heroPoster}" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback controlslist="nodownload nofullscreen noremoteplayback" aria-hidden="true"></video>
     <div class="hero-overlay"></div>
     <div class="content atelier-hero-content">
-        <span class="hero-eyebrow" data-aos="fade-up" data-aos-delay="100">YOUR JOURNEY STARTS HERE</span>
+        <span class="hero-eyebrow" data-aos="fade-up" data-aos-delay="100">${this.text3DFlip('YOUR JOURNEY STARTS HERE')}</span>
         <h1 data-aos="fade-up" data-aos-delay="200">
             We're Officially<br>
             <em>Taking Off.</em>
@@ -250,54 +263,27 @@ const templates = {
 
         return `
 <section class="about" id="about">
-    <div class="video-container" data-aos="fade-right">
-        <div class="video-reel-badge">
-            <span class="pulse-dot"></span> Live Travel Reel
-        </div>
+    <div class="video-container">
         <video src="${firstVideo}" poster="${firstVideoPoster}" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback controlslist="nodownload nofullscreen noremoteplayback" class="video"></video>
         <div class="controls" role="group" aria-label="Video selection controls">
             ${videoControls}
         </div>
     </div>
-    <div class="content" data-aos="fade-left">
-        <span class="about-tag">about us</span>
-        <h3>Crafting Unforgettable <em>Journeys</em></h3>
-        <p class="about-lead">Travel is not just about reaching a destination—it's about collecting unforgettable stories, discovering cultures, and experiencing the world with effortless peace of mind.</p>
+    <div class="content">
+        <span>about us</span>
+        <h3>Crafting Unforgettable Journeys</h3>
+        <p>At The Travel Circle, we believe that travel is not just about reaching a destination—it's about creating memories, discovering new cultures, and experiencing the world in meaningful ways. Founded with a passion for exploration and a commitment to exceptional service, our mission is to turn every travel dream into an unforgettable journey.</p>
+        <p>We understand that every traveller is unique, and so are their travel aspirations. Whether you're planning a relaxing beach escape, an exciting adventure, a romantic honeymoon, a family vacation, a corporate retreat, or an international getaway, we create personalized travel experiences tailored to your preferences, budget, and interests.</p>
+        <p>Our team is dedicated to making travel plans simple, seamless, and stress-free. From flight and hotel bookings to visa assistance, curated holiday packages, cruise vacations, group tours, and customized itineraries, we take care of every detail so you can focus on enjoying your journey.</p>
         
-        <div class="about-pillars-grid">
-            <div class="about-pillar-chip"><i class="fas fa-magic"></i> Tailor-Made Itineraries</div>
-            <div class="about-pillar-chip"><i class="fas fa-shield-alt"></i> 100% Stress-Free Planning</div>
-            <div class="about-pillar-chip"><i class="fas fa-hotel"></i> Handpicked Luxury Stays</div>
-            <div class="about-pillar-chip"><i class="fas fa-headset"></i> 24/7 Dedicated Concierge</div>
-        </div>
-
-        <div class="about-stats-strip">
-            <div class="stat-box" data-aos="zoom-in" data-aos-delay="100">
-                <span class="stat-number">500+</span>
-                <span class="stat-label">Happy Journeys</span>
-            </div>
-            <div class="stat-box" data-aos="zoom-in" data-aos-delay="200">
-                <span class="stat-number">50+</span>
-                <span class="stat-label">Destinations</span>
-            </div>
-            <div class="stat-box" data-aos="zoom-in" data-aos-delay="300">
-                <span class="stat-number">99.8%</span>
-                <span class="stat-label">Guest Delight</span>
-            </div>
-            <div class="stat-box" data-aos="zoom-in" data-aos-delay="400">
-                <span class="stat-number">24/7</span>
-                <span class="stat-label">Live Support</span>
-            </div>
-        </div>
-
         <div class="about-vision-mission">
-            <div class="about-card" data-aos="fade-up" data-aos-delay="150">
+            <div class="about-card" data-aos="fade-right">
                 <h4><i class="fas fa-eye"></i> Our Vision</h4>
-                <p>To be the most trusted travel circle, inspiring wanderers with authentic, bespoke, and seamless holiday expeditions across India and worldwide.</p>
+                <p>To be the most trusted travel partner, inspiring people to explore the world by delivering exceptional, personalized, and unforgettable travel experiences.</p>
             </div>
-            <div class="about-card" data-aos="fade-up" data-aos-delay="250">
+            <div class="about-card" data-aos="fade-left">
                 <h4><i class="fas fa-bullseye"></i> Our Mission</h4>
-                <p>To deliver personalized, reliable, and stress-free travel experiences where every detail is cared for so you can savor every moment.</p>
+                <p>To provide personalized, reliable, and hassle-free travel experiences that turn every journey into a memorable and meaningful adventure.</p>
             </div>
         </div>
     </div>
@@ -344,7 +330,7 @@ const templates = {
         </div>
     </div>
     <div class="why-choose-us-tagline" data-aos="zoom-in">
-        "At The Travel Circle, we don't just plan trips—we create experiences that stay with you forever."
+        "${this.text3DFlip("At The Travel Circle, we don't just plan trips—we create experiences that stay with you forever.")}"
     </div>
 </section>`;
     },
@@ -803,8 +789,8 @@ const templates = {
         return `
 <div class="banner">
     <div class="content" data-aos="zoom-in-up" data-aos-delay="300">
-        <span>ready when you are</span>
-        <h3>Your Next Story Starts With A Plan</h3>
+        <span>${this.text3DFlip('ready when you are')}</span>
+        <h3>${this.text3DFlip('Your Next Story Starts With A Plan')}</h3>
         <p>At The Travel Circle, we don't just plan trips—we create experiences that stay with you forever. Let's start planning your next adventure together!</p>
         <a href="#book-form" class="btn">plan my journey</a>
     </div>
@@ -3109,13 +3095,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
         // 1. IntersectionObserver for Section & Card Scroll Reveals
-        const revealTargets = document.querySelectorAll('section:not(#book-form):not(.book-form), .heading, .box, .photo-stack-card, .vlog-card, .blog-card, .review-card, .about-card, .stat-box, .about-pillar-chip');
+        const revealTargets = document.querySelectorAll('section:not(#book-form):not(.book-form), .heading, .box, .photo-stack-card, .vlog-card, .blog-card, .review-card, .about-card');
         
         revealTargets.forEach((el, idx) => {
             if (!el.hasAttribute('data-motion-reveal')) {
                 el.setAttribute('data-motion-reveal', 'true');
-                if (!el.hasAttribute('data-reveal-delay') && (el.classList.contains('box') || el.classList.contains('photo-stack-card') || el.classList.contains('stat-box'))) {
-                    const delay = (idx % 4) * 80 + 80;
+                if (!el.hasAttribute('data-reveal-delay') && (el.classList.contains('box') || el.classList.contains('photo-stack-card'))) {
+                    const delay = (idx % 4) * 100 + 100;
                     el.setAttribute('data-reveal-delay', delay.toString());
                 }
             }
@@ -3131,14 +3117,6 @@ document.addEventListener('DOMContentLoaded', () => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-revealed');
-                    
-                    // Animate stat counters if this is a stat box
-                    const statNum = entry.target.querySelector ? entry.target.querySelector('.stat-number') : null;
-                    if (statNum && !statNum.dataset.animated) {
-                        statNum.dataset.animated = 'true';
-                        statNum.style.animation = 'searchHighlight 0.6s ease-out';
-                    }
-
                     observer.unobserve(entry.target);
                 }
             });
@@ -3166,23 +3144,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 3. Desktop Pointer Parallax & Spatial Response
         if (window.matchMedia('(pointer: fine)').matches) {
-            const spatialCards = document.querySelectorAll('.hero-primary, .box, .photo-stack-card, .about-card, .stat-box, .about-pillar-chip');
+            const spatialCards = document.querySelectorAll('.hero-primary, .box, .photo-stack-card');
             
             spatialCards.forEach((card) => {
                 card.addEventListener('mousemove', (e) => {
                     const rect = card.getBoundingClientRect();
                     const x = e.clientX - rect.left - rect.width / 2;
                     const y = e.clientY - rect.top - rect.height / 2;
-                    const tiltX = (y / (rect.height / 2)) * -2.5;
-                    const tiltY = (x / (rect.width / 2)) * 2.5;
+                    const tiltX = (y / (rect.height / 2)) * -3;
+                    const tiltY = (x / (rect.width / 2)) * 3;
                     
-                    card.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateY(-3px)`;
+                    card.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateY(-4px)`;
                 });
 
                 card.addEventListener('mouseleave', () => {
                     card.style.transform = '';
                 });
             });
+        }
+
+        // 4. Staggered 3D Flip Reveal Observer (MagicUI Text3DFlip)
+        const flipElements = document.querySelectorAll('.text-3d-flip');
+        if (flipElements.length > 0) {
+            const flipObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-flipped');
+                        setTimeout(() => {
+                            entry.target.classList.remove('is-flipped');
+                        }, 1300);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            flipElements.forEach((el) => flipObserver.observe(el));
         }
     };
 
