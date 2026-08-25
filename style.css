@@ -141,6 +141,69 @@
     }
 }
 
+/* ==========================================================================
+   HERO DROP-FADE-IN & EASE-IN KINETIC ENGINE (Framer Motion Inspired)
+   ========================================================================== */
+body.is-loading .home .content,
+body.is-loading .atelier-hero-content {
+    opacity: 0;
+    transform: translateY(-24px);
+    filter: blur(8px);
+}
+
+body.site-ready .home .content,
+body.site-ready .atelier-hero-content,
+.home .content.hero-drop-ease-in,
+.atelier-hero-content.hero-drop-ease-in {
+    animation: heroDropFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+body.site-ready .atelier-hero-content .hero-eyebrow,
+.atelier-hero-content.hero-drop-ease-in .hero-eyebrow {
+    animation: heroElemDrop 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
+}
+
+body.site-ready .atelier-hero-content h1,
+.atelier-hero-content.hero-drop-ease-in h1 {
+    animation: heroElemDrop 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.26s both;
+}
+
+body.site-ready .atelier-hero-content p,
+.atelier-hero-content.hero-drop-ease-in p {
+    animation: heroElemDrop 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+body.site-ready .atelier-hero-content .hero-actions,
+.atelier-hero-content.hero-drop-ease-in .hero-actions {
+    animation: heroElemDrop 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.54s both;
+}
+
+@keyframes heroDropFade {
+    0% {
+        opacity: 0;
+        transform: translateY(-24px);
+        filter: blur(8px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0px);
+    }
+}
+
+@keyframes heroElemDrop {
+    0% {
+        opacity: 0;
+        transform: translateY(-16px);
+        filter: blur(5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0px);
+    }
+}
+
 html {
     font-size: 62.5%;
     overflow-x: hidden;

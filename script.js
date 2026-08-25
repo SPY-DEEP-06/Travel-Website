@@ -1,3 +1,9 @@
+// Force fresh page load from top #home on refresh/reload
+if (typeof history !== 'undefined' && 'scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
 const templates = {
     mediaBase: 'images/ttc/',
 
@@ -172,22 +178,22 @@ const templates = {
     },
 
     createHome() {
-        const heroVideo = this.mediaSrc('images/VID_20240316_100533931.mp4');
-        const heroPoster = this.mediaSrc('images/national/MANALI/M 1.1.jpeg');
+        const heroVideo = this.mediaSrc('images/about-vid-2.mp4');
+        const heroPoster = this.mediaSrc('images/national/KASHMIR/K 1.1.jpeg');
 
         return `
 <section class="home" id="home">
     <video class="hero-video" src="${heroVideo}" poster="${heroPoster}" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback controlslist="nodownload nofullscreen noremoteplayback" aria-hidden="true"></video>
     <div class="hero-overlay"></div>
     <div class="content atelier-hero-content">
-        <span class="hero-eyebrow" data-aos="fade-up" data-aos-delay="100">YOUR JOURNEY STARTS HERE</span>
-        <h1 data-aos="fade-up" data-aos-delay="200">
+        <span class="hero-eyebrow">YOUR JOURNEY STARTS HERE</span>
+        <h1>
             We're Officially<br>
             <em>Taking Off.</em>
         </h1>
-        <p data-aos="fade-up" data-aos-delay="350">Welcome to <strong>The Travel Circle</strong> — your trusted partner in creating unforgettable journeys.<br class="desktop-break">Whether it's a relaxing beach escape, a thrilling adventure, a family vacation, a romantic honeymoon, or an international getaway, we're here to turn your travel dreams into reality.</p>
+        <p>Welcome to <strong>The Travel Circle</strong> — your trusted partner in creating unforgettable journeys.<br class="desktop-break">Whether it's a relaxing beach escape, a thrilling adventure, a family vacation, a romantic honeymoon, or an international getaway, we're here to turn your travel dreams into reality.</p>
 
-        <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
+        <div class="hero-actions">
             <a href="#book-form" class="hero-primary">Start My Journey
                 <svg viewBox="0 0 24 24" aria-hidden="true" class="cta-arrow"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
             </a>
@@ -1223,12 +1229,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     loader.remove();
                     document.body.classList.remove('is-loading');
                     document.body.classList.add('site-ready');
+                    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
                     
                     // Unlock page scrolling ONLY AFTER visual morph transition finishes
                     document.body.style.overflow = '';
                     document.documentElement.style.overflow = '';
                     window.removeEventListener('wheel', preventLoaderScroll);
                     window.removeEventListener('touchmove', preventLoaderScroll);
+
+                    const heroContent = document.querySelector('.atelier-hero-content');
+                    if (heroContent) {
+                        heroContent.classList.add('hero-drop-ease-in');
+                    }
 
                     window.setTimeout(() => {
                         document.body.classList.remove('site-revealing');
@@ -1254,6 +1266,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     hideLoader();
                 }
             }, 8000);
+        },
+
+        initHeroSectionFlow() {
+            const heroContent = document.querySelector('.atelier-hero-content');
+            if (!heroContent) return;
+
+            if (document.body.classList.contains('site-ready') || !document.querySelector('#site-loader')) {
+                heroContent.classList.add('hero-drop-ease-in');
+            }
         },
 
         initRevealSystem() {
