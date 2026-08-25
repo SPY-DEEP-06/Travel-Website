@@ -279,7 +279,7 @@ const templates = {
 <section class="why-choose-us" id="why-us">
     <div class="heading">
         <span>our values</span>
-        <h1>why travel with the circle?</h1>
+        <h1>why choose the travel circle?</h1>
     </div>
     <div class="box-container">
         <div class="box" data-aos="fade-up" data-aos-delay="150">
