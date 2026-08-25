@@ -191,16 +191,90 @@ body.site-ready .atelier-hero-content .hero-actions,
     }
 }
 
-@keyframes heroElemDrop {
-    0% {
-        opacity: 0;
-        transform: translateY(-16px);
-        filter: blur(5px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-        filter: blur(0px);
+/* ==========================================================================
+   FRAMER-MOTION & UI/UX PRO MAX SCROLL REVEAL & CARD STAGGER ENGINE
+   ========================================================================== */
+/* 1. Section Headings & Content Reveal */
+[data-reveal="section"],
+[data-reveal="fade-up"],
+.section-reveal,
+.heading[data-aos],
+.about .content[data-aos],
+.review .content[data-aos],
+.banner .content[data-aos] {
+    opacity: 0;
+    transform: translateY(26px);
+    filter: blur(6px);
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity, filter;
+}
+
+[data-reveal="section"].is-revealed,
+[data-reveal="fade-up"].is-revealed,
+.section-reveal.is-revealed,
+.heading[data-aos].is-revealed,
+.heading[data-aos].aos-animate,
+.about .content[data-aos].is-revealed,
+.about .content[data-aos].aos-animate,
+.review .content[data-aos].is-revealed,
+.review .content[data-aos].aos-animate,
+.banner .content[data-aos].is-revealed,
+.banner .content[data-aos].aos-animate {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+}
+
+/* 2. Staggered Cards Slide Up One-by-One */
+[data-reveal="card"],
+.why-choose-us .box,
+.services .box,
+.destination .photo-stack-card,
+.gallery .box,
+.blogs .box,
+.vlogs .vlog-card,
+.about .about-card {
+    opacity: 0;
+    transform: translateY(32px);
+    filter: blur(5px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--card-stagger, 0) * 0.09s);
+    will-change: transform, opacity, filter;
+}
+
+[data-reveal="card"].is-revealed,
+.why-choose-us .box.is-revealed,
+.why-choose-us .box.aos-animate,
+.services .box.is-revealed,
+.services .box.aos-animate,
+.destination .photo-stack-card.is-revealed,
+.destination .photo-stack-card.aos-animate,
+.gallery .box.is-revealed,
+.blogs .box.is-revealed,
+.blogs .box.aos-animate,
+.vlogs .vlog-card.is-revealed,
+.vlogs .vlog-card.aos-animate,
+.about .about-card.is-revealed,
+.about .about-card.aos-animate {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-reveal],
+    .section-reveal,
+    .why-choose-us .box,
+    .services .box,
+    .destination .photo-stack-card,
+    .gallery .box,
+    .blogs .box,
+    .vlogs .vlog-card,
+    .about .about-card {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+        transition: none !important;
     }
 }
 

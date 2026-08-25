@@ -1279,34 +1279,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
         initRevealSystem() {
             const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (isReduced) return;
+            if (isReduced) {
+                document.querySelectorAll('[data-reveal], .heading, .box, .photo-stack-card, .vlog-card, .about-card').forEach(el => el.classList.add('is-revealed'));
+                return;
+            }
 
-            // 1. Tag headings for clean fade-up reveal as whole elements (NO word splitting)
-            const headings = document.querySelectorAll('.heading h1, .about .content h3, .services .heading h1, .why-choose-us .heading h1, .vlogs .heading h1, .blogs .heading h1, .contact .heading h1, .gallery .heading h1, .destination .heading h1');
-            headings.forEach(heading => {
-                heading.setAttribute('data-reveal', 'fade-up');
+            // 1. Tag Section Headings & Major Containers for Ease-In / Fade-In
+            const sectionTargets = document.querySelectorAll(
+                '.heading, .about .content, .why-choose-us-tagline, .banner .content, .review .content, .about-vision-mission'
+            );
+            sectionTargets.forEach(el => {
+                el.setAttribute('data-reveal', 'section');
             });
 
-            // 2. Tag section eyebrows and alternating card grid elements
-            document.querySelectorAll('.heading span').forEach(el => el.setAttribute('data-reveal', 'fade-up'));
+            // 2. Setup Stagger Order for Cards in Grids (One-by-One Slide Up)
+            const gridContainers = document.querySelectorAll(
+                '.why-choose-us .box-container, .services .box-container, .photo-stack-grid, #domestic-content, #international-content, .gallery .box-container, .blogs .box-container, .vlogs-grid, .about-vision-mission'
+            );
 
-            const cardContainers = document.querySelectorAll('.why-choose-us .box-container, .services .box-container, .blogs .box-container, .vlogs-grid, .destination-card-grid');
-            cardContainers.forEach(grid => {
-                const cards = grid.querySelectorAll('.box, .card, .vlog-card, .destination-card');
+            gridContainers.forEach(grid => {
+                const cards = grid.querySelectorAll('.box, .photo-stack-card, .vlog-card, .about-card, .gallery-tile');
                 cards.forEach((card, index) => {
-                    if (!card.dataset.cardDirection) {
-                        const dir = index % 2 === 0 ? 'reveal-card-left' : 'reveal-card-right';
-                        card.dataset.cardDirection = dir;
-                        card.classList.add(dir);
-                        card.style.transitionDelay = `${(index % 4) * 80}ms`;
-                    }
+                    card.setAttribute('data-reveal', 'card');
+                    card.style.setProperty('--card-stagger', (index % 4).toString());
                 });
             });
 
-            // 3. Setup IntersectionObserver
+            // 3. IntersectionObserver with Butter-Smooth Easing Triggers
             const observerOptions = {
                 root: null,
-                rootMargin: '0px 0px -10% 0px',
+                rootMargin: '0px 0px -40px 0px',
                 threshold: 0.12
             };
 
@@ -1316,20 +1318,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         const el = entry.target;
                         el.classList.add('is-revealed');
                         
-                        // Reveal child stagger items & alternating cards if present
-                        el.querySelectorAll('.reveal-stagger-item, .reveal-card-left, .reveal-card-right').forEach((child, i) => {
-                            if (!child.style.transitionDelay) {
-                                child.style.transitionDelay = `${i * 60}ms`;
+                        // Cascade reveal to any direct child cards
+                        el.querySelectorAll('[data-reveal="card"], .box, .photo-stack-card, .vlog-card, .about-card').forEach((child, i) => {
+                            if (!child.style.getPropertyValue('--card-stagger')) {
+                                child.style.setProperty('--card-stagger', (i % 4).toString());
                             }
                             child.classList.add('is-revealed');
                         });
-                        
+
                         obs.unobserve(el);
                     }
                 });
             }, observerOptions);
 
-            document.querySelectorAll('[data-reveal], [data-aos], .heading, .why-choose-us .box-container, .services .box-container, .blogs .box-container, .vlogs-grid').forEach(el => {
+            // Observe all reveal elements
+            document.querySelectorAll('[data-reveal], .heading, .box-container, .vlogs-grid, .photo-stack-grid, .destination-tab-content, .about-vision-mission, .review').forEach(el => {
                 observer.observe(el);
             });
         },
@@ -3220,16 +3223,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             section.classList.add('mobile-content-ready');
             section.style.minHeight = 'auto';
-            section.style.opacity = '1';
-            section.style.visibility = 'visible';
-
-            section.querySelectorAll('[data-aos], [style*="opacity"], [style*="visibility"], .reveal, .scroll-reveal, .fade-in, .fade-up, .hidden, .is-hidden').forEach((node) => {
-                if (node.id === 'book-form' || node.classList.contains('book-form') || node.closest('#book-form')) return;
-                node.classList.remove('hidden', 'is-hidden');
-                node.style.opacity = '1';
-                node.style.visibility = 'visible';
-                node.style.transform = 'none';
-            });
         });
 
         // Ensure book-form remains strictly hidden unless explicitly requested by user
@@ -3238,7 +3231,7 @@ document.addEventListener('DOMContentLoaded', () => {
             bookForm.classList.add('is-hidden');
         }
 
-        // Force-refresh AOS on mobile if loaded
+        // Force-refresh AOS / Reveal on mobile if loaded
         if (window.AOS && typeof window.AOS.refresh === 'function') {
             window.AOS.refresh();
         }
