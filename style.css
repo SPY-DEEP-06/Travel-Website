@@ -114,25 +114,63 @@
 }
 
 /* ==========================================================================
-   FRAMER-MOTION & MAGIC-UI BLUR-IN-UP TRANSITION ENGINE
+   MAGICUI / FRAMER MOTION BLUR FADE & BLUR-IN-UP TRANSITION ENGINE
    ========================================================================== */
-[data-aos="blur-in-up"] {
+[data-aos="blur-in-up"],
+[data-aos="blur-fade-up"] {
     opacity: 0;
-    filter: blur(8px);
-    transform: translateY(22px);
+    filter: blur(6px);
+    transform: translateY(18px);
     transition-property: opacity, transform, filter;
-    transition-duration: 0.65s;
+    transition-duration: 0.55s;
     transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
     will-change: transform, opacity, filter;
 }
 
-[data-aos="blur-in-up"].aos-animate {
+[data-aos="blur-fade"],
+[data-aos="blur-fade-down"] {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(-16px);
+    transition-property: opacity, transform, filter;
+    transition-duration: 0.55s;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity, filter;
+}
+
+[data-aos="blur-fade-left"] {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateX(18px);
+    transition-property: opacity, transform, filter;
+    transition-duration: 0.55s;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity, filter;
+}
+
+[data-aos="blur-fade-right"] {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateX(-18px);
+    transition-property: opacity, transform, filter;
+    transition-duration: 0.55s;
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity, filter;
+}
+
+[data-aos="blur-in-up"].aos-animate,
+[data-aos="blur-fade"].aos-animate,
+[data-aos="blur-fade-up"].aos-animate,
+[data-aos="blur-fade-down"].aos-animate,
+[data-aos="blur-fade-left"].aos-animate,
+[data-aos="blur-fade-right"].aos-animate {
     opacity: 1;
     filter: blur(0px);
-    transform: translateY(0);
+    transform: translate(0, 0);
 }
 
 @media (prefers-reduced-motion: reduce) {
+    [data-aos^="blur-fade"],
     [data-aos="blur-in-up"] {
         filter: none !important;
         opacity: 1 !important;
