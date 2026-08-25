@@ -1008,8 +1008,9 @@ const templates = {
     },
 
     createFloatingWhatsapp() {
+        const defaultMsg = encodeURIComponent("Hello The Travel Circle 🌟, I would like to enquire about holiday tour packages ✈️🏝️!");
         return `
-<a href="https://wa.me/917304979500?text=Hi%20The%20Travel%20Circle%2C%20I%20want%20to%20plan%20a%20tour!" target="_blank" rel="noopener noreferrer" class="floating-whatsapp-widget" title="Chat with us on WhatsApp 7304979500" aria-label="Chat on WhatsApp">
+<a href="https://wa.me/917304979500?text=${defaultMsg}" target="_blank" rel="noopener noreferrer" class="floating-whatsapp-widget" title="Chat with us on WhatsApp 7304979500" aria-label="Chat on WhatsApp">
     <i class="fab fa-whatsapp"></i>
     <span class="whatsapp-tooltip">Chat with us!</span>
 </a>`;
@@ -2055,6 +2056,27 @@ document.addEventListener('DOMContentLoaded', () => {
             return dateStr;
         },
 
+        getDestinationEmoji(destName = '', category = '') {
+            const d = String(destName).toLowerCase();
+            if (d.includes('leh') || d.includes('ladakh') || d.includes('bike')) return '🏍️ 🏔️';
+            if (d.includes('kashmir')) return '🏔️ ❄️ 🛶';
+            if (d.includes('manali') || d.includes('kasol') || d.includes('uttrakhand') || d.includes('darjeeling') || d.includes('himachal')) return '🏔️ 🌲';
+            if (d.includes('goa') || d.includes('andaman') || d.includes('kerala')) return '🏖️ 🌴 🌊';
+            if (d.includes('jaipur') || d.includes('udaipur') || d.includes('rajasthan')) return '🏰 👑 🐪';
+            if (d.includes('kuch') || d.includes('rann')) return '🏜️ 🐫 🎪';
+            if (d.includes('seven sisters') || d.includes('northeast') || d.includes('odisha') || d.includes('maharastra')) return '🌿 🏞️ ✨';
+            if (d.includes('bali')) return '🏝️ 🌺 ⛩️';
+            if (d.includes('dubai')) return '🏙️ 🏜️ ✨';
+            if (d.includes('singapore')) return '🌆 🎡 🌴';
+            if (d.includes('thailand')) return '🏖️ 🐘 🏮';
+            if (d.includes('vietnam')) return '🛶 🌿 🏞️';
+            if (d.includes('sri lanka') || d.includes('srilanka')) return '🌊 🐘 🌴';
+            if (d.includes('azerbaijan') || d.includes('azerbaijaan')) return '🏰 🏔️ 💎';
+            if (d.includes('malaysia')) return '🏙️ 🌺 🌴';
+            if (String(category).toLowerCase().includes('international')) return '✈️ 🌍 🏝️';
+            return '✈️ 🗺️ 🌴';
+        },
+
         generateTourPlanWhatsAppMessage(formData) {
             const dest = (formData.destination || '').trim();
             const contact = (formData.contact || '').trim();
@@ -2062,20 +2084,27 @@ document.addEventListener('DOMContentLoaded', () => {
             const dateToFormatted = this.formatDateReadable(formData.dateTo);
             const travelers = String(formData.travelers || '').trim();
             const email = (formData.email || '').trim();
+            const emoji = this.getDestinationEmoji(dest, 'Custom Tour');
 
             const lines = [
-                "🌟 *NEW TOUR PLAN ENQUIRY — THE TRAVEL CIRCLE* 🌟",
-                "",
-                `📍 *Destination:* ${dest}`,
+                "🌟 *NEW CUSTOM TOUR ENQUIRY | THE TRAVEL CIRCLE* 🌟",
+                "──────────────────────────",
+                `📍 *Destination:* ${dest} ${emoji}`,
+                `📅 *Travel Dates:* ${dateFromFormatted} ➔ ${dateToFormatted}`,
+                `👥 *Guests:* ${travelers} Traveller(s)`,
                 `📞 *Contact Number:* ${contact}`,
                 email ? `✉️ *Email Address:* ${email}` : null,
-                `📅 *Travel Dates:* ${dateFromFormatted} to ${dateToFormatted}`,
-                `👥 *Number of Guests:* ${travelers} Guest(s)`,
+                "──────────────────────────",
+                "👋 *Hello The Travel Circle Team,*",
                 "",
-                "Hello! I would like to plan this tour with *The Travel Circle*.",
-                "Please share detailed itinerary options, package inclusions, and best pricing.",
+                `I would like to plan and book our customized tour for *${dest}* with *The Travel Circle*.`,
                 "",
-                "Thank you! Looking forward to your response."
+                "📋 *Please provide:*",
+                "  ▪️ 📜 Handcrafted Itinerary Options",
+                "  ▪️ 💰 Best Quotation & Package Inclusions",
+                "  ▪️ 🏨 Premium Stay & Transportation Details",
+                "",
+                "✨ *Thank you! Looking forward to your response.*"
             ].filter(line => line !== null);
 
             return lines.join("\n");
@@ -2085,42 +2114,28 @@ document.addEventListener('DOMContentLoaded', () => {
             const title = (destObj.title || 'Selected Destination').trim();
             const category = (destObj.category || 'India').trim();
             const vibe = (destObj.vibe || '').trim();
+            const emoji = this.getDestinationEmoji(title, category);
 
             const lines = [
-                "Hello The Travel Circle,",
+                "✨ *TOUR ENQUIRY | THE TRAVEL CIRCLE* ✨",
+                "──────────────────────────",
+                `📍 *Destination:* ${title} ${emoji}`,
+                `🏷️ *Category:* ${category} Holiday Package`,
+                vibe ? `💫 *Experience:* ${vibe}` : null,
+                "──────────────────────────",
+                "👋 *Hello The Travel Circle Team,*",
                 "",
-                `I am interested in planning a trip to ${title}.`,
+                `I am interested in planning a customized holiday package for *${title}*!`,
                 "",
-                "Destination:",
-                title,
+                "📋 *Please share the following details:*",
+                "  ▪️ 🗺️ Day-wise Itinerary & Sightseeing Plan",
+                "  ▪️ 💰 Package Pricing & Custom Inclusions",
+                "  ▪️ 🏨 Hotel / Resort Categories & Stay Options",
+                "  ▪️ 🚗 Transfers & Local Transportation",
+                "  ▪️ 📅 Best Travel Dates & Peak Season Advice",
                 "",
-                "Location:",
-                category
-            ];
-
-            if (vibe) {
-                lines.push("");
-                lines.push("About the Destination:");
-                lines.push(vibe);
-            }
-
-            lines.push(
-                "",
-                "I would like to know more about:",
-                "",
-                "- Available tour packages",
-                "- Itinerary",
-                "- Pricing",
-                "- Travel dates",
-                "- Inclusions",
-                "- Accommodation",
-                "- Other available options",
-                "",
-                "Please share the details and help me plan this trip.",
-                "",
-                "Thank you,",
-                "I look forward to hearing from you."
-            );
+                "✨ *Looking forward to your quick response and itinerary quote!*"
+            ].filter(line => line !== null);
 
             return lines.join("\n");
         },
@@ -2129,42 +2144,27 @@ document.addEventListener('DOMContentLoaded', () => {
             const dest = (vlogObj.destination || '').trim();
             const title = (vlogObj.title || '').trim();
             const desc = (vlogObj.desc || '').trim();
+            const emoji = this.getDestinationEmoji(dest, 'Vlog');
 
             const lines = [
-                "Hello The Travel Circle,",
+                "🎥 *VLOG EXPERIENCE ENQUIRY | THE TRAVEL CIRCLE* 🎥",
+                "──────────────────────────",
+                `📍 *Featured Destination:* ${dest} ${emoji}`,
+                `🎬 *Travel Route:* ${title}`,
+                desc ? `💫 *Highlights:* ${desc}` : null,
+                "──────────────────────────",
+                "👋 *Hello The Travel Circle Team,*",
                 "",
-                `I came across your travel vlog and I am interested in planning a trip to ${dest}.`,
+                `I came across your travel vlog on *${title} (${dest})* and would love to plan this exact experience!`,
                 "",
-                "Destination:",
-                dest,
+                "📋 *Please share:*",
+                "  ▪️ 🗺️ Complete Vlog Itinerary & Stops",
+                "  ▪️ 💰 Package Pricing & Custom Inclusions",
+                "  ▪️ 🏨 Recommended Stays & Secret Viewpoints",
+                "  ▪️ 📅 Available Dates & Best Season to Visit",
                 "",
-                "Travel Experience:",
-                title
-            ];
-
-            if (desc) {
-                lines.push("");
-                lines.push("Experience Details:");
-                lines.push(desc);
-            }
-
-            lines.push(
-                "",
-                "I would like to know more about:",
-                "",
-                "- Itinerary",
-                "- Available travel dates",
-                "- Package options",
-                "- Pricing",
-                "- Accommodation",
-                "- Inclusions",
-                "- Other trip details",
-                "",
-                "Please share the details and help me plan this journey.",
-                "",
-                "Thank you,",
-                "I look forward to hearing from you."
-            );
+                "✨ *Looking forward to crafting this journey with you!*"
+            ].filter(line => line !== null);
 
             return lines.join("\n");
         },
@@ -2220,7 +2220,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 
                 document.body.removeChild(overlay);
-                const finalMessage = `*Name:* ${name}\n*Phone:* ${phone}\n\n${presetMessage}`;
+                const travellerHeader = [
+                    "👤 *GUEST CONTACT DETAILS:*",
+                    `  ▪️ *Name:* ${name}`,
+                    `  ▪️ *Phone:* ${phone}`,
+                    ""
+                ].join("\n");
+
+                const finalMessage = `${travellerHeader}\n${presetMessage}`;
                 this.openWhatsAppEnquiry(finalMessage);
             });
         },
