@@ -285,38 +285,38 @@ const templates = {
         <h1>why choose the travel circle?</h1>
     </div>
     <div class="box-container">
-        <div class="box" data-aos="blur-fade-up" data-aos-delay="150">
+        <div class="box" data-aos="fade-up" data-aos-delay="150">
             <i class="fas fa-user-check"></i>
             <h3>Personalized Experiences</h3>
             <p>Every journey is thoughtfully designed to match your preferences, interests, budget, and travel aspirations.</p>
         </div>
-        <div class="box" data-aos="blur-fade-up" data-aos-delay="300">
+        <div class="box" data-aos="fade-up" data-aos-delay="300">
             <i class="fas fa-compass"></i>
             <h3>Expert Travel Guidance</h3>
             <p>Our experienced travel experts provide valuable insights and recommendations to help you choose the perfect destination.</p>
         </div>
-        <div class="box" data-aos="blur-fade-up" data-aos-delay="450">
+        <div class="box" data-aos="fade-up" data-aos-delay="450">
             <i class="fas fa-tags"></i>
             <h3>Competitive Pricing</h3>
             <p>We offer the best value for your money through competitive pricing and special deals without compromising quality.</p>
         </div>
-        <div class="box" data-aos="blur-fade-up" data-aos-delay="600">
+        <div class="box" data-aos="fade-up" data-aos-delay="600">
             <i class="fas fa-route"></i>
             <h3>End-to-End Planning</h3>
             <p>From the initial planning stage to your safe return home, we manage every aspect of your trip for a seamless experience.</p>
         </div>
-        <div class="box" data-aos="blur-fade-up" data-aos-delay="750">
+        <div class="box" data-aos="fade-up" data-aos-delay="750">
             <i class="fas fa-map-marked-alt"></i>
             <h3>Curated Holiday Packages</h3>
             <p>We curate a wide range of customized holiday packages across India and around the world to suit every type of traveller.</p>
         </div>
-        <div class="box" data-aos="blur-fade-up" data-aos-delay="900">
+        <div class="box" data-aos="fade-up" data-aos-delay="900">
             <i class="fas fa-award"></i>
             <h3>Attention to Every Detail</h3>
             <p>Our committed team provides personalized assistance and takes care of every detail to ensure a memorable journey.</p>
         </div>
     </div>
-    <div class="why-choose-us-tagline" data-aos="blur-fade-up">
+    <div class="why-choose-us-tagline" data-aos="zoom-in">
         "At The Travel Circle, we don't just plan trips—we create experiences that stay with you forever."
     </div>
 </section>`;
@@ -485,7 +485,7 @@ const templates = {
                 : `<button type="button" class="card-action-btn dest-wa-btn" data-dest-title="${safeTitle}" data-dest-category="India" data-dest-vibe="${safeVibe}">plan this tour <i class="fas fa-arrow-right"></i></button>`;
 
             return `
-        <div class="photo-stack-card${dest.isLeh ? ' card-highlight-leh' : ''}" data-aos="blur-fade-up" data-aos-delay="${100 + (index % 4) * 80}" data-dest-card="${dest.title}">
+        <div class="photo-stack-card${dest.isLeh ? ' card-highlight-leh' : ''}" data-aos="fade-up" data-aos-delay="${100 + (index % 4) * 80}" data-dest-card="${dest.title}">
             <div class="card-text">
                 <span class="card-category">INDIA</span>
                 <h3 class="card-title">${dest.title}</h3>
@@ -512,7 +512,7 @@ const templates = {
             const safeVibe = (dest.vibe || '').replace(/"/g, '&quot;');
             
             return `
-        <div class="photo-stack-card" data-aos="blur-fade-up" data-aos-delay="${100 + (index % 4) * 80}" data-dest-card="${dest.title}">
+        <div class="photo-stack-card" data-aos="fade-up" data-aos-delay="${100 + (index % 4) * 80}" data-dest-card="${dest.title}">
             <div class="card-text">
                 <span class="card-category">INTERNATIONAL</span>
                 <h3 class="card-title">${dest.title}</h3>
@@ -529,7 +529,7 @@ const templates = {
 
         return `
 <section class="destination" id="destination">
-    <div class="heading" data-aos="blur-in-up">
+    <div class="heading">
         <span>popular destinations</span>
         <h1>Choose Your Next Circle On The Map</h1>
     </div>
@@ -546,7 +546,7 @@ const templates = {
         ${internationalCards}
     </div>
     
-    <div class="why-choose-us-tagline" data-aos="blur-fade-up" style="margin-top: 5rem; text-align: center;">
+    <div class="why-choose-us-tagline" data-aos="zoom-in" style="margin-top: 5rem; text-align: center;">
         "From the nearest getaway to the farthest corner of the world, no destination is beyond our reach. If you can dream it, we can plan it."
     </div>
 </section>`;
@@ -566,7 +566,7 @@ const templates = {
         ];
 
         const serviceCards = servicesList.map(([title, description, icon], index) => `
-        <div class="box" data-aos="blur-fade-up" data-aos-delay="${100 + (index % 3) * 100}">
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="${100 + (index % 3) * 100}">
             <i class="${icon}"></i>
             <h3>${title}</h3>
             <p>${description}</p>
@@ -618,10 +618,10 @@ const templates = {
         const initialCount = 6;
         const initialItems = items.slice(0, initialCount);
 
-        const cardHtml = (item, index) => {
+        const cardHtml = (item) => {
             if (item.type === 'video') {
                 return `
-        <div class="box gallery-tile gallery-tile--landscape video-box" data-type="video" data-src="${item.src}" data-aos="blur-fade-up" data-aos-delay="${100 + (index % 3) * 100}" tabindex="0" role="button" aria-label="${item.alt}">
+        <div class="box gallery-tile gallery-tile--landscape video-box" data-type="video" data-src="${item.src}" tabindex="0" role="button" aria-label="${item.alt}">
             <div class="video-thumb">
                 <img src="${item.thumb}" alt="${item.alt}" loading="lazy">
                 <i class="fas fa-play"></i>
@@ -630,13 +630,13 @@ const templates = {
         </div>`;
             }
             return `
-        <div class="box gallery-tile gallery-tile--${item.shape}" data-type="image" data-src="${item.src}" data-aos="blur-fade-up" data-aos-delay="${100 + (index % 3) * 100}" tabindex="0" role="button" aria-label="${item.alt}">
+        <div class="box gallery-tile gallery-tile--${item.shape}" data-type="image" data-src="${item.src}" tabindex="0" role="button" aria-label="${item.alt}">
             <img src="${item.src}" alt="${item.alt}" loading="lazy">
             <span class="gallery-shine" aria-hidden="true"></span>
         </div>`;
         };
 
-        const initialCards = initialItems.map((item, i) => cardHtml(item, i)).join('');
+        const initialCards = initialItems.map(cardHtml).join('');
         const hasMore = items.length > initialCount;
 
         return `
@@ -729,7 +729,7 @@ const templates = {
         <h1>ideas before you pack</h1>
     </div>
     <div class="box-container">
-        <div class="box blog-card-trigger" data-blog-id="blog-1" data-aos="blur-fade-up" data-aos-delay="150" role="button" tabindex="0">
+        <div class="box blog-card-trigger" data-blog-id="blog-1" data-aos="fade-up" data-aos-delay="150" role="button" tabindex="0">
             <div class="image">
                 <img src="${this.mediaSrc(blogImages[0])}" alt="Planning a meaningful journey with The Travel Circle" loading="lazy">
             </div>
@@ -742,7 +742,7 @@ const templates = {
                 </div>
             </div>
         </div>
-        <div class="box blog-card-trigger" data-blog-id="blog-2" data-aos="blur-fade-up" data-aos-delay="300" role="button" tabindex="0">
+        <div class="box blog-card-trigger" data-blog-id="blog-2" data-aos="fade-up" data-aos-delay="300" role="button" tabindex="0">
             <div class="image">
                 <img src="${this.mediaSrc(blogImages[1])}" alt="A scenic travel story by The Travel Circle" loading="lazy">
             </div>
@@ -755,7 +755,7 @@ const templates = {
                 </div>
             </div>
         </div>
-        <div class="box blog-card-trigger" data-blog-id="blog-3" data-aos="blur-fade-up" data-aos-delay="450" role="button" tabindex="0">
+        <div class="box blog-card-trigger" data-blog-id="blog-3" data-aos="fade-up" data-aos-delay="450" role="button" tabindex="0">
             <div class="image">
                 <img src="${this.mediaSrc(blogImages[2])}" alt="Hidden travel experience arranged by The Travel Circle" loading="lazy">
             </div>
@@ -828,7 +828,7 @@ const templates = {
             const safeDesc = (vlog.desc || '').replace(/"/g, '&quot;');
 
             return `
-        <div class="vlog-card" data-aos="blur-fade-up" data-aos-delay="${150 + idx * 100}">
+        <div class="vlog-card" data-aos="fade-up" data-aos-delay="${150 + idx * 100}">
             <div class="vlog-media">
                 <img src="${vlog.image}" alt="${vlog.title}" loading="lazy">
                 <span class="vlog-badge"><i class="fas fa-play-circle"></i> ${vlog.duration}</span>
@@ -846,7 +846,7 @@ const templates = {
 
         return `
 <section class="vlogs" id="vlogs">
-    <div class="heading" data-aos="blur-in-up">
+    <div class="heading">
         <span>travel vlogs & reels</span>
         <h1>Real Journeys, Real Stories</h1>
     </div>
