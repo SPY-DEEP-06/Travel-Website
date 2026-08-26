@@ -735,8 +735,8 @@ const templates = {
 
     createBlogs() {
         const blogImages = [
-            this.getDestinationImage('KASHMIR', 0) || this.mediaSrc('images/national/KASHMIR/K 1.1.jpeg'),
-            this.getDestinationImage('Darjeeling', 1) || this.mediaSrc('images/national/Darjeeling/2.1.jpeg'),
+            this.getDestinationImage('KASHMIR', 4) || this.mediaSrc('images/national/KASHMIR/K3.1.jpg'),
+            this.getDestinationImage('Darjeeling', 7) || this.mediaSrc('images/national/Darjeeling/4.1.jpeg'),
             this.getDestinationImage('dubai', 0) || this.mediaSrc('images/international/dubai/1.1.jpeg')
         ];
 
@@ -2487,7 +2487,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     category: 'Scenic Journeys',
                     date: '15th Sept, 2025',
                     author: 'by The Travel Circle',
-                    image: templates.getDestinationImage('KASHMIR', 0) || 'images/national/KASHMIR/K 1.1.jpeg',
+                    image: templates.getDestinationImage('KASHMIR', 4) || 'images/national/KASHMIR/K3.1.jpg',
                     content: `
                         <p class="blog-lead">We started the morning with no rigid timeline—just a coastal road map, a full tank of fuel, and the shared promise of stopping whenever a view demanded our attention.</p>
                         <p>By midday, the highway gave way to winding mountain roads lined with pine trees and misty valleys. We stopped at a tiny roadside cafe where an elderly local served us cardamom chai and warm bread fresh from a wood-fired oven. It wasn't on any travel itinerary, but that 45-minute pause became the highlight of our day.</p>
@@ -2500,7 +2500,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     category: 'Travel Tips',
                     date: '10th Sept, 2025',
                     author: 'by The Travel Circle',
-                    image: templates.getDestinationImage('Darjeeling', 1) || 'images/national/Darjeeling/2.1.jpeg',
+                    image: templates.getDestinationImage('Darjeeling', 7) || 'images/national/Darjeeling/4.1.jpeg',
                     content: `
                         <p class="blog-lead">The finest travel experiences rarely feel over-scheduled. They strike an artful balance between seamless logistics and unhurried freedom.</p>
                         <p>When every transfer is pre-arranged, every hotel check-in is smooth, and every local guide is genuinely passionate, your mind is freed from the friction of decision fatigue. You no longer worry about taxi tariffs, missing train connections, or finding a decent dinner spot in an unfamiliar city.</p>
