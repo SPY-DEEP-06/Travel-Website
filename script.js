@@ -272,7 +272,7 @@ const templates = {
         </div>
     </div>
     <div class="content">
-        <span>about us</span>
+        <span>About Us</span>
         <h3>Crafting Unforgettable Journeys</h3>
         <p>At The Travel Circle, we believe that travel is not just about reaching a destination—it's about creating memories, discovering new cultures, and experiencing the world in meaningful ways. Founded with a passion for exploration and a commitment to exceptional service, our mission is to turn every travel dream into an unforgettable journey.</p>
         <p>We understand that every traveller is unique, and so are their travel aspirations. Whether you're planning a relaxing beach escape, an exciting adventure, a romantic honeymoon, a family vacation, a corporate retreat, or an international getaway, we create personalized travel experiences tailored to your preferences, budget, and interests.</p>
@@ -296,8 +296,8 @@ const templates = {
         return `
 <section class="why-choose-us" id="why-us">
     <div class="heading">
-        <span>our values</span>
-        <h1>why travel with the circle?</h1>
+        <span>Our Values</span>
+        <h1>Why Travel With The Circle?</h1>
     </div>
     <div class="box-container">
         <div class="box" data-aos="fade-up" data-aos-delay="150">
@@ -497,7 +497,7 @@ const templates = {
             const safeVibe = (dest.vibe || '').replace(/"/g, '&quot;');
             const actionBtn = dest.isLeh 
                 ? `<button type="button" class="card-action-btn leh-popup-trigger" data-leh="true">Plan Leh Ladakh Tour <i class="fas fa-motorcycle"></i></button>`
-                : `<button type="button" class="card-action-btn dest-wa-btn" data-dest-title="${safeTitle}" data-dest-category="India" data-dest-vibe="${safeVibe}">plan this tour <i class="fas fa-arrow-right"></i></button>`;
+                : `<button type="button" class="card-action-btn dest-wa-btn" data-dest-title="${safeTitle}" data-dest-category="India" data-dest-vibe="${safeVibe}">Plan This Tour <i class="fas fa-arrow-right"></i></button>`;
 
             return `
         <div class="photo-stack-card${dest.isLeh ? ' card-highlight-leh' : ''}" data-aos="fade-up" data-aos-delay="${100 + (index % 4) * 80}" data-dest-card="${dest.title}">
@@ -532,7 +532,7 @@ const templates = {
                 <span class="card-category">INTERNATIONAL</span>
                 <h3 class="card-title">${dest.title}</h3>
                 <p class="card-subtitle"><strong>The Vibe:</strong> ${dest.vibe}</p>
-                <button type="button" class="card-action-btn dest-wa-btn" data-dest-title="${safeTitle}" data-dest-category="International" data-dest-vibe="${safeVibe}">plan this tour <i class="fas fa-arrow-right"></i></button>
+                <button type="button" class="card-action-btn dest-wa-btn" data-dest-title="${safeTitle}" data-dest-category="International" data-dest-vibe="${safeVibe}">Plan This Tour <i class="fas fa-arrow-right"></i></button>
             </div>
             <div class="photo-stack">
                 <img class="stack-img stack-img-1" src="${img1}" alt="${dest.title} gallery 1" loading="lazy">
@@ -545,7 +545,7 @@ const templates = {
         return `
 <section class="destination" id="destination">
     <div class="heading">
-        <span>popular destinations</span>
+        <span>Popular Destinations</span>
         <h1>Choose Your Next Circle On The Map</h1>
     </div>
     
@@ -590,7 +590,7 @@ const templates = {
         return `
 <section class="services" id="services">
     <div class="heading">
-        <span>what we arrange</span>
+        <span>What We Arrange</span>
         <h1>Every Detail, Beautifully Handled</h1>
     </div>
     <div class="box-container">
@@ -657,8 +657,8 @@ const templates = {
         return `
 <section class="gallery" id="gallery">
     <div class="heading">
-        <span>journey moments</span>
-        <h1>memories from every mile</h1>
+        <span>Journey Moments</span>
+        <h1>Memories From Every Mile</h1>
     </div>
     <div class="box-container" id="gallery-box-container">
         ${initialCards}
@@ -676,8 +676,8 @@ const templates = {
         return `
 <section class="review" id="review">
     <div class="content" data-aos="fade-right" data-aos-delay="300">
-        <span>traveler stories</span>
-        <h3>people return with better stories</h3>
+        <span>Traveler Stories</span>
+        <h3>People Return With Better Stories</h3>
         <p>Every itinerary is personal, so every review feels different. Here is what travelers love about letting The Travel Circle plan the details while they enjoy the journey.</p>
     </div>
     <div class="review-slider" data-aos="fade-left" data-aos-delay="600">
@@ -689,7 +689,7 @@ const templates = {
                         <img src="${this.mediaSrc(reviewerImages[0])}" alt="The Travel Circle traveler memory" loading="lazy">
                         <div class="info">
                             <h3>Aarav Mehta</h3>
-                            <span>honeymoon traveler</span>
+                            <span>Honeymoon Traveler</span>
                         </div>
                     </div>
                 </div>
@@ -699,7 +699,7 @@ const templates = {
                         <img src="${this.mediaSrc(reviewerImages[1])}" alt="The Travel Circle family travel memory" loading="lazy">
                         <div class="info">
                             <h3>Nisha Kapoor</h3>
-                            <span>family traveler</span>
+                            <span>Family Traveler</span>
                         </div>
                     </div>
                 </div>
@@ -709,7 +709,7 @@ const templates = {
                         <img src="${this.mediaSrc(reviewerImages[2])}" alt="The Travel Circle adventure memory" loading="lazy">
                         <div class="info">
                             <h3>Rohan Verma</h3>
-                            <span>adventure seeker</span>
+                            <span>Adventure Seeker</span>
                         </div>
                     </div>
                 </div>
@@ -719,7 +719,7 @@ const templates = {
                         <img src="${this.mediaSrc(reviewerImages[3])}" alt="The Travel Circle culture travel memory" loading="lazy">
                         <div class="info">
                             <h3>Meera Iyer</h3>
-                            <span>culture explorer</span>
+                            <span>Culture Explorer</span>
                         </div>
                     </div>
                 </div>
@@ -743,8 +743,8 @@ const templates = {
         return `
 <section class="blogs" id="blogs">
     <div class="heading">
-        <span>travel notes</span>
-        <h1>ideas before you pack</h1>
+        <span>Travel Notes</span>
+        <h1>Ideas Before You Pack</h1>
     </div>
     <div class="box-container">
         <div class="box blog-card-trigger" data-blog-id="blog-1" data-aos="fade-up" data-aos-delay="150" role="button" tabindex="0">
@@ -794,10 +794,10 @@ const templates = {
         return `
 <div class="banner">
     <div class="content" data-aos="zoom-in-up" data-aos-delay="300">
-        <span>ready when you are</span>
+        <span>Ready When You Are</span>
         <h3>Your Next Story Starts With A Plan</h3>
         <p>At The Travel Circle, we don't just plan trips—we create experiences that stay with you forever. Let's start planning your next adventure together!</p>
-        <a href="#book-form" class="btn">plan my journey</a>
+        <a href="#book-form" class="btn">Plan My Journey</a>
     </div>
 </div>`;
     },
@@ -868,7 +868,7 @@ const templates = {
         return `
 <section class="vlogs" id="vlogs">
     <div class="heading">
-        <span>travel vlogs & reels</span>
+        <span>Travel Vlogs & Reels</span>
         <h1>Real Journeys, Real Stories</h1>
     </div>
     <div class="vlogs-grid">
@@ -909,11 +909,11 @@ const templates = {
             </div>
         </div>
         <div class="box" data-aos="fade-up" data-aos-delay="300">
-            <h3>explore</h3>
+            <h3>Explore</h3>
             ${footerLinks}
         </div>
         <div class="box" data-aos="fade-up" data-aos-delay="450">
-            <h3>contact The Travel Circle</h3>
+            <h3>Contact The Travel Circle</h3>
             <div class="footer-contact-list">
                 <div class="footer-contact-item">
                     <i class="fas fa-envelope"></i>
@@ -953,11 +953,11 @@ const templates = {
             </div>
         </div>
         <div class="box" data-aos="fade-up" data-aos-delay="600">
-            <h3><i class="fas fa-envelope-open-text"></i> travel inspiration</h3>
-            <p>get trip ideas, seasonal escapes, and planning tips</p>
+            <h3><i class="fas fa-envelope-open-text"></i> Travel Inspiration</h3>
+            <p>Get trip ideas, seasonal escapes, and planning tips</p>
             <form action="" id="newsletter-form">
-                <input type="email" name="email" placeholder="enter your email" class="email" id="newsletter-email" required>
-                <button type="submit" class="btn">send me ideas <i class="fas fa-paper-plane"></i></button>
+                <input type="email" name="email" placeholder="Enter your email" class="email" id="newsletter-email" required>
+                <button type="submit" class="btn">Send Me Ideas <i class="fas fa-paper-plane"></i></button>
                 <div class="form-message"></div>
             </form>
         </div>

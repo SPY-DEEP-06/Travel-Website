@@ -5121,7 +5121,7 @@ body.at-hero-top .header.ttc-modern-header .hamburger-btn {
 .why-choose-us .heading span {
     color: var(--primary-color);
     font-size: 2rem;
-    text-transform: lowercase;
+    text-transform: capitalize;
 }
 
 .why-choose-us .heading h1 {
