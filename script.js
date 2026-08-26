@@ -1,9 +1,3 @@
-// Force fresh page load from top #home on refresh/reload
-if (typeof history !== 'undefined' && 'scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
-}
-window.scrollTo(0, 0);
-
 const templates = {
     mediaBase: 'images/ttc/',
 
@@ -75,7 +69,7 @@ const templates = {
         ];
 
         const topNavLinks = navItems.map(([title, href, preview, label], index) => `
-            <a href="${href}" class="menu-link-item roll-link" data-preview="${preview}" data-preview-title="${label}">${this.rollText(title)}</a>`).join('');
+            <a data-aos="zoom-in-left" data-aos-delay="${250 + index * 70}" href="${href}" class="menu-link-item roll-link" data-preview="${preview}" data-preview-title="${label}">${this.rollText(title)}</a>`).join('');
 
         const overlayNavLinks = navItems.map(([title, href, preview, label, shape], index) => `
             <li class="menu-list-item" data-shape="${shape}" data-preview="${preview}" data-preview-title="${label}">
@@ -87,7 +81,7 @@ const templates = {
 
         return `
 <header class="header atelier-header ttc-modern-header">
-    <a href="#home" class="logo header-logo ttc-direct-logo" aria-label="The Travel Circle Home">
+    <a data-aos="zoom-in-left" data-aos-delay="150" href="#home" class="logo header-logo ttc-direct-logo" aria-label="The Travel Circle Home">
         <img src="images/logoTTC.png" alt="The Travel Circle logo" class="ttc-original-logo-img">
         <span class="brand-title-text">The Travel Circle</span>
     </a>
@@ -97,8 +91,8 @@ const templates = {
         </div>
     </nav>
     <div class="header-actions">
-        <a href="#contact" class="reach-link">Reach Out</a>
-        <a href="#book-form" class="talk-btn">Plan My Tour</a>
+        <a data-aos="zoom-in-left" data-aos-delay="850" href="#contact" class="reach-link">Reach Out</a>
+        <a data-aos="zoom-in-left" data-aos-delay="950" href="#book-form" class="talk-btn">Plan My Tour</a>
         <button id="menu-btn" role="button" class="nav-close-btn kinetic-menu-btn" aria-label="Toggle menu" aria-expanded="false">
             <div class="menu-button-text">
                 <p class="p-large">Menu</p>
@@ -178,7 +172,7 @@ const templates = {
     },
 
     createHome() {
-        const heroVideo = this.mediaSrc('VID_20240316_100533931.mp4');
+        const heroVideo = this.mediaSrc('images/about-vid-2.mp4');
         const heroPoster = this.mediaSrc('images/national/Kashmir/1.jpg');
 
         return `
@@ -186,14 +180,14 @@ const templates = {
     <video class="hero-video" src="${heroVideo}" poster="${heroPoster}" muted autoplay loop playsinline webkit-playsinline disablepictureinpicture disableremoteplayback controlslist="nodownload nofullscreen noremoteplayback" aria-hidden="true"></video>
     <div class="hero-overlay"></div>
     <div class="content atelier-hero-content">
-        <span class="hero-eyebrow">YOUR JOURNEY STARTS HERE</span>
-        <h1>
+        <span class="hero-eyebrow" data-aos="fade-up" data-aos-delay="100">YOUR JOURNEY STARTS HERE</span>
+        <h1 data-aos="fade-up" data-aos-delay="200">
             We're Officially<br>
             <em>Taking Off.</em>
         </h1>
-        <p>Welcome to <strong>The Travel Circle</strong> — your trusted partner in creating unforgettable journeys.<br class="desktop-break">Whether it's a relaxing beach escape, a thrilling adventure, a family vacation, a romantic honeymoon, or an international getaway, we're here to turn your travel dreams into reality.</p>
+        <p data-aos="fade-up" data-aos-delay="350">Welcome to <strong>The Travel Circle</strong> — your trusted partner in creating unforgettable journeys.<br class="desktop-break">Whether it's a relaxing beach escape, a thrilling adventure, a family vacation, a romantic honeymoon, or an international getaway, we're here to turn your travel dreams into reality.</p>
 
-        <div class="hero-actions">
+        <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
             <a href="#book-form" class="hero-primary">Start My Journey
                 <svg viewBox="0 0 24 24" aria-hidden="true" class="cta-arrow"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
             </a>
@@ -206,19 +200,16 @@ const templates = {
         return `
 <section class="book-form is-hidden" id="book-form" aria-hidden="true">
     <form action="" id="booking-form" novalidate>
-        <div class="form-header-wrap">
-            <h2 class="form-title">
-                <span class="title-text"><i class="fas fa-paper-plane"></i> Plan Your Journey / Tour Request</span>
-                <button type="button" class="form-close-btn" id="close-book-form" aria-label="Close Tour Form"><i class="fas fa-times"></i></button>
-            </h2>
-            <p class="form-subheading">Share your travel dreams with us and let our specialists curate your custom itinerary.</p>
-        </div>
+        <h2 class="form-title">
+            <span class="title-text"><i class="fas fa-paper-plane"></i> Plan Your Journey / Tour Request</span>
+            <button type="button" class="form-close-btn" id="close-book-form" aria-label="Close Tour Form"><i class="fas fa-times"></i></button>
+        </h2>
         <div class="inputBox">
-            <span><i class="fas fa-map-marker-alt"></i> Dream Destination <span class="req-star">*</span></span>
+            <span><i class="fas fa-map-marker-alt"></i> Dream Destination</span>
             <input type="text" id="book-destination" placeholder="City, State, Country, or Experience" required autocomplete="off">
         </div>
         <div class="inputBox">
-            <span><i class="fas fa-phone-alt"></i> Contact Number <span class="req-star">*</span></span>
+            <span><i class="fas fa-phone-alt"></i> Contact Number <small class="label-compulsory">(Compulsory)</small></span>
             <input type="tel" id="book-contact" placeholder="Enter 10-digit Contact Number (e.g. 8108776019)" required autocomplete="tel">
         </div>
         <div class="inputBox">
@@ -226,7 +217,7 @@ const templates = {
             <input type="email" id="book-email" placeholder="Enter Email Address (optional)" autocomplete="email">
         </div>
         <div class="inputBox date-range-box">
-            <span><i class="fas fa-calendar-alt"></i> Travel Dates (From - To Range) <span class="req-star">*</span></span>
+            <span><i class="fas fa-calendar-alt"></i> Travel Dates (From - To Range)</span>
             <div class="date-inputs">
                 <input type="date" id="book-date-from" aria-label="Going Date (From)" required>
                 <span class="date-sep">to</span>
@@ -234,7 +225,7 @@ const templates = {
             </div>
         </div>
         <div class="inputBox">
-            <span><i class="fas fa-users"></i> Travelers <span class="req-star">*</span></span>
+            <span><i class="fas fa-users"></i> Travelers</span>
             <input type="number" id="book-travelers" placeholder="Number of Guests" min="1" required>
         </div>
         <button type="submit" class="btn form-submit-btn">Submit Tour Plan <i class="fas fa-paper-plane"></i></button>
@@ -250,7 +241,7 @@ const templates = {
             ['images/about-vid-3.mp4', 'Mountain Vista']
         ];
         const firstVideo = this.mediaSrc(aboutFilms[0][0]);
-        const firstVideoPoster = this.mediaSrc('images/national/MANALI/M 1.1.jpeg');
+        const firstVideoPoster = this.mediaSrc('images/national/Himachal/1.jpg');
         const videoControls = aboutFilms.map(([video, label], index) => `
             <button class="control-btn${index === 0 ? ' active' : ''}" data-src="${this.mediaSrc(video)}" data-label="${label}" aria-label="Play ${label}"></button>`).join('');
 
@@ -265,15 +256,16 @@ const templates = {
     <div class="content">
         <span>about us</span>
         <h3>Crafting Unforgettable Journeys</h3>
-        <p class="about-lead">At The Travel Circle, we believe that travel is more than just reaching a destination—it is about crafting moments that linger long after you return. Founded with a passion for exploration, our mission is to turn your unique travel dreams into a beautifully orchestrated reality.</p>
-        <p>Whether you seek a serene coastal escape, a thrilling mountain expedition, or a seamless international getaway, our dedicated team handles every detail. From bespoke itineraries and luxury accommodations to flight and visa assistance, we ensure your journey is absolutely effortless.</p>
+        <p>At The Travel Circle, we believe that travel is not just about reaching a destination—it's about creating memories, discovering new cultures, and experiencing the world in meaningful ways. Founded with a passion for exploration and a commitment to exceptional service, our mission is to turn every travel dream into an unforgettable journey.</p>
+        <p>We understand that every traveller is unique, and so are their travel aspirations. Whether you're planning a relaxing beach escape, an exciting adventure, a romantic honeymoon, a family vacation, a corporate retreat, or an international getaway, we create personalized travel experiences tailored to your preferences, budget, and interests.</p>
+        <p>Our team is dedicated to making travel plans simple, seamless, and stress-free. From flight and hotel bookings to visa assistance, curated holiday packages, cruise vacations, group tours, and customized itineraries, we take care of every detail so you can focus on enjoying your journey.</p>
         
         <div class="about-vision-mission">
-            <div class="about-card">
+            <div class="about-card" data-aos="fade-right">
                 <h4><i class="fas fa-eye"></i> Our Vision</h4>
                 <p>To be the most trusted travel partner, inspiring people to explore the world by delivering exceptional, personalized, and unforgettable travel experiences.</p>
             </div>
-            <div class="about-card">
+            <div class="about-card" data-aos="fade-left">
                 <h4><i class="fas fa-bullseye"></i> Our Mission</h4>
                 <p>To provide personalized, reliable, and hassle-free travel experiences that turn every journey into a memorable and meaningful adventure.</p>
             </div>
@@ -285,43 +277,43 @@ const templates = {
     createWhyChooseUs() {
         return `
 <section class="why-choose-us" id="why-us">
-    <div class="heading" data-aos="blur-in-up">
+    <div class="heading">
         <span>our values</span>
-        <h1>why choose the travel circle?</h1>
+        <h1>why travel with the circle?</h1>
     </div>
     <div class="box-container">
-        <div class="box">
+        <div class="box" data-aos="fade-up" data-aos-delay="150">
             <i class="fas fa-user-check"></i>
             <h3>Personalized Experiences</h3>
             <p>Every journey is thoughtfully designed to match your preferences, interests, budget, and travel aspirations.</p>
         </div>
-        <div class="box">
+        <div class="box" data-aos="fade-up" data-aos-delay="300">
             <i class="fas fa-compass"></i>
             <h3>Expert Travel Guidance</h3>
             <p>Our experienced travel experts provide valuable insights and recommendations to help you choose the perfect destination.</p>
         </div>
-        <div class="box">
+        <div class="box" data-aos="fade-up" data-aos-delay="450">
             <i class="fas fa-tags"></i>
             <h3>Competitive Pricing</h3>
             <p>We offer the best value for your money through competitive pricing and special deals without compromising quality.</p>
         </div>
-        <div class="box">
+        <div class="box" data-aos="fade-up" data-aos-delay="600">
             <i class="fas fa-route"></i>
             <h3>End-to-End Planning</h3>
             <p>From the initial planning stage to your safe return home, we manage every aspect of your trip for a seamless experience.</p>
         </div>
-        <div class="box">
+        <div class="box" data-aos="fade-up" data-aos-delay="750">
             <i class="fas fa-map-marked-alt"></i>
             <h3>Curated Holiday Packages</h3>
             <p>We curate a wide range of customized holiday packages across India and around the world to suit every type of traveller.</p>
         </div>
-        <div class="box">
+        <div class="box" data-aos="fade-up" data-aos-delay="900">
             <i class="fas fa-award"></i>
             <h3>Attention to Every Detail</h3>
             <p>Our committed team provides personalized assistance and takes care of every detail to ensure a memorable journey.</p>
         </div>
     </div>
-    <div class="why-choose-us-tagline">
+    <div class="why-choose-us-tagline" data-aos="zoom-in">
         "At The Travel Circle, we don't just plan trips—we create experiences that stay with you forever."
     </div>
 </section>`;
@@ -490,7 +482,7 @@ const templates = {
                 : `<button type="button" class="card-action-btn dest-wa-btn" data-dest-title="${safeTitle}" data-dest-category="India" data-dest-vibe="${safeVibe}">plan this tour <i class="fas fa-arrow-right"></i></button>`;
 
             return `
-        <div class="photo-stack-card${dest.isLeh ? ' card-highlight-leh' : ''}" data-dest-card="${dest.title}">
+        <div class="photo-stack-card${dest.isLeh ? ' card-highlight-leh' : ''}" data-aos="fade-up" data-aos-delay="${100 + (index % 4) * 80}" data-dest-card="${dest.title}">
             <div class="card-text">
                 <span class="card-category">INDIA</span>
                 <h3 class="card-title">${dest.title}</h3>
@@ -517,7 +509,7 @@ const templates = {
             const safeVibe = (dest.vibe || '').replace(/"/g, '&quot;');
             
             return `
-        <div class="photo-stack-card" data-dest-card="${dest.title}">
+        <div class="photo-stack-card" data-aos="fade-up" data-aos-delay="${100 + (index % 4) * 80}" data-dest-card="${dest.title}">
             <div class="card-text">
                 <span class="card-category">INTERNATIONAL</span>
                 <h3 class="card-title">${dest.title}</h3>
@@ -551,7 +543,7 @@ const templates = {
         ${internationalCards}
     </div>
     
-    <div class="why-choose-us-tagline" style="margin-top: 5rem; text-align: center;">
+    <div class="why-choose-us-tagline" data-aos="zoom-in" style="margin-top: 5rem; text-align: center;">
         "From the nearest getaway to the farthest corner of the world, no destination is beyond our reach. If you can dream it, we can plan it."
     </div>
 </section>`;
@@ -571,7 +563,7 @@ const templates = {
         ];
 
         const serviceCards = servicesList.map(([title, description, icon], index) => `
-        <div class="box">
+        <div class="box" data-aos="zoom-in-up" data-aos-delay="${100 + (index % 3) * 100}">
             <i class="${icon}"></i>
             <h3>${title}</h3>
             <p>${description}</p>
@@ -579,7 +571,7 @@ const templates = {
 
         return `
 <section class="services" id="services">
-    <div class="heading" data-aos="blur-in-up">
+    <div class="heading">
         <span>what we arrange</span>
         <h1>Every Detail, Beautifully Handled</h1>
     </div>
@@ -646,7 +638,7 @@ const templates = {
 
         return `
 <section class="gallery" id="gallery">
-    <div class="heading" data-aos="blur-in-up">
+    <div class="heading">
         <span>journey moments</span>
         <h1>memories from every mile</h1>
     </div>
@@ -665,12 +657,12 @@ const templates = {
 
         return `
 <section class="review" id="review">
-    <div class="content">
+    <div class="content" data-aos="fade-right" data-aos-delay="300">
         <span>traveler stories</span>
         <h3>people return with better stories</h3>
         <p>Every itinerary is personal, so every review feels different. Here is what travelers love about letting The Travel Circle plan the details while they enjoy the journey.</p>
     </div>
-    <div class="review-slider">
+    <div class="review-slider" data-aos="fade-left" data-aos-delay="600">
         <div class="slider-wrapper">
             <div class="box-container">
                 <div class="box">
@@ -729,12 +721,12 @@ const templates = {
 
         return `
 <section class="blogs" id="blogs">
-    <div class="heading" data-aos="blur-in-up">
+    <div class="heading">
         <span>travel notes</span>
         <h1>ideas before you pack</h1>
     </div>
     <div class="box-container">
-        <div class="box blog-card-trigger" data-blog-id="blog-1" role="button" tabindex="0">
+        <div class="box blog-card-trigger" data-blog-id="blog-1" data-aos="fade-up" data-aos-delay="150" role="button" tabindex="0">
             <div class="image">
                 <img src="${this.mediaSrc(blogImages[0])}" alt="Planning a meaningful journey with The Travel Circle" loading="lazy">
             </div>
@@ -747,7 +739,7 @@ const templates = {
                 </div>
             </div>
         </div>
-        <div class="box blog-card-trigger" data-blog-id="blog-2" role="button" tabindex="0">
+        <div class="box blog-card-trigger" data-blog-id="blog-2" data-aos="fade-up" data-aos-delay="300" role="button" tabindex="0">
             <div class="image">
                 <img src="${this.mediaSrc(blogImages[1])}" alt="A scenic travel story by The Travel Circle" loading="lazy">
             </div>
@@ -760,7 +752,7 @@ const templates = {
                 </div>
             </div>
         </div>
-        <div class="box blog-card-trigger" data-blog-id="blog-3" role="button" tabindex="0">
+        <div class="box blog-card-trigger" data-blog-id="blog-3" data-aos="fade-up" data-aos-delay="450" role="button" tabindex="0">
             <div class="image">
                 <img src="${this.mediaSrc(blogImages[2])}" alt="Hidden travel experience arranged by The Travel Circle" loading="lazy">
             </div>
@@ -780,7 +772,7 @@ const templates = {
     createBanner() {
         return `
 <div class="banner">
-    <div class="content">
+    <div class="content" data-aos="zoom-in-up" data-aos-delay="300">
         <span>ready when you are</span>
         <h3>Your Next Story Starts With A Plan</h3>
         <p>At The Travel Circle, we don't just plan trips—we create experiences that stay with you forever. Let's start planning your next adventure together!</p>
@@ -833,7 +825,7 @@ const templates = {
             const safeDesc = (vlog.desc || '').replace(/"/g, '&quot;');
 
             return `
-        <div class="vlog-card">
+        <div class="vlog-card" data-aos="fade-up" data-aos-delay="${150 + idx * 100}">
             <div class="vlog-media">
                 <img src="${vlog.image}" alt="${vlog.title}" loading="lazy">
                 <span class="vlog-badge"><i class="fas fa-play-circle"></i> ${vlog.duration}</span>
@@ -877,7 +869,7 @@ const templates = {
         return `
 <section class="footer" id="contact">
     <div class="box-container">
-        <div class="box">
+        <div class="box" data-aos="fade-up" data-aos-delay="150">
             <a href="#home" class="logo brand-logo footer-logo" aria-label="The Travel Circle Home">
                 <div class="logo-box">
                     <div class="logo-circle-avatar">
@@ -892,11 +884,11 @@ const templates = {
                 <a href="#" class="fab fa-instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer"></a>
             </div>
         </div>
-        <div class="box">
+        <div class="box" data-aos="fade-up" data-aos-delay="300">
             <h3>explore</h3>
             ${footerLinks}
         </div>
-        <div class="box">
+        <div class="box" data-aos="fade-up" data-aos-delay="450">
             <h3>contact The Travel Circle</h3>
             <div class="footer-contact-list">
                 <div class="footer-contact-item">
@@ -925,10 +917,10 @@ const templates = {
                     <i class="fas fa-map-marker-alt"></i>
                     <div class="footer-contact-text">
                         <span class="contact-label">Address</span>
-                        <a href="https://maps.google.com/?q=House+no.+4166+A,+Shop+no.+112,+First+Floor,+Karanja+Navapada,+Near+New+Karanja+Jetty+Road,+Taluka+Uran,+District+Raigad,+PIN+400702" target="_blank" rel="noopener noreferrer" class="address-link">
+                        <a href="https://maps.google.com/?q=House+no.+4166+A,+Shop+no.+112,+First+Floor,+Karanja+Navapada,+Near+New+Karanja,+Taluka+Uran,+District+Raigad,+PIN+400702" target="_blank" rel="noopener noreferrer" class="address-link">
                             House no. 4166 A, Shop no. 112,<br>
                             First Floor, Karanja Navapada,<br>
-                            Near New Karanja Jetty Road,<br>
+                            Near New Karanja,<br>
                             Taluka Uran, District Raigad,<br>
                             PIN 400702
                         </a>
@@ -936,7 +928,7 @@ const templates = {
                 </div>
             </div>
         </div>
-        <div class="box">
+        <div class="box" data-aos="fade-up" data-aos-delay="600">
             <h3><i class="fas fa-envelope-open-text"></i> travel inspiration</h3>
             <p>get trip ideas, seasonal escapes, and planning tips</p>
             <form action="" id="newsletter-form">
@@ -1016,9 +1008,8 @@ const templates = {
     },
 
     createFloatingWhatsapp() {
-        const defaultMsg = encodeURIComponent("Hello The Travel Circle 🌟, I would like to enquire about holiday tour packages ✈️🏝️!");
         return `
-<a href="https://wa.me/917304979500?text=${defaultMsg}" target="_blank" rel="noopener noreferrer" class="floating-whatsapp-widget" title="Chat with us on WhatsApp 7304979500" aria-label="Chat on WhatsApp">
+<a href="https://wa.me/917304979500?text=Hi%20The%20Travel%20Circle%2C%20I%20want%20to%20plan%20a%20tour!" target="_blank" rel="noopener noreferrer" class="floating-whatsapp-widget" title="Chat with us on WhatsApp 7304979500" aria-label="Chat on WhatsApp">
     <i class="fab fa-whatsapp"></i>
     <span class="whatsapp-tooltip">Chat with us!</span>
 </a>`;
@@ -1170,22 +1161,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     btn.classList.add('active');
                     
                     const target = btn.getAttribute('data-target');
-                    const activeContent = target === 'domestic' ? domesticContent : internationalContent;
-                    const inactiveContent = target === 'domestic' ? internationalContent : domesticContent;
-
-                    inactiveContent.classList.remove('active');
-                    activeContent.classList.add('active');
-
-                    // Stagger newly visible cards sequentially
-                    const cards = activeContent.querySelectorAll('.photo-stack-card');
-                    cards.forEach((card, index) => {
-                        card.classList.remove('is-revealed');
-                        card.style.setProperty('--card-stagger', (index % 4).toString());
-                    });
-
-                    requestAnimationFrame(() => {
-                        cards.forEach(card => card.classList.add('is-revealed'));
-                    });
+                    if (target === 'domestic') {
+                        domesticContent.classList.add('active');
+                        internationalContent.classList.remove('active');
+                    } else {
+                        domesticContent.classList.remove('active');
+                        internationalContent.classList.add('active');
+                    }
                     
                     // Refresh AOS animations
                     if (typeof AOS !== 'undefined') {
@@ -1237,18 +1219,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     loader.remove();
                     document.body.classList.remove('is-loading');
                     document.body.classList.add('site-ready');
-                    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
                     
                     // Unlock page scrolling ONLY AFTER visual morph transition finishes
                     document.body.style.overflow = '';
                     document.documentElement.style.overflow = '';
                     window.removeEventListener('wheel', preventLoaderScroll);
                     window.removeEventListener('touchmove', preventLoaderScroll);
-
-                    const heroContent = document.querySelector('.atelier-hero-content');
-                    if (heroContent) {
-                        heroContent.classList.add('hero-drop-ease-in');
-                    }
 
                     window.setTimeout(() => {
                         document.body.classList.remove('site-revealing');
@@ -1276,47 +1252,36 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 8000);
         },
 
-        initHeroSectionFlow() {
-            const heroContent = document.querySelector('.atelier-hero-content');
-            if (!heroContent) return;
-
-            if (document.body.classList.contains('site-ready') || !document.querySelector('#site-loader')) {
-                heroContent.classList.add('hero-drop-ease-in');
-            }
-        },
-
         initRevealSystem() {
             const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (isReduced) {
-                document.querySelectorAll('[data-reveal], .heading, .box, .photo-stack-card, .vlog-card, .about-card').forEach(el => el.classList.add('is-revealed'));
-                return;
-            }
+            if (isReduced) return;
 
-            // 1. Tag Section Headings & Major Containers for Ease-In / Fade-In
-            const sectionTargets = document.querySelectorAll(
-                '.heading, .about .content, .why-choose-us-tagline, .banner .content, .review .content, .about-vision-mission'
-            );
-            sectionTargets.forEach(el => {
-                el.setAttribute('data-reveal', 'section');
+            // 1. Tag headings for clean fade-up reveal as whole elements (NO word splitting)
+            const headings = document.querySelectorAll('.heading h1, .about .content h3, .services .heading h1, .why-choose-us .heading h1, .vlogs .heading h1, .blogs .heading h1, .contact .heading h1, .gallery .heading h1, .destination .heading h1');
+            headings.forEach(heading => {
+                heading.setAttribute('data-reveal', 'fade-up');
             });
 
-            // 2. Setup Stagger Order for Cards in Grids (One-by-One Slide Up)
-            const gridContainers = document.querySelectorAll(
-                '.why-choose-us .box-container, .services .box-container, .photo-stack-grid, #domestic-content, #international-content, .gallery .box-container, .blogs .box-container, .vlogs-grid, .about-vision-mission'
-            );
+            // 2. Tag section eyebrows and alternating card grid elements
+            document.querySelectorAll('.heading span').forEach(el => el.setAttribute('data-reveal', 'fade-up'));
 
-            gridContainers.forEach(grid => {
-                const cards = grid.querySelectorAll('.box, .photo-stack-card, .vlog-card, .about-card, .gallery-tile');
+            const cardContainers = document.querySelectorAll('.why-choose-us .box-container, .services .box-container, .blogs .box-container, .vlogs-grid, .destination-card-grid');
+            cardContainers.forEach(grid => {
+                const cards = grid.querySelectorAll('.box, .card, .vlog-card, .destination-card');
                 cards.forEach((card, index) => {
-                    card.setAttribute('data-reveal', 'card');
-                    card.style.setProperty('--card-stagger', (index % 4).toString());
+                    if (!card.dataset.cardDirection) {
+                        const dir = index % 2 === 0 ? 'reveal-card-left' : 'reveal-card-right';
+                        card.dataset.cardDirection = dir;
+                        card.classList.add(dir);
+                        card.style.transitionDelay = `${(index % 4) * 80}ms`;
+                    }
                 });
             });
 
-            // 3. IntersectionObserver with Butter-Smooth Easing Triggers
+            // 3. Setup IntersectionObserver
             const observerOptions = {
                 root: null,
-                rootMargin: '0px 0px -40px 0px',
+                rootMargin: '0px 0px -10% 0px',
                 threshold: 0.12
             };
 
@@ -1326,21 +1291,20 @@ document.addEventListener('DOMContentLoaded', () => {
                         const el = entry.target;
                         el.classList.add('is-revealed');
                         
-                        // Cascade reveal to any direct child cards
-                        el.querySelectorAll('[data-reveal="card"], .box, .photo-stack-card, .vlog-card, .about-card').forEach((child, i) => {
-                            if (!child.style.getPropertyValue('--card-stagger')) {
-                                child.style.setProperty('--card-stagger', (i % 4).toString());
+                        // Reveal child stagger items & alternating cards if present
+                        el.querySelectorAll('.reveal-stagger-item, .reveal-card-left, .reveal-card-right').forEach((child, i) => {
+                            if (!child.style.transitionDelay) {
+                                child.style.transitionDelay = `${i * 60}ms`;
                             }
                             child.classList.add('is-revealed');
                         });
-
+                        
                         obs.unobserve(el);
                     }
                 });
             }, observerOptions);
 
-            // Observe all reveal elements
-            document.querySelectorAll('[data-reveal], .heading, .box-container, .vlogs-grid, .photo-stack-grid, .destination-tab-content, .about-vision-mission, .review').forEach(el => {
+            document.querySelectorAll('[data-reveal], [data-aos], .heading, .why-choose-us .box-container, .services .box-container, .blogs .box-container, .vlogs-grid').forEach(el => {
                 observer.observe(el);
             });
         },
@@ -2091,27 +2055,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return dateStr;
         },
 
-        getDestinationEmoji(destName = '', category = '') {
-            const d = String(destName).toLowerCase();
-            if (d.includes('leh') || d.includes('ladakh') || d.includes('bike')) return '🏍️ 🏔️';
-            if (d.includes('kashmir')) return '🏔️ ❄️ 🛶';
-            if (d.includes('manali') || d.includes('kasol') || d.includes('uttrakhand') || d.includes('darjeeling') || d.includes('himachal')) return '🏔️ 🌲';
-            if (d.includes('goa') || d.includes('andaman') || d.includes('kerala')) return '🏖️ 🌴 🌊';
-            if (d.includes('jaipur') || d.includes('udaipur') || d.includes('rajasthan')) return '🏰 👑 🐪';
-            if (d.includes('kuch') || d.includes('rann')) return '🏜️ 🐫 🎪';
-            if (d.includes('seven sisters') || d.includes('northeast') || d.includes('odisha') || d.includes('maharastra')) return '🌿 🏞️ ✨';
-            if (d.includes('bali')) return '🏝️ 🌺 ⛩️';
-            if (d.includes('dubai')) return '🏙️ 🏜️ ✨';
-            if (d.includes('singapore')) return '🌆 🎡 🌴';
-            if (d.includes('thailand')) return '🏖️ 🐘 🏮';
-            if (d.includes('vietnam')) return '🛶 🌿 🏞️';
-            if (d.includes('sri lanka') || d.includes('srilanka')) return '🌊 🐘 🌴';
-            if (d.includes('azerbaijan') || d.includes('azerbaijaan')) return '🏰 🏔️ 💎';
-            if (d.includes('malaysia')) return '🏙️ 🌺 🌴';
-            if (String(category).toLowerCase().includes('international')) return '✈️ 🌍 🏝️';
-            return '✈️ 🗺️ 🌴';
-        },
-
         generateTourPlanWhatsAppMessage(formData) {
             const dest = (formData.destination || '').trim();
             const contact = (formData.contact || '').trim();
@@ -2119,27 +2062,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const dateToFormatted = this.formatDateReadable(formData.dateTo);
             const travelers = String(formData.travelers || '').trim();
             const email = (formData.email || '').trim();
-            const emoji = this.getDestinationEmoji(dest, 'Custom Tour');
 
             const lines = [
-                "🌟 *NEW CUSTOM TOUR ENQUIRY | THE TRAVEL CIRCLE* 🌟",
-                "──────────────────────────",
-                `📍 *Destination:* ${dest} ${emoji}`,
-                `📅 *Travel Dates:* ${dateFromFormatted} ➔ ${dateToFormatted}`,
-                `👥 *Guests:* ${travelers} Traveller(s)`,
+                "🌟 *NEW TOUR PLAN ENQUIRY — THE TRAVEL CIRCLE* 🌟",
+                "",
+                `📍 *Destination:* ${dest}`,
                 `📞 *Contact Number:* ${contact}`,
                 email ? `✉️ *Email Address:* ${email}` : null,
-                "──────────────────────────",
-                "👋 *Hello The Travel Circle Team,*",
+                `📅 *Travel Dates:* ${dateFromFormatted} to ${dateToFormatted}`,
+                `👥 *Number of Guests:* ${travelers} Guest(s)`,
                 "",
-                `I would like to plan and book our customized tour for *${dest}* with *The Travel Circle*.`,
+                "Hello! I would like to plan this tour with *The Travel Circle*.",
+                "Please share detailed itinerary options, package inclusions, and best pricing.",
                 "",
-                "📋 *Please provide:*",
-                "  ▪️ 📜 Handcrafted Itinerary Options",
-                "  ▪️ 💰 Best Quotation & Package Inclusions",
-                "  ▪️ 🏨 Premium Stay & Transportation Details",
-                "",
-                "✨ *Thank you! Looking forward to your response.*"
+                "Thank you! Looking forward to your response."
             ].filter(line => line !== null);
 
             return lines.join("\n");
@@ -2149,28 +2085,42 @@ document.addEventListener('DOMContentLoaded', () => {
             const title = (destObj.title || 'Selected Destination').trim();
             const category = (destObj.category || 'India').trim();
             const vibe = (destObj.vibe || '').trim();
-            const emoji = this.getDestinationEmoji(title, category);
 
             const lines = [
-                "✨ *TOUR ENQUIRY | THE TRAVEL CIRCLE* ✨",
-                "──────────────────────────",
-                `📍 *Destination:* ${title} ${emoji}`,
-                `🏷️ *Category:* ${category} Holiday Package`,
-                vibe ? `💫 *Experience:* ${vibe}` : null,
-                "──────────────────────────",
-                "👋 *Hello The Travel Circle Team,*",
+                "Hello The Travel Circle,",
                 "",
-                `I am interested in planning a customized holiday package for *${title}*!`,
+                `I am interested in planning a trip to ${title}.`,
                 "",
-                "📋 *Please share the following details:*",
-                "  ▪️ 🗺️ Day-wise Itinerary & Sightseeing Plan",
-                "  ▪️ 💰 Package Pricing & Custom Inclusions",
-                "  ▪️ 🏨 Hotel / Resort Categories & Stay Options",
-                "  ▪️ 🚗 Transfers & Local Transportation",
-                "  ▪️ 📅 Best Travel Dates & Peak Season Advice",
+                "Destination:",
+                title,
                 "",
-                "✨ *Looking forward to your quick response and itinerary quote!*"
-            ].filter(line => line !== null);
+                "Location:",
+                category
+            ];
+
+            if (vibe) {
+                lines.push("");
+                lines.push("About the Destination:");
+                lines.push(vibe);
+            }
+
+            lines.push(
+                "",
+                "I would like to know more about:",
+                "",
+                "- Available tour packages",
+                "- Itinerary",
+                "- Pricing",
+                "- Travel dates",
+                "- Inclusions",
+                "- Accommodation",
+                "- Other available options",
+                "",
+                "Please share the details and help me plan this trip.",
+                "",
+                "Thank you,",
+                "I look forward to hearing from you."
+            );
 
             return lines.join("\n");
         },
@@ -2179,136 +2129,44 @@ document.addEventListener('DOMContentLoaded', () => {
             const dest = (vlogObj.destination || '').trim();
             const title = (vlogObj.title || '').trim();
             const desc = (vlogObj.desc || '').trim();
-            const emoji = this.getDestinationEmoji(dest, 'Vlog');
 
             const lines = [
-                "🎥 *VLOG EXPERIENCE ENQUIRY | THE TRAVEL CIRCLE* 🎥",
-                "──────────────────────────",
-                `📍 *Featured Destination:* ${dest} ${emoji}`,
-                `🎬 *Travel Route:* ${title}`,
-                desc ? `💫 *Highlights:* ${desc}` : null,
-                "──────────────────────────",
-                "👋 *Hello The Travel Circle Team,*",
+                "Hello The Travel Circle,",
                 "",
-                `I came across your travel vlog on *${title} (${dest})* and would love to plan this exact experience!`,
+                `I came across your travel vlog and I am interested in planning a trip to ${dest}.`,
                 "",
-                "📋 *Please share:*",
-                "  ▪️ 🗺️ Complete Vlog Itinerary & Stops",
-                "  ▪️ 💰 Package Pricing & Custom Inclusions",
-                "  ▪️ 🏨 Recommended Stays & Secret Viewpoints",
-                "  ▪️ 📅 Available Dates & Best Season to Visit",
+                "Destination:",
+                dest,
                 "",
-                "✨ *Looking forward to crafting this journey with you!*"
-            ].filter(line => line !== null);
+                "Travel Experience:",
+                title
+            ];
+
+            if (desc) {
+                lines.push("");
+                lines.push("Experience Details:");
+                lines.push(desc);
+            }
+
+            lines.push(
+                "",
+                "I would like to know more about:",
+                "",
+                "- Itinerary",
+                "- Available travel dates",
+                "- Package options",
+                "- Pricing",
+                "- Accommodation",
+                "- Inclusions",
+                "- Other trip details",
+                "",
+                "Please share the details and help me plan this journey.",
+                "",
+                "Thank you,",
+                "I look forward to hearing from you."
+            );
 
             return lines.join("\n");
-        },
-
-        openWhatsAppWithUserDetails(presetMessage) {
-            const overlay = document.createElement('div');
-            overlay.className = 'ttc-details-modal-overlay';
-            overlay.style.position = 'fixed';
-            overlay.style.inset = '0';
-            overlay.style.width = '100vw';
-            overlay.style.height = '100dvh';
-            overlay.style.backgroundColor = 'rgba(15, 23, 42, 0.72)';
-            overlay.style.backdropFilter = 'blur(10px)';
-            overlay.style.webkitBackdropFilter = 'blur(10px)';
-            overlay.style.display = 'flex';
-            overlay.style.alignItems = 'center';
-            overlay.style.justifyContent = 'center';
-            overlay.style.zIndex = '999999';
-            overlay.style.padding = '1.5rem';
-            overlay.style.animation = 'fadeIn 0.25s ease-out';
-
-            const modal = document.createElement('div');
-            modal.className = 'ttc-details-modal';
-            modal.style.backgroundColor = '#ffffff';
-            modal.style.padding = '3.2rem 2.8rem';
-            modal.style.borderRadius = '2rem';
-            modal.style.width = '100%';
-            modal.style.maxWidth = '440px';
-            modal.style.border = '1px solid rgba(185, 142, 71, 0.35)';
-            modal.style.boxShadow = '0 25px 60px -10px rgba(15, 23, 42, 0.25), 0 0 30px rgba(185, 142, 71, 0.15)';
-            modal.style.textAlign = 'left';
-            modal.style.position = 'relative';
-            modal.style.animation = 'formExpandReveal 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards';
-
-            modal.innerHTML = `
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem;">
-                    <h3 style="color: #0f172a; font-size: 2rem; font-weight: 700; display: flex; align-items: center; gap: 0.8rem; margin: 0;">
-                        <i class="fab fa-whatsapp" style="color: #25D366; font-size: 2.4rem;"></i> Start WhatsApp Inquiry
-                    </h3>
-                    <button type="button" id="wa-close-x" style="background: rgba(15, 23, 42, 0.06); border: none; width: 3.2rem; height: 3.2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #64748b; cursor: pointer; font-size: 1.4rem; transition: all 0.2s ease;">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <p style="margin-bottom: 2.2rem; color: #475569; font-size: 1.35rem; line-height: 1.5;">Please share your name & phone number so our travel curator can connect with you directly on WhatsApp.</p>
-                
-                <div style="margin-bottom: 1.6rem;">
-                    <label style="display: block; font-size: 1.35rem; font-weight: 600; color: #0f172a; margin-bottom: 0.6rem;">
-                        <i class="fas fa-user" style="color: #b98e47; margin-right: 0.4rem;"></i> Full Name <span class="req-star">*</span>
-                    </label>
-                    <input type="text" id="wa-name" placeholder="Enter Your Full Name" required style="width: 100%; padding: 1.2rem 1.6rem; border: 1.5px solid rgba(185, 142, 71, 0.3); border-radius: 5rem; font-size: 1.45rem; color: #0f172a; background: #fafafa; outline: none; transition: all 0.25s ease;">
-                </div>
-
-                <div style="margin-bottom: 2.4rem;">
-                    <label style="display: block; font-size: 1.35rem; font-weight: 600; color: #0f172a; margin-bottom: 0.6rem;">
-                        <i class="fas fa-phone-alt" style="color: #b98e47; margin-right: 0.4rem;"></i> Contact Number <span class="req-star">*</span>
-                    </label>
-                    <input type="tel" id="wa-phone" placeholder="Enter 10-digit Mobile Number" required style="width: 100%; padding: 1.2rem 1.6rem; border: 1.5px solid rgba(185, 142, 71, 0.3); border-radius: 5rem; font-size: 1.45rem; color: #0f172a; background: #fafafa; outline: none; transition: all 0.25s ease;">
-                </div>
-
-                <div style="display: flex; gap: 1.2rem; align-items: center;">
-                    <button id="wa-cancel" type="button" style="flex: 1; padding: 1.3rem; border: 1px solid rgba(15, 23, 42, 0.12); border-radius: 5rem; background: #f8fafc; color: #475569; cursor: pointer; font-weight: 600; font-size: 1.45rem; transition: all 0.2s ease;">Cancel</button>
-                    <button id="wa-submit" type="button" style="flex: 2; padding: 1.3rem; border: none; border-radius: 5rem; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: #ffffff; cursor: pointer; font-weight: 700; font-size: 1.45rem; display: flex; align-items: center; justify-content: center; gap: 0.8rem; box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35); transition: all 0.25s ease;">
-                        <i class="fab fa-whatsapp" style="font-size: 1.7rem;"></i> Open WhatsApp
-                    </button>
-                </div>
-            `;
-
-            overlay.appendChild(modal);
-            document.body.appendChild(overlay);
-
-            // Focus on first input
-            setTimeout(() => {
-                const nameInp = document.getElementById('wa-name');
-                if (nameInp) nameInp.focus();
-            }, 100);
-
-            const closeModal = () => {
-                if (document.body.contains(overlay)) {
-                    document.body.removeChild(overlay);
-                }
-            };
-
-            const closeX = document.getElementById('wa-close-x');
-            if (closeX) closeX.addEventListener('click', closeModal);
-            document.getElementById('wa-cancel').addEventListener('click', closeModal);
-            overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) closeModal();
-            });
-
-            document.getElementById('wa-submit').addEventListener('click', () => {
-                const name = document.getElementById('wa-name').value.trim();
-                const phone = document.getElementById('wa-phone').value.trim();
-                
-                if (!name || !phone) {
-                    alert("Please enter both Name and Contact Number.");
-                    return;
-                }
-                
-                closeModal();
-                const travellerHeader = [
-                    "👤 *GUEST CONTACT DETAILS:*",
-                    `  ▪️ *Name:* ${name}`,
-                    `  ▪️ *Phone:* ${phone}`,
-                    ""
-                ].join("\n");
-
-                const finalMessage = `${travellerHeader}\n${presetMessage}`;
-                this.openWhatsAppEnquiry(finalMessage);
-            });
         },
 
         initDestinationWhatsApp() {
@@ -2320,7 +2178,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const category = btn.getAttribute('data-dest-category') || '';
                     const vibe = btn.getAttribute('data-dest-vibe') || '';
                     const message = this.generateDestinationWhatsAppMessage({ title, category, vibe });
-                    this.openWhatsAppWithUserDetails(message);
+                    this.openWhatsAppEnquiry(message);
                 }
             });
         },
@@ -2330,10 +2188,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const btn = e.target.closest('.vlog-wa-btn');
                 if (btn) {
                     e.preventDefault();
-                    const title = btn.getAttribute('data-vlog-title') || '';
-                    const dest = btn.getAttribute('data-vlog-dest') || title;
-                    const message = this.generateVlogWhatsAppMessage({ destination: dest, title: title, desc: '' });
-                    this.openWhatsAppWithUserDetails(message);
+                    const destination = btn.getAttribute('data-vlog-dest') || btn.getAttribute('data-vlog-title') || '';
+                    this.openBookingFormWithDestination(destination);
                 }
             });
         },
@@ -2405,7 +2261,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 2. Validate Contact Number (10 to 13 digits allowed)
                 const digitsOnly = rawContact.replace(/\D/g, '');
                 if (!errorMessage && (!rawContact || digitsOnly.length < 10 || digitsOnly.length > 13)) {
-                    errorMessage = 'Please enter a valid 10-digit Contact Number (e.g. 8108776019).';
+                    errorMessage = 'Please enter a valid compulsory 10-digit Contact Number (e.g. 8108776019).';
                     if (contactInput) {
                         contactInput.closest('.inputBox')?.classList.add('is-invalid');
                         firstInvalidInput = firstInvalidInput || contactInput;
@@ -2582,12 +2438,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.addEventListener('click', () => {
                     const choice = btn.getAttribute('data-leh-choice') || 'Leh Ladakh Tour';
                     closeLehModal();
-                    const message = this.generateDestinationWhatsAppMessage({
-                        title: `Leh Ladakh (${choice})`,
-                        category: 'India',
-                        vibe: 'Epic high-altitude mountain passes, Pangong Tso lake, Nubra valley, and thrilling motorcycle routes.'
-                    });
-                    this.openWhatsAppWithUserDetails(message);
+                    this.openBookingFormWithDestination(`Leh Ladakh (${choice})`);
                 });
             });
         },
@@ -2612,7 +2463,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     category: 'Scenic Journeys',
                     date: '15th Sept, 2025',
                     author: 'by The Travel Circle',
-                    image: 'images/national/KASHMIR/K 1.1.jpeg',
+                    image: 'images/national/Kashmir/1.jpg',
                     content: `
                         <p class="blog-lead">We started the morning with no rigid timeline—just a coastal road map, a full tank of fuel, and the shared promise of stopping whenever a view demanded our attention.</p>
                         <p>By midday, the highway gave way to winding mountain roads lined with pine trees and misty valleys. We stopped at a tiny roadside cafe where an elderly local served us cardamom chai and warm bread fresh from a wood-fired oven. It wasn't on any travel itinerary, but that 45-minute pause became the highlight of our day.</p>
@@ -2625,7 +2476,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     category: 'Travel Tips',
                     date: '10th Sept, 2025',
                     author: 'by The Travel Circle',
-                    image: 'images/national/MANALI/M 1.1.jpeg',
+                    image: 'images/national/Himachal/1.jpg',
                     content: `
                         <p class="blog-lead">The finest travel experiences rarely feel over-scheduled. They strike an artful balance between seamless logistics and unhurried freedom.</p>
                         <p>When every transfer is pre-arranged, every hotel check-in is smooth, and every local guide is genuinely passionate, your mind is freed from the friction of decision fatigue. You no longer worry about taxi tariffs, missing train connections, or finding a decent dinner spot in an unfamiliar city.</p>
@@ -2638,7 +2489,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     category: 'Hidden Gems',
                     date: '5th Sept, 2025',
                     author: 'by The Travel Circle',
-                    image: 'images/international/dubai/1.1.jpeg',
+                    image: 'images/international/dubai/1.jpg',
                     content: `
                         <p class="blog-lead">Ask any seasoned traveler about their favorite holiday memory, and they will rarely point to the famous landmark everyone posts on social media. More often than not, they will tell you about the accidental discovery.</p>
                         <p>On a recent trip through Rajasthan, our driver suggested taking a 15-minute detour through a sleepy village near Jal Mahal. That small turn took us to a centuries-old stepwell hidden behind a quiet temple, completely free of crowds and shimmering softly in the afternoon light. We sat on the ancient stone steps for an hour, listening to peacocks call in the distance.</p>
@@ -2686,13 +2537,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (modalCta) {
                 modalCta.addEventListener('click', () => {
                     closeBlogModal();
-                    const blogTitle = modalTitle ? modalTitle.textContent.trim() : 'Scenic Journeys';
-                    const message = this.generateDestinationWhatsAppMessage({
-                        title: blogTitle,
-                        category: 'Story Tour Enquiry',
-                        vibe: 'Handcrafted itinerary inspired by The Travel Circle journal story.'
-                    });
-                    this.openWhatsAppWithUserDetails(message);
+                    const blogTitle = modalTitle ? modalTitle.textContent.trim() : '';
+                    this.openBookingFormWithDestination(blogTitle || 'Blog Tour Enquiry');
                 });
             }
 
@@ -2846,59 +2692,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                const newNodes = [];
-                nextBatch.forEach((item) => {
+                nextBatch.forEach((item, idx) => {
                     const node = buildCardNode(item);
+                    node.style.animationDelay = `${idx * 65}ms`;
                     container.appendChild(node);
-                    newNodes.push(node);
-                });
 
-                if (typeof gsap !== 'undefined') {
-                    gsap.fromTo(newNodes, 
-                        { opacity: 0, y: 40, scale: 0.95 },
-                        { 
-                            opacity: 1, 
-                            y: 0, 
-                            scale: 1, 
-                            duration: 0.8, 
-                            ease: "power3.out", 
-                            stagger: 0.08,
-                            onComplete: () => {
-                                newNodes.forEach(node => node.classList.remove('is-entering'));
-                                if (typeof ScrollTrigger !== 'undefined') {
-                                    ScrollTrigger.refresh();
-                                }
-                            }
-                        }
-                    );
-                } else {
-                    newNodes.forEach((node, idx) => {
-                        node.style.animationDelay = `${idx * 65}ms`;
-                        setTimeout(() => {
-                            node.classList.remove('is-entering');
-                            node.style.animationDelay = '';
-                        }, 520 + idx * 65);
-                    });
-                }
+                    setTimeout(() => {
+                        node.classList.remove('is-entering');
+                        node.style.animationDelay = '';
+                    }, 520 + idx * 65);
+                });
 
                 currentIndex += nextBatch.length;
 
                 if (currentIndex >= allItems.length) {
-                    if (typeof gsap !== 'undefined') {
-                        gsap.to(loadMoreBtn, {
-                            opacity: 0,
-                            scale: 0.9,
-                            duration: 0.35,
-                            onComplete: () => {
-                                loadMoreBtn.style.display = 'none';
-                                if (typeof ScrollTrigger !== 'undefined') {
-                                    ScrollTrigger.refresh();
-                                }
-                            }
-                        });
-                    } else {
-                        loadMoreBtn.style.display = 'none';
-                    }
+                    loadMoreBtn.style.display = 'none';
                 }
             });
         },
@@ -3146,89 +2954,62 @@ document.addEventListener('DOMContentLoaded', () => {
     app.init();
 
     // ==========================================================================
-    // MOTION REVEAL & INTERACTION SYSTEM ENGINE (GSAP + ScrollTrigger)
+    // MOTION REVEAL & INTERACTION SYSTEM ENGINE
     // ==========================================================================
     const initMotionSystem = () => {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
+        // 1. IntersectionObserver for Section & Card Scroll Reveals
+        const revealTargets = document.querySelectorAll('section, .heading, .box, .photo-stack-card, .vlog-card, .blog-card, .review-card, .about-card, .book-form');
         
-        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Utility ease for cinematic feel
-        const premiumEase = "power3.out";
-        const duration = 1.2;
-
-        // 1. Sequential Hero Introduction Timeline
-        const heroSection = document.querySelector('#home');
-        if (heroSection) {
-            const heroElements = heroSection.querySelectorAll('.hero-eyebrow, h1, p, .hero-actions');
-            
-            // Set initial state
-            gsap.set(heroElements, { opacity: 0, y: 30, scale: 0.98 });
-            
-            // Animate in sequence
-            gsap.to(heroElements, {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                duration: duration,
-                ease: premiumEase,
-                stagger: 0.15,
-                delay: 0.3 // slight delay after preloader
-            });
-        }
-
-        // 2. Section Reveals on Scroll (Fade, Move Up, slight scale)
-        const sections = document.querySelectorAll('section:not(#home), .heading');
-        sections.forEach((section) => {
-            gsap.fromTo(section, 
-                { opacity: 0, y: 50, scale: 0.98 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    duration: 1.4,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: section,
-                        start: "top 85%", // Trigger when top of section is 85% down viewport
-                        toggleActions: "play none none none"
-                    }
+        revealTargets.forEach((el, idx) => {
+            if (!el.hasAttribute('data-motion-reveal')) {
+                el.setAttribute('data-motion-reveal', 'true');
+                if (!el.hasAttribute('data-reveal-delay') && (el.classList.contains('box') || el.classList.contains('photo-stack-card'))) {
+                    const delay = (idx % 4) * 100 + 100;
+                    el.setAttribute('data-reveal-delay', delay.toString());
                 }
-            );
-        });
-
-        // 3. Staggered Card Reveals (Services, Destination, Review, Gallery, Blog)
-        const cardContainers = document.querySelectorAll('.box-container, .destination .box-container, .review-slider, .vlog-container, .photo-stack');
-        
-        cardContainers.forEach((container) => {
-            // Find child cards inside each container
-            const cards = container.querySelectorAll('.box, .photo-stack-card, .vlog-card, .blog-card, .review-card, .about-card');
-            
-            if (cards.length > 0) {
-                gsap.fromTo(cards,
-                    { opacity: 0, y: 60, scale: 0.95 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        scale: 1,
-                        duration: 1.2,
-                        ease: premiumEase,
-                        stagger: 0.1, // Stagger effect
-                        scrollTrigger: {
-                            trigger: container,
-                            start: "top 80%", 
-                            toggleActions: "play none none none"
-                        }
-                    }
-                );
             }
         });
 
-        // 4. Desktop Pointer Parallax & Spatial Response
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -40px 0px',
+            threshold: 0.12
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        revealTargets.forEach((el) => revealObserver.observe(el));
+
+        // 2. Sequential Hero Introduction Timeline
+        const heroSection = document.querySelector('#home');
+        if (heroSection) {
+            const heroElements = heroSection.querySelectorAll('.hero-eyebrow, h1, p, .hero-actions');
+            heroElements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(24px)';
+                el.style.transition = `opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) ${150 + index * 140}ms, transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) ${150 + index * 140}ms`;
+                
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    });
+                });
+            });
+        }
+
+        // 3. Desktop Pointer Parallax & Spatial Response
         if (window.matchMedia('(pointer: fine)').matches) {
-            const spatialCards = document.querySelectorAll('.hero-primary, .box, .photo-stack-card, .vlog-card, .blog-card');
+            const spatialCards = document.querySelectorAll('.hero-primary, .box, .photo-stack-card');
             
             spatialCards.forEach((card) => {
                 card.addEventListener('mousemove', (e) => {
@@ -3238,24 +3019,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     const tiltX = (y / (rect.height / 2)) * -3;
                     const tiltY = (x / (rect.width / 2)) * 3;
                     
-                    gsap.to(card, {
-                        rotationX: tiltX,
-                        rotationY: tiltY,
-                        y: -4,
-                        duration: 0.5,
-                        ease: "power2.out",
-                        transformPerspective: 1000
-                    });
+                    card.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateY(-4px)`;
                 });
 
                 card.addEventListener('mouseleave', () => {
-                    gsap.to(card, {
-                        rotationX: 0,
-                        rotationY: 0,
-                        y: 0,
-                        duration: 0.8,
-                        ease: "elastic.out(1, 0.3)"
-                    });
+                    card.style.transform = '';
                 });
             });
         }
@@ -3293,7 +3061,7 @@ document.addEventListener('DOMContentLoaded', () => {
 (() => {
     const fixMobileTabletSections = () => {
         const sectionSelectors = [
-            'section:not(#book-form):not(.book-form)',
+            'section',
             '#home', '.home',
             '#services', '.services',
             '#destination', '.destination',
@@ -3301,20 +3069,27 @@ document.addEventListener('DOMContentLoaded', () => {
             '#blogs', '.blogs',
             '#review', '.review',
             '#gallery', '.gallery',
+            '#book-form', '.book-form',
             '.banner', '.why-choose-us'
         ];
 
         document.querySelectorAll(sectionSelectors.join(',')).forEach((section) => {
-            if (section.id === 'book-form' || section.classList.contains('book-form') || section.closest('#book-form')) return;
-
             section.classList.add('mobile-content-ready');
             section.style.minHeight = 'auto';
+            section.style.opacity = '1';
+            section.style.visibility = 'visible';
+
+            section.querySelectorAll('[data-aos], [style*="opacity"], [style*="visibility"], .reveal, .scroll-reveal, .fade-in, .fade-up, .hidden, .is-hidden').forEach((node) => {
+                node.classList.remove('hidden', 'is-hidden');
+                node.style.opacity = '1';
+                node.style.visibility = 'visible';
+                node.style.transform = 'none';
+            });
         });
 
-        // Ensure book-form remains strictly hidden unless explicitly requested by user
-        const bookForm = document.querySelector('#book-form');
-        if (bookForm && bookForm.getAttribute('aria-hidden') === 'true' && !bookForm.classList.contains('is-hidden')) {
-            bookForm.classList.add('is-hidden');
+        // Force-refresh AOS on mobile if loaded
+        if (window.AOS && typeof window.AOS.refresh === 'function') {
+            window.AOS.refresh();
         }
     };
 
