@@ -9,6 +9,24 @@ const templates = {
         return (window.ttcMedia && window.ttcMedia.videos) || [];
     },
 
+    getDestinationImage(folderName, imageIndex = 0) {
+        const destMap = window.ttcMedia && window.ttcMedia.destinations;
+        if (!destMap || !folderName) return '';
+        
+        let list = destMap[folderName];
+        if (!list || list.length === 0) {
+            const lower = folderName.toLowerCase();
+            const matchingKey = Object.keys(destMap).find(k => k.toLowerCase() === lower);
+            if (matchingKey) list = destMap[matchingKey];
+        }
+        
+        if (list && list.length > 0) {
+            const targetImg = list[imageIndex % list.length];
+            return this.mediaSrc(targetImg);
+        }
+        return '';
+    },
+
     mediaSrc(fileName) {
         if (!fileName) return '';
         if (fileName.startsWith('images/') || fileName.startsWith('http')) return encodeURI(fileName);
@@ -173,7 +191,7 @@ const templates = {
 
     createHome() {
         const heroVideo = this.mediaSrc('images/about-vid-2.mp4');
-        const heroPoster = this.mediaSrc('images/national/Kashmir/1.jpg');
+        const heroPoster = this.getDestinationImage('KASHMIR', 0) || this.mediaSrc('images/national/KASHMIR/K 1.1.jpeg');
 
         return `
 <section class="home" id="home">
@@ -241,7 +259,7 @@ const templates = {
             ['images/about-vid-3.mp4', 'Mountain Vista']
         ];
         const firstVideo = this.mediaSrc(aboutFilms[0][0]);
-        const firstVideoPoster = this.mediaSrc('images/national/Himachal/1.jpg');
+        const firstVideoPoster = this.getDestinationImage('MANALI', 0) || this.mediaSrc('images/national/MANALI/1.1.jpeg');
         const videoControls = aboutFilms.map(([video, label], index) => `
             <button class="control-btn${index === 0 ? ' active' : ''}" data-src="${this.mediaSrc(video)}" data-label="${label}" aria-label="Play ${label}"></button>`).join('');
 
@@ -716,8 +734,11 @@ const templates = {
     },
 
     createBlogs() {
-        const images = this.getImages();
-        const blogImages = [images[8], images[24], images[40]].map(image => image || images[0]);
+        const blogImages = [
+            this.getDestinationImage('KASHMIR', 0) || this.mediaSrc('images/national/KASHMIR/K 1.1.jpeg'),
+            this.getDestinationImage('Darjeeling', 1) || this.mediaSrc('images/national/Darjeeling/2.1.jpeg'),
+            this.getDestinationImage('dubai', 0) || this.mediaSrc('images/international/dubai/1.1.jpeg')
+        ];
 
         return `
 <section class="blogs" id="blogs">
@@ -782,13 +803,13 @@ const templates = {
     },
 
     createVlogs() {
-        const images = this.getImages();
         const videos = this.getVideos();
         const vlogItems = [
             {
                 title: 'High Passes & Bike Expeditions in Leh Ladakh',
                 destination: 'Leh Ladakh',
-                image: this.mediaSrc(images[12] || images[0]),
+                folder: 'Leh Ladakh',
+                image: this.getDestinationImage('Leh Ladakh', 2) || this.mediaSrc('images/national/Leh Ladakh/3.1.jpeg'),
                 video: videos[0] ? this.mediaSrc(videos[0]) : '',
                 duration: '04:15 min',
                 desc: 'Riding through Khardung La pass, Pangong Lake shores, and high-altitude mountain trails.'
@@ -796,7 +817,8 @@ const templates = {
             {
                 title: 'Backwater Houseboats & Spice Trails of Keralam',
                 destination: 'Keralam',
-                image: this.mediaSrc(images[24] || images[0]),
+                folder: 'KERALAM',
+                image: this.getDestinationImage('KERALAM', 2) || this.mediaSrc('images/national/KERALAM/2.2.jpeg'),
                 video: videos[1] ? this.mediaSrc(videos[1]) : '',
                 duration: '03:40 min',
                 desc: 'Sailing through Alleppey backwaters, palm-fringed lagoons, and tea plantations.'
@@ -804,7 +826,8 @@ const templates = {
             {
                 title: 'Spiritual Divine Peaks & Rafting in Uttarakhand',
                 destination: 'Uttarakhand',
-                image: this.mediaSrc(images[36] || images[0]),
+                folder: 'Uttrakhand',
+                image: this.getDestinationImage('Uttrakhand', 3) || this.mediaSrc('images/national/Uttrakhand/2.2.jpeg'),
                 video: videos[2] ? this.mediaSrc(videos[2]) : '',
                 duration: '05:10 min',
                 desc: 'Exploring Char Dham routes, Rishikesh Ganga rafting, and Mussoorie mountain views.'
@@ -812,7 +835,8 @@ const templates = {
             {
                 title: 'Living Root Bridges & Cascades of The Seven Sisters',
                 destination: 'The Seven Sisters',
-                image: this.mediaSrc(images[48] || images[0]),
+                folder: 'Seven sisters',
+                image: this.getDestinationImage('Seven sisters', 1) || this.mediaSrc('images/national/Seven sisters/1.2.jpeg'),
                 video: videos[3] ? this.mediaSrc(videos[3]) : '',
                 duration: '06:20 min',
                 desc: 'Trekking Meghalaya living root bridges, Dawki river waters, and Kaziranga safaris.'
@@ -2463,7 +2487,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     category: 'Scenic Journeys',
                     date: '15th Sept, 2025',
                     author: 'by The Travel Circle',
-                    image: 'images/national/Kashmir/1.jpg',
+                    image: templates.getDestinationImage('KASHMIR', 0) || 'images/national/KASHMIR/K 1.1.jpeg',
                     content: `
                         <p class="blog-lead">We started the morning with no rigid timeline—just a coastal road map, a full tank of fuel, and the shared promise of stopping whenever a view demanded our attention.</p>
                         <p>By midday, the highway gave way to winding mountain roads lined with pine trees and misty valleys. We stopped at a tiny roadside cafe where an elderly local served us cardamom chai and warm bread fresh from a wood-fired oven. It wasn't on any travel itinerary, but that 45-minute pause became the highlight of our day.</p>
@@ -2476,7 +2500,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     category: 'Travel Tips',
                     date: '10th Sept, 2025',
                     author: 'by The Travel Circle',
-                    image: 'images/national/Himachal/1.jpg',
+                    image: templates.getDestinationImage('Darjeeling', 1) || 'images/national/Darjeeling/2.1.jpeg',
                     content: `
                         <p class="blog-lead">The finest travel experiences rarely feel over-scheduled. They strike an artful balance between seamless logistics and unhurried freedom.</p>
                         <p>When every transfer is pre-arranged, every hotel check-in is smooth, and every local guide is genuinely passionate, your mind is freed from the friction of decision fatigue. You no longer worry about taxi tariffs, missing train connections, or finding a decent dinner spot in an unfamiliar city.</p>
@@ -2489,7 +2513,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     category: 'Hidden Gems',
                     date: '5th Sept, 2025',
                     author: 'by The Travel Circle',
-                    image: 'images/international/dubai/1.jpg',
+                    image: templates.getDestinationImage('dubai', 0) || 'images/international/dubai/1.1.jpeg',
                     content: `
                         <p class="blog-lead">Ask any seasoned traveler about their favorite holiday memory, and they will rarely point to the famous landmark everyone posts on social media. More often than not, they will tell you about the accidental discovery.</p>
                         <p>On a recent trip through Rajasthan, our driver suggested taking a 15-minute detour through a sleepy village near Jal Mahal. That small turn took us to a centuries-old stepwell hidden behind a quiet temple, completely free of crowds and shimmering softly in the afternoon light. We sat on the ancient stone steps for an hour, listening to peacocks call in the distance.</p>
