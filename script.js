@@ -903,7 +903,7 @@ const templates = {
             </a>
             <p>You Dream. We Plan. You Explore. Thoughtful tours, smooth bookings, and memorable journeys designed around you. No Boundaries. No Limits. Just Endless Journeys.</p>
             <div class="share">
-                <a href="https://wa.me/917304979500" class="fab fa-whatsapp" aria-label="WhatsApp Business 7304979500" target="_blank" rel="noopener noreferrer" title="WhatsApp 7304979500"></a>
+                <a href="https://wa.me/917304979500?text=Hello%20The%20Travel%20Circle!%20%E2%9C%A8%20I%20would%20like%20to%20inquire%20about%20your%20tour%20packages%20and%20travel%20planning%20services.%20%F0%9F%8C%8D%F0%9F%97%BA%EF%B8%8F" class="fab fa-whatsapp" aria-label="WhatsApp Business 7304979500" target="_blank" rel="noopener noreferrer" title="WhatsApp 7304979500"></a>
                 <a href="#" class="fab fa-facebook-f" aria-label="Facebook" target="_blank" rel="noopener noreferrer"></a>
                 <a href="#" class="fab fa-instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer"></a>
             </div>
@@ -1032,8 +1032,14 @@ const templates = {
     },
 
     createFloatingWhatsapp() {
+        const defaultText = encodeURIComponent(
+            "✨ *HELLO THE TRAVEL CIRCLE!* ✈️\n\n" +
+            "👋 I am interested in planning a handcrafted tour package.\n" +
+            "Could you please share your popular itineraries, customized holiday options, and special deals?\n\n" +
+            "💫 _You Dream. We Plan. You Explore._"
+        );
         return `
-<a href="https://wa.me/917304979500?text=Hi%20The%20Travel%20Circle%2C%20I%20want%20to%20plan%20a%20tour!" target="_blank" rel="noopener noreferrer" class="floating-whatsapp-widget" title="Chat with us on WhatsApp 7304979500" aria-label="Chat on WhatsApp">
+<a href="https://wa.me/917304979500?text=${defaultText}" target="_blank" rel="noopener noreferrer" class="floating-whatsapp-widget" title="Chat with us on WhatsApp 7304979500" aria-label="Chat on WhatsApp">
     <i class="fab fa-whatsapp"></i>
     <span class="whatsapp-tooltip">Chat with us!</span>
 </a>`;
@@ -2089,17 +2095,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const lines = [
                 "🌟 *NEW TOUR PLAN ENQUIRY — THE TRAVEL CIRCLE* 🌟",
-                "",
-                `📍 *Destination:* ${dest}`,
+                "━━━━━━━━━━━━━━━━━━━━━━",
+                `📍 *Dream Destination:* ${dest}`,
                 `📞 *Contact Number:* ${contact}`,
                 email ? `✉️ *Email Address:* ${email}` : null,
-                `📅 *Travel Dates:* ${dateFromFormatted} to ${dateToFormatted}`,
+                `📅 *Travel Dates:* ${dateFromFormatted} ➔ ${dateToFormatted}`,
                 `👥 *Number of Guests:* ${travelers} Guest(s)`,
                 "",
-                "Hello! I would like to plan this tour with *The Travel Circle*.",
-                "Please share detailed itinerary options, package inclusions, and best pricing.",
+                "📋 *Service Requirements:*",
+                "  ▫️ 🗓️ Tailor-made Day-wise Itinerary",
+                "  ▫️ 🏨 Luxury / Handpicked Stays & Resorts",
+                "  ▫️ 🚗 Sightseeing, Flights & Private Transfers",
+                "  ▫️ 💰 Best Price Package Quotation & Inclusions",
                 "",
-                "Thank you! Looking forward to your response."
+                "💬 *Message:* _Hello The Travel Circle team! I have submitted my tour request. Please get in touch with detailed itinerary options and best package rates._",
+                "━━━━━━━━━━━━━━━━━━━━━━",
+                "💫 _You Dream. We Plan. You Explore._"
             ].filter(line => line !== null);
 
             return lines.join("\n");
@@ -2109,42 +2120,28 @@ document.addEventListener('DOMContentLoaded', () => {
             const title = (destObj.title || 'Selected Destination').trim();
             const category = (destObj.category || 'India').trim();
             const vibe = (destObj.vibe || '').trim();
+            const isIntl = category.toLowerCase().includes('international');
+            const catEmoji = isIntl ? '🌐' : '🇮🇳';
 
             const lines = [
-                "Hello The Travel Circle,",
+                "✨ *NEW DESTINATION TOUR ENQUIRY* ✨",
+                "━━━━━━━━━━━━━━━━━━━━━━",
+                `📍 *Destination:* ${title}`,
+                `${catEmoji} *Category:* ${category}`,
                 "",
-                `I am interested in planning a trip to ${title}.`,
+                vibe ? `🌟 *The Vibe:* ${vibe}` : null,
+                vibe ? "" : null,
+                "📋 *I would like to know more about:*",
+                "  ▫️ 🗓️ Customized Day-wise Itinerary",
+                "  ▫️ 🏨 Handpicked Hotel & Resort Stays",
+                "  ▫️ 💰 Package Pricing & Special Deals",
+                "  ▫️ 🚗 Flight & Local Sightseeing Transfers",
+                "  ▫️ 🎫 Entry Permits & Guided Tours",
                 "",
-                "Destination:",
-                title,
-                "",
-                "Location:",
-                category
-            ];
-
-            if (vibe) {
-                lines.push("");
-                lines.push("About the Destination:");
-                lines.push(vibe);
-            }
-
-            lines.push(
-                "",
-                "I would like to know more about:",
-                "",
-                "- Available tour packages",
-                "- Itinerary",
-                "- Pricing",
-                "- Travel dates",
-                "- Inclusions",
-                "- Accommodation",
-                "- Other available options",
-                "",
-                "Please share the details and help me plan this trip.",
-                "",
-                "Thank you,",
-                "I look forward to hearing from you."
-            );
+                `💬 *Message:* _Hello The Travel Circle team! I am interested in planning a holiday to ${title}. Please share the best tour packages and custom itinerary options._`,
+                "━━━━━━━━━━━━━━━━━━━━━━",
+                "💫 _You Dream. We Plan. You Explore._"
+            ].filter(line => line !== null);
 
             return lines.join("\n");
         },
@@ -2155,40 +2152,24 @@ document.addEventListener('DOMContentLoaded', () => {
             const desc = (vlogObj.desc || '').trim();
 
             const lines = [
-                "Hello The Travel Circle,",
+                "🎬 *TRAVEL REEL & VLOG ROUTE ENQUIRY* 🎬",
+                "━━━━━━━━━━━━━━━━━━━━━━",
+                `📍 *Destination:* ${dest}`,
+                `🎥 *Experience:* ${title}`,
                 "",
-                `I came across your travel vlog and I am interested in planning a trip to ${dest}.`,
+                desc ? `✨ *Vlog Highlights:* ${desc}` : null,
+                desc ? "" : null,
+                "📋 *I want to plan this exact experience:*",
+                "  ▫️ 🗺️ Complete Route & Day-wise Plan",
+                "  ▫️ 📅 Best Season & Travel Dates",
+                "  ▫️ 🏨 Scenic Accommodations & Stays",
+                "  ▫️ 💰 Customized Package Pricing & Inclusions",
+                "  ▫️ 🚙 Private Cab / Local Transfers",
                 "",
-                "Destination:",
-                dest,
-                "",
-                "Travel Experience:",
-                title
-            ];
-
-            if (desc) {
-                lines.push("");
-                lines.push("Experience Details:");
-                lines.push(desc);
-            }
-
-            lines.push(
-                "",
-                "I would like to know more about:",
-                "",
-                "- Itinerary",
-                "- Available travel dates",
-                "- Package options",
-                "- Pricing",
-                "- Accommodation",
-                "- Inclusions",
-                "- Other trip details",
-                "",
-                "Please share the details and help me plan this journey.",
-                "",
-                "Thank you,",
-                "I look forward to hearing from you."
-            );
+                "💬 *Message:* _Hello The Travel Circle! I saw this travel vlog/reel and loved the route. Please help me plan this exact journey with itinerary and cost details!_",
+                "━━━━━━━━━━━━━━━━━━━━━━",
+                "💫 _The Travel Circle | Real Journeys, Real Stories_"
+            ].filter(line => line !== null);
 
             return lines.join("\n");
         },
@@ -2431,38 +2412,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
         generateLehWhatsAppMessage(choice) {
             const isBike = choice && choice.toLowerCase().includes('bike');
-            const tourStyle = isBike ? 'Option 2: Plan Bike Ride Tour' : 'Option 1: Plan Destination Tour';
+            const tourStyle = isBike ? 'Option 2: 🏍️ Bike Ride Tour Expedition' : 'Option 1: 🚘 Destination Tour & Sightseeing';
 
             const lines = [
-                "Hello The Travel Circle,",
+                isBike ? "🏍️ *LEH LADAKH BIKE EXPEDITION ENQUIRY* 🏔️" : "🏔️ *LEH LADAKH DESTINATION TOUR ENQUIRY* 🌟",
+                "━━━━━━━━━━━━━━━━━━━━━━",
+                "📍 *Destination:* Leh Ladakh",
+                `🧭 *Selected Tour Style:* ${tourStyle}`,
                 "",
-                "I am interested in planning a trip to Leh Ladakh.",
-                "",
-                "Destination:",
-                "Leh Ladakh",
-                "",
-                "Selected Tour Style:",
-                tourStyle,
-                "",
-                "About the Expedition:",
+                "✨ *Expedition Highlights:*",
                 isBike 
-                    ? "Riding through Khardung La pass, Pangong Lake shores, high-altitude mountain trails, and scenic Himalayan routes."
-                    : "Pangong Tso lake camping, Khardung La sightseeing, Nubra valley camel safaris, and ancient monasteries.",
+                    ? "  ▫️ 🏁 Khardung La & Chang La High Passes\n  ▫️ 🏍️ Royal Enfield / Himalayan Bike with Fuel\n  ▫️ 🌊 Pangong Tso & Nubra Valley Camps\n  ▫️ 🛠️ Backup Vehicle, Mechanic & Oxygen Support"
+                    : "  ▫️ 🌊 Pangong Tso Lake Luxury Camps\n  ▫️ 🐪 Nubra Valley Double-Humped Camel Safari\n  ▫️ 🚘 Private SUV / Tempo Traveler for All Transfers\n  ▫️ 🏯 Magnetic Hill, Sangam & Monasteries",
                 "",
-                "I would like to know more about:",
+                "📋 *Please share details for:*",
+                "  ▫️ 🗓️ Available Batches & Travel Dates",
+                "  ▫️ 💰 Package Pricing & Custom Inclusions",
+                "  ▫️ 🏨 Premium Hotel & Glamping Details",
+                "  ▫️ 📄 Inner Line Permits & Medical Guidance",
                 "",
-                "- Itinerary & route map",
-                isBike ? "- Bike rental options & mechanical backup" : "- Private cab & transportation options",
-                "- Available travel dates & batches",
-                "- Package options & pricing",
-                "- Accommodation & hotel/tent stays",
-                "- Inclusions & permits",
-                "- Other trip details",
-                "",
-                "Please share the details and help me plan this journey.",
-                "",
-                "Thank you,",
-                "I look forward to hearing from you."
+                `💬 *Message:* _Hello The Travel Circle! I want to plan the ${isBike ? 'Leh Ladakh Bike Expedition' : 'Leh Ladakh Destination Tour'}. Please share the itinerary options and quotation._`,
+                "━━━━━━━━━━━━━━━━━━━━━━",
+                "💫 _The Travel Circle | Adventure Beyond Limits_"
             ];
 
             return lines.join("\n");
