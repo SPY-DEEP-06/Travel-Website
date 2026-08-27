@@ -2429,6 +2429,45 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         },
 
+        generateLehWhatsAppMessage(choice) {
+            const isBike = choice && choice.toLowerCase().includes('bike');
+            const tourStyle = isBike ? 'Option 2: Plan Bike Ride Tour' : 'Option 1: Plan Destination Tour';
+
+            const lines = [
+                "Hello The Travel Circle,",
+                "",
+                "I am interested in planning a trip to Leh Ladakh.",
+                "",
+                "Destination:",
+                "Leh Ladakh",
+                "",
+                "Selected Tour Style:",
+                tourStyle,
+                "",
+                "About the Expedition:",
+                isBike 
+                    ? "Riding through Khardung La pass, Pangong Lake shores, high-altitude mountain trails, and scenic Himalayan routes."
+                    : "Pangong Tso lake camping, Khardung La sightseeing, Nubra valley camel safaris, and ancient monasteries.",
+                "",
+                "I would like to know more about:",
+                "",
+                "- Itinerary & route map",
+                isBike ? "- Bike rental options & mechanical backup" : "- Private cab & transportation options",
+                "- Available travel dates & batches",
+                "- Package options & pricing",
+                "- Accommodation & hotel/tent stays",
+                "- Inclusions & permits",
+                "- Other trip details",
+                "",
+                "Please share the details and help me plan this journey.",
+                "",
+                "Thank you,",
+                "I look forward to hearing from you."
+            ];
+
+            return lines.join("\n");
+        },
+
         initLehModal() {
             const lehModal = document.querySelector('#leh-modal');
             const closeBtn = document.querySelector('#leh-modal-close');
@@ -2460,9 +2499,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             optionBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const choice = btn.getAttribute('data-leh-choice') || 'Leh Ladakh Tour';
+                    const choice = btn.getAttribute('data-leh-choice') || 'Option 1: Plan Destination Tour';
                     closeLehModal();
-                    this.openBookingFormWithDestination(`Leh Ladakh (${choice})`);
+                    const message = this.generateLehWhatsAppMessage(choice);
+                    this.openWhatsAppEnquiry(message);
                 });
             });
         },
