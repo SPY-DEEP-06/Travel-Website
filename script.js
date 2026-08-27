@@ -2593,19 +2593,28 @@ document.addEventListener('DOMContentLoaded', () => {
                     const email = emailInput.value.trim();
 
                     if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                        this.displayFormMessage(newsletterForm, '✨ Welcome to The Travel Circle! Fresh travel ideas are on the way.', true);
-                        const waMsg = [
-                            "📬 *TRAVEL INSPIRATION & NEWSLETTER ENQUIRY* ✨",
-                            "━━━━━━━━━━━━━━━━━━━━━━",
-                            `✉️ *Subscribed Email:* ${email}`,
-                            "",
-                            "💬 *Message:* _Hello The Travel Circle team! I have subscribed for travel inspiration, seasonal escapes, and planning tips. Please share your latest tour updates and travel guides._",
-                            "━━━━━━━━━━━━━━━━━━━━━━",
-                            "💫 _You Dream. We Plan. You Explore._"
-                        ].join("\n");
+                        this.displayFormMessage(newsletterForm, '✨ Opening your email client to send your subscription request to The Travel Circle...', true);
+                        
+                        const toEmails = 'info@thetravelcircle.co.in,thetravelcircle26@gmail.com';
+                        const subject = encodeURIComponent('Travel Inspiration & Future Offers Subscription — The Travel Circle');
+                        const body = encodeURIComponent(
+                            `Hello The Travel Circle Team,\n\n` +
+                            `I would like to subscribe to your travel newsletter and receive future updates.\n\n` +
+                            `Please provide me with:\n` +
+                            `• Future tour package offers & seasonal discounts\n` +
+                            `• New destination updates & curated holiday packages\n` +
+                            `• Handcrafted itineraries & travel planning tips\n\n` +
+                            `Subscriber Email: ${email}\n\n` +
+                            `Thank you! Looking forward to exploring memorable journeys with The Travel Circle.\n\n` +
+                            `"You Dream. We Plan. You Explore."`
+                        );
+                        
+                        const mailtoUrl = `mailto:${toEmails}?subject=${subject}&body=${body}`;
+                        
                         setTimeout(() => {
-                            this.openWhatsAppEnquiry(waMsg);
+                            window.location.href = mailtoUrl;
                         }, 500);
+
                         emailInput.value = '';
                     } else {
                         this.displayFormMessage(newsletterForm, 'Please enter a valid email address for travel inspiration.', false);
