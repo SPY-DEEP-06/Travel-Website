@@ -954,9 +954,9 @@ const templates = {
         </div>
         <div class="box" data-aos="fade-up" data-aos-delay="600">
             <h3><i class="fas fa-envelope-open-text"></i> Travel Inspiration</h3>
-            <p>Get Trip Ideas, Seasonal Escapes, And Planning Tips</p>
+            <p>Get trip ideas, seasonal escapes, and planning tips</p>
             <form action="" id="newsletter-form">
-                <input type="email" name="email" placeholder="Enter Your Email" class="email" id="newsletter-email" required>
+                <input type="email" name="email" placeholder="Enter your email" class="email" id="newsletter-email" required>
                 <button type="submit" class="btn">Send Me Ideas <i class="fas fa-paper-plane"></i></button>
                 <div class="form-message"></div>
             </form>
