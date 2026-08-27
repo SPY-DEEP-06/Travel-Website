@@ -227,7 +227,7 @@ const templates = {
             <input type="text" id="book-destination" placeholder="City, State, Country, or Experience" required autocomplete="off">
         </div>
         <div class="inputBox">
-            <span><i class="fas fa-phone-alt"></i> Contact Number <small class="label-compulsory">(Compulsory)</small></span>
+            <span><i class="fas fa-phone-alt"></i> Contact Number <span class="label-compulsory">*</span></span>
             <input type="tel" id="book-contact" placeholder="Enter 10-digit Contact Number (e.g. 8108776019)" required autocomplete="tel">
         </div>
         <div class="inputBox">
@@ -2285,7 +2285,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 2. Validate Contact Number (10 to 13 digits allowed)
                 const digitsOnly = rawContact.replace(/\D/g, '');
                 if (!errorMessage && (!rawContact || digitsOnly.length < 10 || digitsOnly.length > 13)) {
-                    errorMessage = 'Please enter a valid compulsory 10-digit Contact Number (e.g. 8108776019).';
+                    errorMessage = 'Please enter a valid 10-digit Contact Number (e.g. 8108776019).';
                     if (contactInput) {
                         contactInput.closest('.inputBox')?.classList.add('is-invalid');
                         firstInvalidInput = firstInvalidInput || contactInput;
