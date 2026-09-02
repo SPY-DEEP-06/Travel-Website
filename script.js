@@ -904,8 +904,7 @@ const templates = {
             <p>You Dream. We Plan. You Explore. Thoughtful tours, smooth bookings, and memorable journeys designed around you. No Boundaries. No Limits. Just Endless Journeys.</p>
             <div class="share">
                 <a href="https://wa.me/917304979500?text=Hello%20The%20Travel%20Circle!%20%E2%9C%A8%20I%20would%20like%20to%20inquire%20about%20your%20tour%20packages%20and%20travel%20planning%20services.%20%F0%9F%8C%8D%F0%9F%97%BA%EF%B8%8F" class="fab fa-whatsapp" aria-label="WhatsApp Business 7304979500" target="_blank" rel="noopener noreferrer" title="WhatsApp 7304979500"></a>
-                <a href="#" class="fab fa-facebook-f" aria-label="Facebook" target="_blank" rel="noopener noreferrer"></a>
-                <a href="#" class="fab fa-instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer"></a>
+                <a href="https://www.instagram.com/travel_circle_official?igsi=eXkyMWR5MWttb2Fv" class="fab fa-instagram" aria-label="Instagram @travel_circle_official" target="_blank" rel="noopener noreferrer" title="Instagram @travel_circle_official"></a>
             </div>
         </div>
         <div class="box" data-aos="fade-up" data-aos-delay="300">
@@ -963,7 +962,10 @@ const templates = {
         </div>
     </div>
 </section>
-<div class="credit"><span>The Travel Circle</span> | You Dream. We Plan. You Explore.</div>`;
+<div class="credit">
+    <p><span>The Travel Circle</span> | You Dream. We Plan. You Explore.</p>
+    <p class="credit-dev">Developed and Designed by <span>Adaptsphere Pvt.Ltd.</span></p>
+</div>`;
     },
 
     createScrollTopButton() {

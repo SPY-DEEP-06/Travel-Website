@@ -1231,6 +1231,18 @@ section {
     color: var(--primary-color);
 }
 
+.credit-dev {
+    font-size: 1.5rem;
+    margin-top: 0.6rem;
+    opacity: 0.9;
+    letter-spacing: 0.02em;
+}
+
+.credit-dev span {
+    color: var(--luxury-gold, #c89d47);
+    font-weight: 600;
+}
+
 .scroll-top-btn {
     position: fixed;
     bottom: 2rem;
